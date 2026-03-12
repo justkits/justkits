@@ -19,7 +19,14 @@ export default defineConfig([
     },
   },
   {
+    files: ["**/tsconfig*.json"],
+    plugins: { json },
+    language: "json/jsonc",
+    extends: ["json/recommended"],
+  },
+  {
     files: ["**/*.json"],
+    ignores: ["**/tsconfig*.json"],
     plugins: { json },
     language: "json/json",
     extends: ["json/recommended"],
