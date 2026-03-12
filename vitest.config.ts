@@ -24,7 +24,7 @@ export default defineConfig({
     include: ["**/tests/**/*.test.{ts,tsx}"],
     coverage: {
       include: ["**/src/**/*.{ts,tsx}"],
-      exclude: ["**/tests/**/*"],
+      exclude: ["**/tests/**/*", "**/src/main.tsx"],
       provider: "v8",
       reporter: [["text", { skipFull: true }], "clover", "lcov"],
     },
