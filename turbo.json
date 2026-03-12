@@ -6,17 +6,6 @@
       "inputs": ["src/**", "**/tsconfig*.json", "package.json"],
       "outputs": ["dist/**"]
     },
-    "typecheck": {
-      "dependsOn": ["^build"],
-      "inputs": ["**/*.ts", "**/*.tsx", "**/tsconfig*.json", "package.json"],
-      "outputs": []
-    },
-    "test": {
-      "inputs": ["src/**", "tests/**", "vitest.config.ts"],
-      "outputs": ["coverage/**"],
-      "dependsOn": ["^build"]
-    },
-    "lint": {},
     "dev": {
       "cache": false,
       "persistent": true
