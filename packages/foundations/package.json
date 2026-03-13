@@ -5,8 +5,8 @@
   "private": false,
   "type": "module",
   "keywords": [
-    "design system",
-    "typography",
+    "design tokens",
+    "foundations",
     "react",
     "typescript"
   ],
