@@ -1,10 +1,14 @@
 export type ColorTokens = {
-  primary: string;
-  primaryHover: string;
-  onPrimary: string;
-  secondary: string;
-  secondaryHover: string;
-  onSecondary: string;
+  primary: {
+    default: string;
+    hover: string;
+    foreground: string;
+  };
+  secondary: {
+    default: string;
+    hover: string;
+    foreground: string;
+  };
   alert: {
     danger: string;
     warning: string;
