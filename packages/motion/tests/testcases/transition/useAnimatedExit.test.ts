@@ -37,7 +37,7 @@ describe("useAnimatedExit", () => {
     expect(result.current.exiting).toBe(false);
   });
 
-  it("respects preset duration string value", () => {
+  it("respects preset duration string value", async () => {
     const onClose = vi.fn();
     const { result } = renderHook(() => useAnimatedExit("fast", onClose));
 
@@ -45,8 +45,49 @@ describe("useAnimatedExit", () => {
     act(() => vi.advanceTimersByTime(399));
     expect(onClose).not.toHaveBeenCalled();
 
-    act(() => vi.advanceTimersByTime(1));
+    await act(async () => vi.advanceTimersByTime(1));
     expect(onClose).toHaveBeenCalledOnce();
+  });
+
+  it("works without an onClose callback", async () => {
+    const { result } = renderHook(() => useAnimatedExit(400));
+
+    act(() => result.current.startClosing());
+    expect(result.current.exiting).toBe(true);
+
+    await act(async () => vi.advanceTimersByTime(400));
+    expect(result.current.exiting).toBe(false);
+  });
+
+  it("clears the timer on unmount and does not call onClose", async () => {
+    const onClose = vi.fn();
+    const { result, unmount } = renderHook(() => useAnimatedExit(400, onClose));
+
+    act(() => result.current.startClosing());
+    expect(result.current.exiting).toBe(true);
+
+    unmount();
+
+    await act(async () => vi.advanceTimersByTime(400));
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it("calls the latest onClose when it changes between renders", async () => {
+    const onClose1 = vi.fn();
+    const onClose2 = vi.fn();
+
+    const { result, rerender } = renderHook(
+      ({ onClose }) => useAnimatedExit(400, onClose),
+      { initialProps: { onClose: onClose1 } },
+    );
+
+    rerender({ onClose: onClose2 });
+
+    act(() => result.current.startClosing());
+    await act(async () => vi.advanceTimersByTime(400));
+
+    expect(onClose1).not.toHaveBeenCalled();
+    expect(onClose2).toHaveBeenCalledOnce();
   });
 
   it("respects reduced motion preference", async () => {

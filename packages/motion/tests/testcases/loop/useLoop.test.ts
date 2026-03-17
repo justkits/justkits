@@ -20,4 +20,27 @@ describe("useLoop", () => {
     act(() => result.current.stopAnimation());
     expect(result.current.isLooping).toBe(false);
   });
+
+  it("handles multiple start/stop cycles correctly", () => {
+    const { result } = renderHook(() => useLoop());
+
+    act(() => result.current.startAnimation());
+    expect(result.current.isLooping).toBe(true);
+
+    act(() => result.current.stopAnimation());
+    expect(result.current.isLooping).toBe(false);
+
+    act(() => result.current.startAnimation());
+    expect(result.current.isLooping).toBe(true);
+  });
+
+  it("returns stable callback references across re-renders", () => {
+    const { result, rerender } = renderHook(() => useLoop());
+
+    const { startAnimation, stopAnimation } = result.current;
+    rerender();
+
+    expect(result.current.startAnimation).toBe(startAnimation);
+    expect(result.current.stopAnimation).toBe(stopAnimation);
+  });
 });

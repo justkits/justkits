@@ -14,6 +14,7 @@ describe("loop", () => {
     expect(style).toHaveProperty("animationTimingFunction", "linear");
     expect(style).toHaveProperty("animationDelay", "100ms");
     expect(style).toHaveProperty("animationIterationCount", "infinite");
+    expect(style).toHaveProperty("animationFillMode", "both");
   });
 
   it("returns correct style for looping animation with custom options", () => {
@@ -30,11 +31,34 @@ describe("loop", () => {
     expect(style).toHaveProperty("animationTimingFunction", "ease-in-out");
     expect(style).toHaveProperty("animationDelay", "300ms");
     expect(style).toHaveProperty("animationIterationCount", 3);
+    expect(style).toHaveProperty("animationFillMode", "both");
   });
 
   it("returns empty style when isLooping is false", () => {
     const style = loop({ name: "swing", isLooping: false });
     expect(style).toEqual({});
+  });
+
+  it("returns empty style when reduced motion is preferred", () => {
+    vi.spyOn(globalThis.window, "matchMedia").mockImplementationOnce(
+      (query: string) =>
+        ({
+          matches: true,
+          media: query,
+          onchange: null,
+          addEventListener: vi.fn(),
+          removeEventListener: vi.fn(),
+          dispatchEvent: vi.fn(),
+        }) as unknown as MediaQueryList,
+    );
+
+    const style = loop({ name: "rotate-cw" });
+    expect(style).toEqual({});
+  });
+
+  it("handles numeric duration with no scale for rotate animations", () => {
+    const style = loop({ name: "rotate-cw", duration: 1200 });
+    expect(style).toHaveProperty("animationDuration", "1200ms");
   });
 
   it("gracefully handles invalid iteration values", () => {

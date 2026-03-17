@@ -8,6 +8,40 @@ describe("prefersReducedMotion", () => {
     expect(prefersReducedMotion()).toBe(false);
     vi.unstubAllGlobals();
   });
+
+  it("returns true when the media query matches", () => {
+    vi.spyOn(globalThis.window, "matchMedia").mockImplementationOnce(
+      (query: string) =>
+        ({
+          matches: true,
+          media: query,
+          onchange: null,
+          addEventListener: vi.fn(),
+          removeEventListener: vi.fn(),
+          dispatchEvent: vi.fn(),
+        }) as unknown as MediaQueryList,
+    );
+
+    expect(prefersReducedMotion()).toBe(true);
+    vi.restoreAllMocks();
+  });
+
+  it("returns false when the media query does not match", () => {
+    vi.spyOn(globalThis.window, "matchMedia").mockImplementationOnce(
+      (query: string) =>
+        ({
+          matches: false,
+          media: query,
+          onchange: null,
+          addEventListener: vi.fn(),
+          removeEventListener: vi.fn(),
+          dispatchEvent: vi.fn(),
+        }) as unknown as MediaQueryList,
+    );
+
+    expect(prefersReducedMotion()).toBe(false);
+    vi.restoreAllMocks();
+  });
 });
 
 describe("useReducedMotion", () => {
