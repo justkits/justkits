@@ -90,6 +90,47 @@ describe("useAnimatedExit", () => {
     expect(onClose2).toHaveBeenCalledOnce();
   });
 
+  it("logs error in dev when onClose throws", async () => {
+    const consoleErrorSpy = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+    const error = new Error("close failed");
+    const onClose = vi.fn().mockRejectedValue(error);
+
+    const { result } = renderHook(() => useAnimatedExit(400, onClose));
+
+    act(() => result.current.startClosing());
+    await act(async () => vi.advanceTimersByTime(400));
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "[useAnimatedExit] onClose threw an error:",
+      error,
+    );
+    expect(result.current.exiting).toBe(false);
+
+    vi.restoreAllMocks();
+  });
+
+  it("does not log error in production when onClose throws", async () => {
+    const originalEnv = process.env.NODE_ENV;
+    process.env.NODE_ENV = "production";
+    const consoleErrorSpy = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+    const onClose = vi.fn().mockRejectedValue(new Error("close failed"));
+
+    const { result } = renderHook(() => useAnimatedExit(400, onClose));
+
+    act(() => result.current.startClosing());
+    await act(async () => vi.advanceTimersByTime(400));
+
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
+    expect(result.current.exiting).toBe(false);
+
+    process.env.NODE_ENV = originalEnv;
+    vi.restoreAllMocks();
+  });
+
   it("respects reduced motion preference", async () => {
     vi.spyOn(globalThis.window, "matchMedia").mockImplementation(
       (query: string) =>
