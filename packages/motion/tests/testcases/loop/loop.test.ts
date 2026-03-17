@@ -131,6 +131,10 @@ describe("loop", () => {
 });
 
 describe("resolveDuration", () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
   it("returns correct bounce durations", () => {
     expect(resolveDuration("bounce", "fast")).toBe(1980);
     expect(resolveDuration("bounce", "normal")).toBe(2640);
@@ -150,6 +154,30 @@ describe("resolveDuration", () => {
     expect(resolveDuration("rotate-cw", "normal")).toBe(800);
     expect(resolveDuration("rotate-ccw", "slow")).toBe(1000);
     expect(resolveDuration("rotate-ccw", 700)).toBe(700);
+  });
+
+  it("warns in dev when a negative numeric duration is used", () => {
+    const consoleWarnSpy = vi
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
+
+    expect(resolveDuration("rotate-cw", -200)).toBe(-200);
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      "Invalid duration value: -200. Duration must be a non-negative number.",
+    );
+  });
+
+  it("does not warn in production when a negative numeric duration is used", () => {
+    const originalEnv = process.env.NODE_ENV;
+    process.env.NODE_ENV = "production";
+    const consoleWarnSpy = vi
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
+
+    expect(resolveDuration("rotate-cw", -200)).toBe(-200);
+    expect(consoleWarnSpy).not.toHaveBeenCalled();
+
+    process.env.NODE_ENV = originalEnv;
   });
 });
 

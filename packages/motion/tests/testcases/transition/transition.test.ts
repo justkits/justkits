@@ -103,6 +103,10 @@ describe("transition", () => {
 });
 
 describe("resolveDuration", () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
   it("resolves typed durations correctly", () => {
     expect(resolveDuration("fast")).toBe(400);
     expect(resolveDuration("normal")).toBe(600);
@@ -111,5 +115,29 @@ describe("resolveDuration", () => {
 
   it("returns numeric duration as is", () => {
     expect(resolveDuration(500)).toBe(500);
+  });
+
+  it("warns in dev when a negative numeric duration is used", () => {
+    const consoleWarnSpy = vi
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
+
+    expect(resolveDuration(-200)).toBe(-200);
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      "Invalid duration value: -200. Duration must be a non-negative number.",
+    );
+  });
+
+  it("does not warn in production when a negative numeric duration is used", () => {
+    const originalEnv = process.env.NODE_ENV;
+    process.env.NODE_ENV = "production";
+    const consoleWarnSpy = vi
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
+
+    expect(resolveDuration(-200)).toBe(-200);
+    expect(consoleWarnSpy).not.toHaveBeenCalled();
+
+    process.env.NODE_ENV = originalEnv;
   });
 });

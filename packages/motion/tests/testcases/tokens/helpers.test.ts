@@ -2,6 +2,10 @@ import { resolveDelay } from "@/tokens/delay";
 import { resolveEasing } from "@/tokens/easing";
 
 describe("resolveDelay", () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
   it("should return correct delay for predefined values", () => {
     expect(resolveDelay("none")).toBe("0ms");
     expect(resolveDelay("short")).toBe("100ms");
@@ -13,6 +17,30 @@ describe("resolveDelay", () => {
     expect(resolveDelay(0)).toBe("0ms");
     expect(resolveDelay(150)).toBe("150ms");
     expect(resolveDelay(500)).toBe("500ms");
+  });
+
+  it("warns in dev when a negative numeric delay is used", () => {
+    const consoleWarnSpy = vi
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
+
+    expect(resolveDelay(-100)).toBe("-100ms");
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      "Invalid delay value: -100. Negative delays have unexpected CSS behavior.",
+    );
+  });
+
+  it("does not warn in production when a negative numeric delay is used", () => {
+    const originalEnv = process.env.NODE_ENV;
+    process.env.NODE_ENV = "production";
+    const consoleWarnSpy = vi
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
+
+    expect(resolveDelay(-100)).toBe("-100ms");
+    expect(consoleWarnSpy).not.toHaveBeenCalled();
+
+    process.env.NODE_ENV = originalEnv;
   });
 });
 
