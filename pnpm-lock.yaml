@@ -193,9 +193,6 @@ importers:
       '@justkits/tsconfig':
         specifier: workspace:*
         version: link:../../configs/typescript
-      '@types/node':
-        specifier: ^25.5.0
-        version: 25.5.0
       tsup:
         specifier: 'catalog:'
         version: 8.5.1(jiti@2.6.1)(postcss@8.5.8)(typescript@5.9.3)(yaml@2.8.2)
