@@ -2,6 +2,8 @@ import { Config } from "@svgr/core";
 
 export type BuilderType = "family" | "standalone";
 
+export type Platform = "web" | "native";
+
 export interface SvgsConfig {
   /**
    * Type of builder to use.
@@ -10,6 +12,14 @@ export interface SvgsConfig {
    * @default 'standalone'
    */
   type?: BuilderType;
+
+  /**
+   * Target platform for the generated components.
+   * - 'web': standard React (default)
+   * - 'native': React Native via react-native-svg (sets SVGR native: true)
+   * @default 'web'
+   */
+  platform?: Platform;
 
   /**
    * SVGR options
