@@ -26,3 +26,8 @@ export const defaultOptions: Config = {
   expandProps: false,
   plugins: [svgoPlugin, jsxPlugin],
 };
+
+export const nativeOptions: Config = {
+  ...defaultOptions,
+  native: true,
+};
