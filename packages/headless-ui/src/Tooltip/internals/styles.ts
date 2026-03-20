@@ -15,7 +15,6 @@ function tooltip(
   const commonStyles: CSSProperties = {
     position: "absolute",
     zIndex: ZIndices.tooltip,
-    pointerEvents: "none",
   };
 
   if (placement === "top") {
