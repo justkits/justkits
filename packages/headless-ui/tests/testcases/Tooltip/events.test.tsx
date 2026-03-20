@@ -1,6 +1,25 @@
 import { act, fireEvent, render } from "@testing-library/react";
+import { useState } from "react";
 
+import { Tooltip } from "@/Tooltip";
 import { TestComponent } from "./_setup";
+
+function TwoTooltips() {
+  const [open1, setOpen1] = useState(true);
+  const [open2, setOpen2] = useState(true);
+  return (
+    <>
+      <Tooltip isOpen={open1} onOpenChange={setOpen1}>
+        <Tooltip.Trigger>첫 번째 트리거</Tooltip.Trigger>
+        <Tooltip.Content>첫 번째 툴팁</Tooltip.Content>
+      </Tooltip>
+      <Tooltip isOpen={open2} onOpenChange={setOpen2}>
+        <Tooltip.Trigger>두 번째 트리거</Tooltip.Trigger>
+        <Tooltip.Content>두 번째 툴팁</Tooltip.Content>
+      </Tooltip>
+    </>
+  );
+}
 
 describe("Tooltip - events", () => {
   beforeEach(() => {
@@ -130,5 +149,15 @@ describe("Tooltip - events", () => {
     // 닫힌 상태에서 Escape를 눌러도 아무 일도 일어나지 않는다
     fireEvent.keyDown(globalThis.window, { key: "Escape" });
     expect(queryByRole("tooltip")).toBeNull();
+  });
+
+  it("hides all open tooltips on Escape when multiple tooltips are open", () => {
+    const { getAllByRole, queryAllByRole } = render(<TwoTooltips />);
+
+    expect(getAllByRole("tooltip")).toHaveLength(2);
+
+    fireEvent.keyDown(globalThis.window, { key: "Escape" });
+
+    expect(queryAllByRole("tooltip")).toHaveLength(0);
   });
 });

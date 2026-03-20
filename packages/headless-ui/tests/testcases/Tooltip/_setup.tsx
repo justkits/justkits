@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 import { Tooltip } from "@/Tooltip";
 import { FloatingPlacement } from "@/_placement";
@@ -29,15 +29,9 @@ export function TestComponent({
 }
 
 export function ControlledComponent({
-  onMouseEnter,
-  onMouseLeave,
-  onFocus,
-  onBlur,
+  children,
 }: Readonly<{
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
-  onFocus?: () => void;
-  onBlur?: () => void;
+  children: ReactNode;
 }>) {
   const [open, setOpen] = useState<boolean>(false);
 
@@ -45,14 +39,7 @@ export function ControlledComponent({
     <>
       <Tooltip isOpen={open} onOpenChange={setOpen}>
         <Tooltip.Trigger asChild data-testid="tooltip-trigger">
-          <button
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            onFocus={onFocus}
-            onBlur={onBlur}
-          >
-            트리거
-          </button>
+          {children}
         </Tooltip.Trigger>
         <Tooltip.Content data-testid="tooltip-content">
           툴팁 메시지

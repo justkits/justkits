@@ -12,7 +12,11 @@ describe("Tooltip - trigger cornercases", () => {
   });
 
   it("handles controlled open state correctly", () => {
-    const { getByTestId, getByText } = render(<ControlledComponent />);
+    const { getByTestId, getByText } = render(
+      <ControlledComponent>
+        <button>트리거</button>
+      </ControlledComponent>,
+    );
 
     const trigger = getByTestId("tooltip-trigger");
     fireEvent.mouseEnter(trigger);
@@ -31,12 +35,16 @@ describe("Tooltip - trigger cornercases", () => {
     const onBlur = vi.fn();
 
     const { getByTestId } = render(
-      <ControlledComponent
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        onFocus={onFocus}
-        onBlur={onBlur}
-      />,
+      <ControlledComponent>
+        <button
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+          onFocus={onFocus}
+          onBlur={onBlur}
+        >
+          트리거
+        </button>
+      </ControlledComponent>,
     );
 
     const trigger = getByTestId("tooltip-trigger");
@@ -54,5 +62,39 @@ describe("Tooltip - trigger cornercases", () => {
 
     fireEvent.blur(trigger);
     expect(onBlur).toHaveBeenCalledTimes(1);
+  });
+
+  it("logs warning when asChild is true but child is not a valid React element", () => {
+    const consoleWarnSpy = vi
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
+
+    render(
+      <ControlledComponent>{"Not a valid React element"}</ControlledComponent>,
+    );
+
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      "[Tooltip.Trigger] `asChild` was set but the child is not a valid React element. Falling back to <button>.",
+    );
+
+    consoleWarnSpy.mockRestore();
+  });
+
+  it("doesn't log if production environment", () => {
+    const originalEnv = process.env.NODE_ENV;
+    process.env.NODE_ENV = "production";
+
+    const consoleWarnSpy = vi
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
+
+    render(
+      <ControlledComponent>{"Not a valid React element"}</ControlledComponent>,
+    );
+
+    expect(consoleWarnSpy).not.toHaveBeenCalled();
+
+    consoleWarnSpy.mockRestore();
+    process.env.NODE_ENV = originalEnv;
   });
 });
