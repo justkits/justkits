@@ -16,13 +16,16 @@ pnpm add @justkits/headless-ui
 
 ## Components
 
-| 컴포넌트  | 상태 | 문서                                 |
-| --------- | ---- | ------------------------------------ |
-| `Tooltip` | 안정 | [docs/Tooltip.md](./docs/Tooltip.md) |
+| 컴포넌트  | 상태   | 문서                                 |
+| --------- | ------ | ------------------------------------ |
+| `Tooltip` | Stable | [docs/Tooltip.md](./docs/Tooltip.md) |
+| `Popover` | Stable | [docs/Popover.md](./docs/Popover.md) |
 
 ---
 
 ## Quick Start
+
+### Tooltip
 
 ```tsx
 import { Tooltip } from "@justkits/headless-ui";
@@ -46,8 +49,33 @@ function Example() {
 </Tooltip.Content>
 ```
 
+### Popover
+
+```tsx
+import { Popover } from "@justkits/headless-ui";
+
+function Example() {
+  return (
+    <Popover>
+      <Popover.Trigger>열기</Popover.Trigger>
+      <Popover.Content aria-label="사용자 메뉴">팝오버 내용</Popover.Content>
+    </Popover>
+  );
+}
+```
+
+스타일은 `className` 또는 `style`로 `Popover.Content`에 직접 적용한다.
+
+```tsx
+<Popover.Content className="popover-content" aria-label="사용자 메뉴">
+  팝오버 내용
+  <Popover.Arrow className="popover-arrow" />
+</Popover.Content>
+```
+
 ---
 
 ## Notes
 
 - 모든 컴포넌트는 포털 없이 DOM 트리 내에 렌더된다. `overflow: hidden` 또는 stacking context가 적용된 컨테이너 안에 배치할 경우 클리핑이 발생할 수 있다.
+- `asChild` prop은 현재 지원되지 않는다. 향후 릴리즈에서 추가될 예정이다.

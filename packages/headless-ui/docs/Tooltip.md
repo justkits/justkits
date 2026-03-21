@@ -68,10 +68,6 @@
 `<button>` 엘리먼트의 모든 props를 지원한다. 단, 아래 항목은 내부에서 제어하므로 전달할 수 없다:
 `aria-describedby`, `onMouseEnter`, `onMouseLeave`, `onFocus`, `onBlur`, `onTouchStart`, `onTouchEnd`, `onTouchMove`, `onTouchCancel`, `type`.
 
-| Prop      | 타입      | 기본값  | 설명                                     |
-| --------- | --------- | ------- | ---------------------------------------- |
-| `asChild` | `boolean` | `false` | `true`이면 자식 요소를 트리거로 사용한다 |
-
 ### `Tooltip.Content`
 
 `<div>` 엘리먼트의 모든 props를 지원한다.
@@ -111,21 +107,6 @@
 윈도우 리사이즈 및 스크롤 시에도 위치가 재계산된다.
 
 > **스타일 주의**: 툴팁 콘텐츠와 트리거 사이의 간격은 자동으로 추가되지 않는다. `Tooltip.Content`에 `margin` 또는 `padding`을 적용해 간격을 직접 지정해야 한다.
-
-### `asChild` Pattern
-
-`asChild={true}`이면 `cloneElement`로 자식 요소에 트리거 props를 주입한다. 자식이 이미 `<button>`인 경우 중첩 버튼 문제를 피할 수 있다.
-
-```tsx
-<Tooltip>
-  <Tooltip.Trigger asChild>
-    <button onClick={handleClick}>액션</button>
-  </Tooltip.Trigger>
-  <Tooltip.Content>설명</Tooltip.Content>
-</Tooltip>
-```
-
-자식 요소에 `onMouseEnter`, `onMouseLeave`, `onFocus`, `onBlur` 핸들러가 있는 경우 기존 핸들러가 먼저 호출된 뒤 툴팁 동작이 실행된다.
 
 ### Controlled Mode
 
