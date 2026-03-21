@@ -72,7 +72,7 @@
 
 `<div>` 엘리먼트의 모든 props를 지원한다.
 
-> **주의**: 내부적으로 `pointer-events: none`이 적용된다. 콘텐츠 안에 링크나 버튼 등 인터랙티브 요소를 넣으면 클릭이 동작하지 않는다.
+> **참고**: 콘텐츠 안에 인터랙티브 요소를 넣는 것은 접근성 측면에서 권장되지 않는다. 툴팁은 보조 설명용이며, 클릭 가능한 요소는 별도로 배치하는 것이 좋다.
 
 ### `Tooltip.Arrow`
 
@@ -131,6 +131,7 @@ const [open, setOpen] = useState(false);
 
 ---
 
-## Known Issues
+## Future Considerations
 
-- **포털 미지원**: 플로팅 콘텐츠가 DOM 트리 안에 렌더된다. 부모 컨테이너에 `overflow: hidden`이나 stacking context가 있으면 클리핑될 수 있다.
+- **asChild prop**: 트리거를 커스텀 Element로 교체할 수 있도록 `asChild` prop을 지원
+- **Portal 지원**: 클리핑 문제를 근본적으로 해결하기 위해 `document.body`에 직접 마운트하는 포털 옵션을 지원

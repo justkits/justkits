@@ -132,6 +132,7 @@ const [open, setOpen] = useState(false);
 
 ---
 
-## Known Issues
+## Future Considerations
 
-- **포털 미지원**: 플로팅 콘텐츠가 DOM 트리 안에 렌더된다. 부모 컨테이너에 `overflow: hidden`이나 stacking context가 있으면 클리핑되거나 가려질 수 있다.
+- **asChild prop**: 트리거를 커스텀 Element로 교체할 수 있도록 `asChild` prop을 지원
+- **Portal 지원**: 클리핑 문제를 근본적으로 해결하기 위해 `document.body`에 직접 마운트하는 포털 옵션을 지원
