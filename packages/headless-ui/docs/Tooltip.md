@@ -68,15 +68,11 @@
 `<button>` 엘리먼트의 모든 props를 지원한다. 단, 아래 항목은 내부에서 제어하므로 전달할 수 없다:
 `aria-describedby`, `onMouseEnter`, `onMouseLeave`, `onFocus`, `onBlur`, `onTouchStart`, `onTouchEnd`, `onTouchMove`, `onTouchCancel`, `type`.
 
-| Prop      | 타입      | 기본값  | 설명                                     |
-| --------- | --------- | ------- | ---------------------------------------- |
-| `asChild` | `boolean` | `false` | `true`이면 자식 요소를 트리거로 사용한다 |
-
 ### `Tooltip.Content`
 
 `<div>` 엘리먼트의 모든 props를 지원한다.
 
-> **주의**: 내부적으로 `pointer-events: none`이 적용된다. 콘텐츠 안에 링크나 버튼 등 인터랙티브 요소를 넣으면 클릭이 동작하지 않는다.
+> **참고**: 콘텐츠 안에 인터랙티브 요소를 넣는 것은 접근성 측면에서 권장되지 않는다. 툴팁은 보조 설명용이며, 클릭 가능한 요소는 별도로 배치하는 것이 좋다.
 
 ### `Tooltip.Arrow`
 
@@ -112,21 +108,6 @@
 
 > **스타일 주의**: 툴팁 콘텐츠와 트리거 사이의 간격은 자동으로 추가되지 않는다. `Tooltip.Content`에 `margin` 또는 `padding`을 적용해 간격을 직접 지정해야 한다.
 
-### `asChild` Pattern
-
-`asChild={true}`이면 `cloneElement`로 자식 요소에 트리거 props를 주입한다. 자식이 이미 `<button>`인 경우 중첩 버튼 문제를 피할 수 있다.
-
-```tsx
-<Tooltip>
-  <Tooltip.Trigger asChild>
-    <button onClick={handleClick}>액션</button>
-  </Tooltip.Trigger>
-  <Tooltip.Content>설명</Tooltip.Content>
-</Tooltip>
-```
-
-자식 요소에 `onMouseEnter`, `onMouseLeave`, `onFocus`, `onBlur` 핸들러가 있는 경우 기존 핸들러가 먼저 호출된 뒤 툴팁 동작이 실행된다.
-
 ### Controlled Mode
 
 ```tsx
@@ -150,6 +131,7 @@ const [open, setOpen] = useState(false);
 
 ---
 
-## Known Issues
+## Future Considerations
 
-- **포털 미지원**: 플로팅 콘텐츠가 DOM 트리 안에 렌더된다. 부모 컨테이너에 `overflow: hidden`이나 stacking context가 있으면 클리핑될 수 있다.
+- **asChild prop**: 트리거를 커스텀 Element로 교체할 수 있도록 `asChild` prop을 지원
+- **Portal 지원**: 클리핑 문제를 근본적으로 해결하기 위해 `document.body`에 직접 마운트하는 포털 옵션을 지원
