@@ -31,6 +31,21 @@ describe("Alert - showAlert", () => {
     expect(queryByText("This is a test alert message")).toBeFalsy();
   });
 
+  it("should display custom closeText", async () => {
+    const { getByText } = render(<TestComponent />);
+
+    act(() => {
+      showAlert(
+        "Test Alert",
+        "This is a test alert message",
+        undefined,
+        "확인",
+      );
+    });
+
+    expect(getByText("확인")).toBeTruthy();
+  });
+
   it("should handle close callback", async () => {
     const { getByText, queryByText } = render(<TestComponent />);
 
