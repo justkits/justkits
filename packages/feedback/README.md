@@ -39,13 +39,11 @@ pnpm add @justkits/feedback
 - `toast` 모듈 사용에 대한 더 자세한 내용은 [Toast 사용법 문서](./docs/using-toast.md)에서 찾을 수 있다.
 - 상세한 `toast()` API 명세서는 [해당 문서](./docs/toast-api.md)에서 찾을 수 있다.
 
-**자동 dismiss 타이머 등의 동작은 주입한 컴포넌트에서 직접 구현한다.** exit 애니메이션이 필요한 경우, 애니메이션 완료 시점에 `toast.dismiss()`를 호출하면 된다. 간단한 예시는 [예시 문서](./docs/examples.md#기본-사용법---toaster)에서 찾을 수 있다.
-
 ---
 
 ## With `@justkits/headless-ui`
 
-`@justkits/headless-ui`의 `Alert`·`Toast` 컴포넌트를 이 패키지와 함께 사용하는 것을 강력하게 추천한다. 접근성(ARIA), 포커스 트랩, 스크롤 잠금, 자동 dismiss 타이머, hover 시 타이머 일시정지 등이 기본 제공된다. 해당 컴포넌트를 사용하면 스타일링만 처리하면 된다. 자세한 사용법과 전체 예시는 [Using Alert 문서](./docs/using-alert.md)와 [Using Toast 문서](./docs//using-toast.md)에 자세하게 설명되어 있다.
+`@justkits/headless-ui`의 `Alert`·`Toast` 컴포넌트를 이 패키지와 함께 사용하는 것을 강력하게 추천한다. 접근성(ARIA), 포커스 트랩, 스크롤 잠금, 자동 dismiss 타이머, hover 시 타이머 일시정지 등이 기본 제공된다. 해당 컴포넌트를 사용하면 스타일링만 처리하면 된다. 자세한 사용법과 전체 예시는 [Using Alert 문서](./docs/using-alert.md)와 [Using Toast 문서](./docs/using-toast.md)에 자세하게 설명되어 있다.
 
 **정리**
 
@@ -56,7 +54,7 @@ pnpm add @justkits/feedback
 
 ## With `@justkits/motion`
 
-`Alert`나 `Toast`를 렌더링 함에 있어, 자연스러운 애니메이션을 주입하는 것 역시 권장된다. 간편하게 애니메이션 기능을 추가하기 위해 `@justkits/motion` 라이브러리를 사용하는 것을 강력하게 추천한다. [Using Alert 문서](./docs/using-alert.md)와 [Using Toast 문서](./docs//using-toast.md)에 각 컴포넌트에 enter/exit 애니메이션을 `@justkits/motion`의 `transition()`과 `useAnimatedExit()`을 활용해 추가하는 방법을 자세하게 설명한다.
+`Alert`나 `Toast`를 렌더링 함에 있어, 자연스러운 애니메이션을 주입하는 것 역시 권장된다. 간편하게 애니메이션 기능을 추가하기 위해 `@justkits/motion` 라이브러리를 사용하는 것을 강력하게 추천한다. [Using Alert 문서](./docs/using-alert.md)와 [Using Toast 문서](./docs/using-toast.md)에 각 컴포넌트에 enter/exit 애니메이션을 `@justkits/motion`의 `transition()`과 `useAnimatedExit()`을 활용해 추가하는 방법을 자세하게 설명한다.
 
 `@justkits/motion`의 전체 API, 애니메이션 목록, 토큰 타입은 [motion 패키지 README →](https://github.com/justkits/design-system/packages/motion/README.md)를 참고한다.
 

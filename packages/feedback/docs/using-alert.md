@@ -119,7 +119,7 @@ import { showConfirm } from "@justkits/feedback";
 
 export function Page() {
   const handleLogout = () => {
-    showConfirm("Logout", "Are you sure you want to log out?", logout());
+    showConfirm("Logout", "Are you sure you want to log out?", () => logout());
   };
 
   return <button onClick={handleLogout}>Log out</button>;
@@ -128,7 +128,7 @@ export function Page() {
 /// React 외 예시
 import { showAlert } from "@justkits/feedback";
 
-export function getData() {
+export async function getData() {
   try {
     await fetchData();
   } catch {
@@ -292,8 +292,6 @@ export function AlertComponent({ alert }: AlertComponentProps) {
         border: "1px solid #e5e7eb",
         minWidth: 320,
         backgroundColor: "white",
-        padding: "1rem",
-        borderRadius: "0.5rem",
         ...transition({ name: "pop", duration: 300, exiting }),
       }}
     >
@@ -346,8 +344,6 @@ export function ConfirmComponent({ confirm }: ConfirmComponentProps) {
         border: "1px solid #e5e7eb",
         minWidth: 320,
         backgroundColor: "white",
-        padding: "1rem",
-        borderRadius: "0.5rem",
         ...transition({ name: "pop", duration: 300, exiting }),
       }}
     >
