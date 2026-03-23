@@ -18,6 +18,6 @@ export default defineConfig({
   splitting: false,
   treeshake: true,
   minify: false,
-  sourcemap: false,
+  sourcemap: true,
   external: ["react", "react-dom"],
 });
