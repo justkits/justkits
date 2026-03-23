@@ -15,11 +15,10 @@ export function Toaster({
 }: Readonly<ToasterProps>) {
   const toasts = useSyncExternalStore(subscribe, getSnapshot, () => []);
 
-  // maxToasts 옵션만큼만 보여주도록 자르기
   if (maxToasts <= 0) {
     if (process.env.NODE_ENV !== "production") {
       console.warn(
-        "[Toast] maxToasts 옵션은 0보다 큰 값을 권장드립니다. 0 이하로 설정하시면 토스트가 보이지 않습니다.",
+        "[Toast] maxToasts must be greater than 0. No toasts will be shown.",
       );
     }
 

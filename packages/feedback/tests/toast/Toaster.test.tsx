@@ -54,12 +54,12 @@ describe("toast - renders", () => {
 
     render(<TestComponent maxToasts={0} />);
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      "[Toast] maxToasts 옵션은 0보다 큰 값을 권장드립니다. 0 이하로 설정하시면 토스트가 보이지 않습니다.",
+      "[Toast] maxToasts must be greater than 0. No toasts will be shown.",
     );
 
     render(<TestComponent maxToasts={-1} />);
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      "[Toast] maxToasts 옵션은 0보다 큰 값을 권장드립니다. 0 이하로 설정하시면 토스트가 보이지 않습니다.",
+      "[Toast] maxToasts must be greater than 0. No toasts will be shown.",
     );
 
     consoleWarnSpy.mockRestore();
