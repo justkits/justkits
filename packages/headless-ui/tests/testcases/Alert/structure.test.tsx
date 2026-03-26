@@ -1,11 +1,25 @@
 import { render } from "@testing-library/react";
+import { renderToString } from "react-dom/server";
 
 import { Alert } from "@/Alert";
-import { setupConsoleSpy } from "../_setup";
+import { setupConsoleSpy, setupSSR } from "../_setup";
 import { TestComponent } from "./_setup";
 
 describe("Alert - structure", () => {
   const { warnSpy } = setupConsoleSpy("development");
+
+  describe("SSR environment", () => {
+    setupSSR();
+
+    it("renders in-place when portal prop is set (portal bypassed before mount)", () => {
+      // window/document가 없는 SSR 환경에서는 useSyncExternalStore가 서버 스냅샷(false)을 사용하므로
+      // portal 모드이더라도 children이 인라인으로 렌더링되어 hydration mismatch를 방지한다.
+      const html = renderToString(<TestComponent isOpen portal />);
+
+      expect(html).toContain('data-testid="alert-content"');
+      expect(html).toContain('data-testid="alert-overlay"');
+    });
+  });
 
   it("supports portal mode", () => {
     // portal 모드에서는, content와 overlay가 document.body에 렌더링되어야 한다.
