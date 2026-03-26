@@ -43,9 +43,7 @@
 - Others
   - [x] dialog가 열려있는 동안 배경 페이지의 스크롤이 잠기고, 닫히면 복원된다.
   - Async Button Actions (`Alert.Button`의 `onClick`이 Promise를 반환)
-    - [x] 클릭 시 dialog가 닫히지 않고 pending 상태가 된다.
-    - [x] `Alert.Content`에 `data-pending="true"`가 설정된다.
-    - [x] 모든 `Alert.Button`이 비활성화된다.
+    - [x] 클릭 시 dialog가 닫히지 않고 pending 상태가 되며, `Alert.Content`에 `data-pending="true"`와 `aria-busy="true"`가 설정된다. 또한, 모든 `Alert.Button`이 비활성화된다.
     - [x] resolve되면 dialog가 자동으로 닫힌다.
     - [x] reject되면 dialog가 닫히지 않는다.
 
@@ -53,8 +51,6 @@
 
 - [x] `Alert.Trigger`와 `Alert.Button`이 내부적으로 열기/닫기를 처리하는 비제어 방식을 지원한다.
 - [x] `isOpen`과 `onOpenChange` prop을 통한 제어 컴포넌트 방식도 지원한다.
-- [x] `Alert.Content`에 `data-state="open"` / `data-state="closed"`가 설정되어 CSS 트랜지션 및 애니메이션에 활용할 수 있다.
-- [x] `Alert.Overlay`에 `data-state="open"` / `data-state="closed"`가 설정되어 CSS 트랜지션 및 애니메이션에 활용할 수 있다.
 
 ## Aria
 
@@ -65,16 +61,4 @@
 - Attributes
   - [x] `Alert.Trigger`가 `aria-haspopup=dialog`를 가진다.
   - [x] `Alert.Content`가 `role="alertdialog"`와 `aria-modal="true"`를 가진다.
-  - [x] `Alert.Message`가 없으면 `aria-describedby`가 설정되지 않는다.
   - [x] Alert가 열리면 `Alert.Content` 외부의 DOM 트리에 `inert` 속성이 적용되어 스크린 리더가 배경 콘텐츠를 읽지 못하도록 한다. Alert가 닫히면 `inert`를 제거한다.
-  - [x] Pending일 경우, `Alert.Content`에 `aria-busy="true"`가 적용된다.
-
----
-
-## Known Issues
-
----
-
-## Future Considerations
-
-- **Confirm 전용 컴포넌트 분리**: `Alert`과 `Confirm`을 별도 컴포넌트로 분리하여 타입 안전성을 높이는 방안
