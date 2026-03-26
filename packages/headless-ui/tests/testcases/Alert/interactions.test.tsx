@@ -75,6 +75,17 @@ describe("Alert - interactions", () => {
 
         // Alert.Content에 포커스가 가야 한다.
         expect(document.activeElement).toBe(getByTestId("content"));
+
+        // 이 상태에서 Tab 키를 눌러도 포커스가 Alert.Content에 머물러야 한다.
+        fireEvent.keyDown(getByTestId("content"), { key: "Tab" });
+        expect(document.activeElement).toBe(getByTestId("content"));
+
+        // Shift+Tab 키를 눌러도 포커스가 Alert.Content에 머물러야 한다.
+        fireEvent.keyDown(getByTestId("content"), {
+          key: "Tab",
+          shiftKey: true,
+        });
+        expect(document.activeElement).toBe(getByTestId("content"));
       });
     });
 
