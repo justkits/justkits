@@ -7,7 +7,7 @@
   - [x] "portal" property를 지원해야 한다.
   - `Alert.Content`
     - [x] `Alert` 안에서 사용해야 한다.
-    - [x] 그렇지 않다면, `Alert`의 직접 자식이어야 한다.
+    - [x] Portal 모드가 아니라면, `Alert`의 직접 자식이어야 한다.
     - `Alert.Title`
       - [x] `Alert.Content` 안에서 사용해야 한다.
       - [x] `asChild` 패턴을 지원한다.
