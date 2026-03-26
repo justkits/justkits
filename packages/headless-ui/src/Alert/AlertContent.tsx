@@ -1,7 +1,7 @@
 import { type HTMLAttributes } from "react";
 
 import { Portal } from "@/core/portal";
-import { ContentContext, useAlert } from "./internals/context";
+import { ContentContext, useAlert } from "./internals/contexts";
 import { styles } from "./internals/styles";
 
 export function AlertContent({
