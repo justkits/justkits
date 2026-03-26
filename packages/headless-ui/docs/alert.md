@@ -148,11 +148,29 @@ Extends `HTMLAttributes<HTMLDivElement>`. (`children` 제외)
 
 추가 사용자 지정 prop 없음.
 
+**Structural Styles**
+
+| Property   | Default |
+| ---------- | ------- |
+| `position` | `fixed` |
+| `top`      | `0`     |
+| `left`     | `0`     |
+| `width`    | `100%`  |
+| `height`   | `100%`  |
+| `zIndex`   | `700`   |
+
 ### `Alert.Content`
 
 Extends `HTMLAttributes<HTMLDivElement>`.
 
 추가 사용자 지정 prop 없음. `role`, `aria-modal`, `aria-labelledby`, `aria-describedby`, `data-pending`, `aria-busy`가 내부에서 자동으로 관리된다.
+
+**Structural Styles**
+
+| Property   | Default    |
+| ---------- | ---------- |
+| `position` | `relative` |
+| `zIndex`   | `1000`     |
 
 ### `Alert.Title`
 
@@ -199,6 +217,7 @@ Extends `ButtonHTMLAttributes<HTMLButtonElement>`. (`onClick` 제외 — 아래 
 
 - `onOpenChange`를 사용하는 Controlled 모드에서는 `isOpen`을 `onOpenChange` 콜백 외부에서 직접 변경해서는 안 된다. Alert 내부의 pending 상태 등이 `isOpen` 변화에 맞춰 정리되지 않아 예기치 않은 동작이 발생할 수 있다.
 - Controlled 모드에서 `Alert.Button`의 async `onClick`이 처리 중일 때 외부에서 `isOpen`을 `false`로 변경하면, 다음 번에 Alert가 열릴 때 모든 버튼이 비활성화된 채로 시작될 수 있다. `onOpenChange` 콜백을 통해 닫는 정상적인 흐름에서는 발생하지 않는다.
+- `Alert.Button`의 `onClick`이 동기 함수이거나 생략된 경우, pending 상태에 진입하지 않고 즉시 닫힌다. pending 상태(`data-pending`, `aria-busy`, 버튼 비활성화)는 `onClick`이 `Promise`를 반환할 때만 활성화된다.
 
 ---
 
