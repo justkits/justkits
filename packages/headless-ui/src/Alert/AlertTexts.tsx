@@ -1,8 +1,7 @@
 import { type HTMLAttributes, useContext } from "react";
 
 import { AsChild } from "@/core/asChild";
-import { useAlert } from "./internals/context";
-import { ContentContext } from "./internals/registries";
+import { ContentContext, useAlert } from "./internals/context";
 
 type AlertTitleProps = {
   asChild?: boolean;
@@ -32,13 +31,7 @@ export function AlertTitle({
   }
 
   return (
-    <h2
-      data-testid="alert-non-as-child-title"
-      id={titleId}
-      className={className}
-      style={style}
-      {...rest}
-    >
+    <h2 id={titleId} className={className} style={style} {...rest}>
       {children}
     </h2>
   );
@@ -72,13 +65,7 @@ export function AlertMessage({
   }
 
   return (
-    <p
-      data-testid="alert-non-as-child-message"
-      id={descriptionId}
-      className={className}
-      style={style}
-      {...rest}
-    >
+    <p id={descriptionId} className={className} style={style} {...rest}>
       {children}
     </p>
   );

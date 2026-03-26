@@ -1,4 +1,6 @@
-import { createContext, RefObject, useContext } from "react";
+import { type RefObject, createContext, useContext } from "react";
+
+// #region Alert 전역 Context
 
 type AlertStateType = {
   // Open State
@@ -30,3 +32,8 @@ export function useAlert() {
 
   return context;
 }
+
+// #endregion
+
+// Structure를 위한 Context (Alert.Content 내부에 렌더링 여부)
+export const ContentContext = createContext(false);

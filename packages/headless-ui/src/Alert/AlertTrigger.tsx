@@ -1,8 +1,7 @@
 import { type ButtonHTMLAttributes, type RefObject, useContext } from "react";
 
 import { AsChild } from "@/core/asChild";
-import { useAlert } from "./internals/context";
-import { ContentContext } from "./internals/registries";
+import { ContentContext, useAlert } from "./internals/context";
 
 type AlertTriggerProps = {
   asChild?: boolean;
@@ -42,7 +41,6 @@ export function AlertTrigger({
 
   return (
     <button
-      data-testid="alert-non-as-child-trigger"
       {...rest}
       aria-haspopup="dialog"
       aria-controls={contentId}

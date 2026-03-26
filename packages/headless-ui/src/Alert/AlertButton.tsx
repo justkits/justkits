@@ -1,13 +1,17 @@
-import { type HTMLAttributes, type MouseEvent, useContext } from "react";
+import {
+  type ButtonHTMLAttributes,
+  type MouseEvent,
+  useContext,
+  useEffect,
+} from "react";
 
 import { AsChild } from "@/core/asChild";
-import { useAlert } from "./internals/context";
-import { ContentContext } from "./internals/registries";
+import { ContentContext, useAlert } from "./internals/context";
 
 type AlertButtonProps = {
   asChild?: boolean;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void | Promise<void>;
-} & Omit<HTMLAttributes<HTMLButtonElement>, "onClick">;
+} & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick">;
 
 export function AlertButton({
   children,
@@ -24,6 +28,10 @@ export function AlertButton({
   if (!isInsideContent) {
     throw new Error("Alert.Button must be used within Alert.Content");
   }
+
+  useEffect(() => {
+    return () => setPending(false);
+  }, [setPending]);
 
   const handleClick = async (e: MouseEvent<HTMLButtonElement>) => {
     setPending(true);
@@ -53,7 +61,6 @@ export function AlertButton({
 
   return (
     <button
-      data-testid="alert-non-as-child-button"
       type="button"
       className={className}
       style={style}
