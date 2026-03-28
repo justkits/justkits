@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 type UseOpenStateReturnType = {
   isOpen: boolean;
   show: (delay?: number) => void;
-  hide: () => void;
+  hide: (delay?: number) => void;
 };
 
 /**
@@ -48,15 +48,26 @@ export function useOpenState(
     [isControlled, setOpenState],
   );
 
-  const hide = useCallback(() => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+  const hide = useCallback(
+    (delay: number = 0) => {
+      const hideAction = () => {
+        if (isControlled) {
+          setOpenState?.(false);
+        } else {
+          setInternalOpen(false);
+        }
+      };
 
-    if (isControlled) {
-      setOpenState?.(false);
-    } else {
-      setInternalOpen(false);
-    }
-  }, [isControlled, setOpenState]);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+      if (delay) {
+        timeoutRef.current = setTimeout(() => hideAction(), delay);
+      } else {
+        hideAction();
+      }
+    },
+    [isControlled, setOpenState],
+  );
 
   useEffect(() => {
     return () => {
