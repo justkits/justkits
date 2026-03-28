@@ -4,13 +4,13 @@ import { TestComponent } from "./_setup";
 
 describe("Tooltip - aria", () => {
   describe("ID", () => {
-    it("Tooltip.Message's ID matches Tooltip.Trigger's aria-describedby", () => {
+    it("Tooltip.Content's ID matches Tooltip.Trigger's aria-describedby", () => {
       const { getByTestId } = render(<TestComponent mode="always-open" />);
 
       const trigger = getByTestId("tooltip-trigger");
 
-      const message = getByTestId("tooltip-message");
-      expect(trigger.getAttribute("aria-describedby")).toBe(message.id);
+      const content = getByTestId("tooltip-content");
+      expect(trigger.getAttribute("aria-describedby")).toBe(content.id);
     });
   });
 
