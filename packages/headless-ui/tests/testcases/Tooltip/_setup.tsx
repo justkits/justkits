@@ -2,7 +2,7 @@ import { useState } from "react";
 import { act, fireEvent, render } from "@testing-library/react";
 
 import { Tooltip } from "@/Tooltip";
-import { FloatingPlacement } from "@/core/placement/types";
+import { type FloatingPlacement } from "@/core/placement/types";
 
 export function TestComponent({
   mode = "uncontrolled",
