@@ -40,6 +40,23 @@ describe("Tooltip - corner cases", () => {
     expect(() => getByTestId("content")).toThrow();
   });
 
+  it("does not open tooltip when disabled with Tooltip.Trigger asChild", () => {
+    const { getByTestId, queryByTestId } = render(
+      <Tooltip disabled>
+        <Tooltip.Trigger asChild>
+          <button data-testid="trigger">Hover me</button>
+        </Tooltip.Trigger>
+        <Tooltip.Content data-testid="content">Tooltip content</Tooltip.Content>
+      </Tooltip>,
+    );
+
+    expect(queryByTestId("content")).toBeNull();
+
+    fireEvent.mouseOver(getByTestId("trigger"));
+    act(() => vi.advanceTimersByTime(300));
+    expect(queryByTestId("content")).toBeNull();
+  });
+
   describe("positions - flip and shift cases", () => {
     // options.test.tsx에서는 아래 4가지 경우만 테스트한다. 따라서, 나머지 케이스들을 전부 처리해야한다.
     // 1. top -> bottom flip

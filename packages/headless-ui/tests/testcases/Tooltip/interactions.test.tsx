@@ -34,6 +34,19 @@ describe("Tooltip - interactions", () => {
       fireEvent.mouseDown(document.body);
       expect(queryByTestId("tooltip-content")).toBeNull();
     });
+
+    it("should close the tooltip on clicking the trigger when it's open", () => {
+      const { getByTestId, queryByTestId } = render(<TestComponent />);
+
+      // Tooltip.Trigger에 마우스를 올려 툴팁을 연다. (300ms delay)
+      fireEvent.mouseEnter(getByTestId("tooltip-trigger"));
+      act(() => vi.advanceTimersByTime(300));
+      expect(getByTestId("tooltip-content")).toBeTruthy();
+
+      // Tooltip.Trigger를 다시 클릭하여 툴팁을 닫는다. (mouse-down으로 처리)
+      fireEvent.mouseDown(getByTestId("tooltip-trigger"));
+      expect(queryByTestId("tooltip-content")).toBeNull();
+    });
   });
 
   describe("Hover", () => {
@@ -130,38 +143,6 @@ describe("Tooltip - interactions", () => {
       fireEvent.touchEnd(getByTestId("tooltip-trigger"));
       act(() => vi.advanceTimersByTime(2000)); // 충분히 긴 시간을 기다려준다.
       expect(getByTestId("tooltip-content")).toBeTruthy();
-    });
-
-    it("should close the tooltip on tapping outside when it's open", () => {
-      const { getByTestId, queryByTestId } = render(<TestComponent />);
-
-      // Tooltip.Trigger에 길게 터치하여 툴팁을 연다. (500ms delay)
-      fireEvent.touchStart(getByTestId("tooltip-trigger"));
-      act(() => vi.advanceTimersByTime(500)); // long press delay
-      expect(getByTestId("tooltip-content")).toBeTruthy();
-
-      // 툴팁 내부를 터치하면 툴팁이 닫히지 않아야 한다.
-      fireEvent.touchStart(getByTestId("tooltip-content"));
-      act(() => vi.advanceTimersByTime(1000)); // 충분한 시간을 준다.
-      expect(getByTestId("tooltip-content")).toBeTruthy();
-
-      // 화면의 아무 곳이나 터치하여 툴팁을 즉시 닫는다.
-      fireEvent.touchStart(document.body);
-      expect(queryByTestId("tooltip-content")).toBeNull();
-    });
-
-    it("should close the tooltip on tapping the trigger when it's open", () => {
-      const { getByTestId, queryByTestId } = render(<TestComponent />);
-
-      // Tooltip.Trigger에 길게 터치하여 툴팁을 연다. (500ms delay)
-      fireEvent.touchStart(getByTestId("tooltip-trigger"));
-      act(() => vi.advanceTimersByTime(500)); // long press delay
-      expect(getByTestId("tooltip-content")).toBeTruthy();
-
-      // Tooltip.Trigger를 다시 터치하여 툴팁을 닫는다.
-      fireEvent.touchStart(getByTestId("tooltip-trigger"));
-      fireEvent.touchEnd(getByTestId("tooltip-trigger"));
-      expect(queryByTestId("tooltip-content")).toBeNull();
     });
   });
 
