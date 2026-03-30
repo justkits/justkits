@@ -1,6 +1,9 @@
-import { type RefObject, createContext, useContext } from "react";
-
-import { type FloatingPlacement } from "@/core/placement/types";
+import {
+  type CSSProperties,
+  type RefObject,
+  createContext,
+  useContext,
+} from "react";
 
 type TooltipContextType = {
   // Open State
@@ -15,12 +18,9 @@ type TooltipContextType = {
   // 툴팁 동작 관련 상태
   openDelay: number;
   closeDelay: number;
-  // 툴팁 위치 계산을 위한 상태
-  placement: FloatingPlacement;
-  x: number;
-  y: number;
-  shiftX: number;
-  shiftY: number;
+  // 툴팁 위치 스타일
+  containerStyles: CSSProperties;
+  arrowStyles: CSSProperties;
   // DOM 참조
   triggerRef: RefObject<HTMLElement | null>;
   floatingRef: RefObject<HTMLDivElement | null>;

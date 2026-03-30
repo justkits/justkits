@@ -1,8 +1,8 @@
 import { type HTMLAttributes } from "react";
 
 import { Portal } from "@/core/portal";
+import { zIndices } from "@/core/zindex";
 import { ContentContext, useTooltip } from "./internals/contexts";
-import { styles } from "./internals/styles";
 
 type TooltipContentProps = Omit<HTMLAttributes<HTMLDivElement>, "id" | "role">;
 
@@ -15,8 +15,7 @@ export function TooltipContent({
   const {
     isOpen,
     tooltipId,
-    x,
-    y,
+    containerStyles,
     floatingRef,
     isPortalMode,
     showTooltip,
@@ -31,7 +30,8 @@ export function TooltipContent({
       <ContentContext.Provider value={true}>
         <div
           style={{
-            ...styles.tooltip(x, y),
+            ...containerStyles,
+            zIndex: zIndices.tooltip,
             ...style,
           }}
           className={className}

@@ -1,7 +1,6 @@
 import { type HTMLAttributes, useContext } from "react";
 
 import { ContentContext, useTooltip } from "./internals/contexts";
-import { styles } from "./internals/styles";
 
 /**
  * 툴팁의 방향 화살표. `TooltipContent` 안에서 선택적으로 렌더한다.
@@ -15,7 +14,7 @@ export function TooltipArrow({
   style,
   ...rest
 }: Readonly<HTMLAttributes<HTMLDivElement>>) {
-  const { placement, shiftX, shiftY } = useTooltip();
+  const { arrowStyles } = useTooltip();
 
   const isInsideContent = useContext(ContentContext);
 
@@ -26,7 +25,7 @@ export function TooltipArrow({
   return (
     <div
       style={{
-        ...styles.arrow(placement, shiftX, shiftY),
+        ...arrowStyles,
         ...style,
       }}
       className={className}
