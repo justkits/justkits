@@ -155,7 +155,6 @@ describe("Popover - structure", () => {
       const trigger = getByText("트리거");
       expect(trigger.tagName).toBe("BUTTON");
       expect(trigger.getAttribute("aria-haspopup")).toBe("dialog");
-      expect(trigger.getAttribute("aria-controls")).toBeTruthy();
       expect(container.querySelectorAll("button")).toHaveLength(1);
     });
   });

@@ -20,7 +20,7 @@ describe("Popover - aria", () => {
       expect(content.getAttribute("aria-labelledby")).toBe(title.id);
     });
 
-    it("Popover.Content's aria-labelledby is undefined if Popover.Title is not rendered", () => {
+    it("Popover.Content's aria-label is 'Popover Content' if Popover.Title is not rendered", () => {
       const { getByTestId } = render(<TestComponent omit="title" />);
 
       // Trigger를 클릭하여 Popover를 연다
@@ -28,6 +28,7 @@ describe("Popover - aria", () => {
 
       const content = getByTestId("popover-content");
       expect(content.getAttribute("aria-labelledby")).toBeNull();
+      expect(content.getAttribute("aria-label")).toBe("Popover Content");
     });
   });
 
@@ -58,21 +59,8 @@ describe("Popover - aria", () => {
 
       expect(getByTestId("popover-content").tagName).toBe("DIALOG");
       expect(
-        getByTestId("popover-content").getAttribute("aria-label"),
-      ).toBeTruthy();
-      expect(
         getByTestId("popover-content").getAttribute("aria-modal"),
       ).toBeNull();
-    });
-
-    it("Popover.Content's aria-label can be overridden by consumer", () => {
-      const { getByTestId } = render(
-        <AlwaysOpenTestComponent label="사용자 정의 레이블" />,
-      );
-
-      expect(getByTestId("popover-content").getAttribute("aria-label")).toBe(
-        "사용자 정의 레이블",
-      );
     });
 
     it("Popover.Arrow has aria-hidden=true", () => {

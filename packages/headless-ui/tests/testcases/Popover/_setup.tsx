@@ -46,12 +46,10 @@ export function TestComponent({
 }
 
 export function AlwaysOpenTestComponent({
-  label,
   position,
   offset,
   portal = false,
 }: Readonly<{
-  label?: string;
   position?: FloatingPlacement;
   offset?: number;
   portal?: boolean;
@@ -65,7 +63,7 @@ export function AlwaysOpenTestComponent({
       portal={portal}
     >
       <Popover.Trigger data-testid="popover-trigger">트리거</Popover.Trigger>
-      <Popover.Content data-testid="popover-content" aria-label={label}>
+      <Popover.Content data-testid="popover-content">
         <Popover.Title data-testid="popover-title">팝오버 제목</Popover.Title>
         <Popover.Close data-testid="popover-button">닫기</Popover.Close>
         <Popover.Arrow data-testid="popover-arrow" />
