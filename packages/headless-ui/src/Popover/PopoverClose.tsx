@@ -1,11 +1,16 @@
-import { type ButtonHTMLAttributes, useContext } from "react";
+import {
+  type ButtonHTMLAttributes,
+  type MouseEvent,
+  useContext,
+  useEffect,
+} from "react";
 
 import { AsChild } from "@/core/asChild";
 import { ContentContext, usePopover } from "./internals/contexts";
 
 type PopoverCloseProps = {
   asChild?: boolean;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void | Promise<void>;
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick" | "type">;
 
 export function PopoverClose({
@@ -16,7 +21,7 @@ export function PopoverClose({
   asChild = false,
   ...rest
 }: Readonly<PopoverCloseProps>) {
-  const { hidePopover } = usePopover();
+  const { hidePopover, isPending, setPending } = usePopover();
 
   const isInsideContent = useContext(ContentContext);
 
@@ -24,9 +29,25 @@ export function PopoverClose({
     throw new Error("Popover.Close must be used within Popover.Content");
   }
 
-  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    await onClick?.(e);
-    hidePopover();
+  useEffect(() => {
+    return () => setPending(false);
+  }, [setPending]);
+
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    const result = onClick?.(e);
+    if (!(result instanceof Promise)) {
+      hidePopover();
+      return;
+    }
+    setPending(true);
+    result
+      .then(() => {
+        setPending(false);
+        hidePopover();
+      })
+      .catch(() => {
+        setPending(false);
+      });
   };
 
   if (asChild) {
@@ -35,6 +56,7 @@ export function PopoverClose({
         className={className}
         style={style}
         onClick={handleClick}
+        disabled={isPending}
         {...rest}
       >
         {children}
@@ -48,6 +70,7 @@ export function PopoverClose({
       className={className}
       style={style}
       onClick={handleClick}
+      disabled={isPending}
       {...rest}
     >
       {children}
