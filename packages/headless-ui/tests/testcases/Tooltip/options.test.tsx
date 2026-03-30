@@ -1,6 +1,6 @@
 import { act, fireEvent, render } from "@testing-library/react";
 
-import * as updatePosition from "@/core/placement/updatePosition";
+import * as utils from "@/core/placement/utils";
 import { setupTimer } from "../_setup";
 import {
   checkArrowPosition,
@@ -128,50 +128,49 @@ describe("Tooltip - options", () => {
     });
 
     it("should re-position the tooltip on window resize or scroll", () => {
-      // flipIfNeeded와 computePosition이 window resize나 scroll에도 적용되는지 테스트한다.
-      const flipMock = vi.fn();
-      const computeMock = vi
-        .fn()
-        .mockReturnValue({ x: 0, y: 0, shiftX: 0, shiftY: 0 });
-      vi.spyOn(updatePosition, "flipIfNeeded").mockImplementation(flipMock);
-      vi.spyOn(updatePosition, "computePosition").mockImplementation(
+      // computeFloatingPosition이 window resize나 scroll에도 적용되는지 테스트한다.
+      const computeMock = vi.fn().mockReturnValue({
+        placement: "bottom",
+        x: 0,
+        y: 0,
+        shiftX: 0,
+        shiftY: 0,
+      });
+      vi.spyOn(utils, "computeFloatingPosition").mockImplementation(
         computeMock,
       );
 
       render(<TestComponent mode="always-open" position="bottom" />);
 
-      expect(flipMock).toHaveBeenCalled();
       expect(computeMock).toHaveBeenCalled();
 
-      // flipMock과 computeMock을 초기화하고 window resize 이벤트를 발생시킨다.
-      flipMock.mockClear();
+      // computeMock을 초기화하고 window resize 이벤트를 발생시킨다.
       computeMock.mockClear();
       act(() => {
         globalThis.window.dispatchEvent(new Event("resize"));
       });
 
-      expect(flipMock).toHaveBeenCalled();
       expect(computeMock).toHaveBeenCalled();
 
-      // flipMock과 computeMock을 초기화하고 window scroll 이벤트를 발생시킨다.
-      flipMock.mockClear();
+      // computeMock을 초기화하고 window scroll 이벤트를 발생시킨다.
       computeMock.mockClear();
       act(() => {
         globalThis.window.dispatchEvent(new Event("scroll"));
       });
 
-      expect(flipMock).toHaveBeenCalled();
       expect(computeMock).toHaveBeenCalled();
     });
 
     it("should re-position the tooltip on trigger or content resize", () => {
-      // flipIfNeeded와 computePosition이 trigger나 content의 resize에도 적용되는지 테스트한다.
-      const flipMock = vi.fn();
-      const computeMock = vi
-        .fn()
-        .mockReturnValue({ x: 0, y: 0, shiftX: 0, shiftY: 0 });
-      vi.spyOn(updatePosition, "flipIfNeeded").mockImplementation(flipMock);
-      vi.spyOn(updatePosition, "computePosition").mockImplementation(
+      // computeFloatingPosition이 trigger나 content의 resize에도 적용되는지 테스트한다.
+      const computeMock = vi.fn().mockReturnValue({
+        placement: "bottom",
+        x: 0,
+        y: 0,
+        shiftX: 0,
+        shiftY: 0,
+      });
+      vi.spyOn(utils, "computeFloatingPosition").mockImplementation(
         computeMock,
       );
 
@@ -196,18 +195,15 @@ describe("Tooltip - options", () => {
 
       render(<TestComponent mode="always-open" position="bottom" />);
 
-      expect(flipMock).toHaveBeenCalled();
       expect(computeMock).toHaveBeenCalled();
 
-      // flipMock과 computeMock을 초기화하고 trigger 요소의 크기를 변경한다.
-      flipMock.mockClear();
+      // computeMock을 초기화하고 trigger 요소의 크기를 변경한다.
       computeMock.mockClear();
 
       act(() => {
         triggerResize?.();
       });
 
-      expect(flipMock).toHaveBeenCalled();
       expect(computeMock).toHaveBeenCalled();
     });
 

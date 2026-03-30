@@ -29,5 +29,12 @@ describe("Tooltip - aria", () => {
         null,
       );
     });
+
+    it("Tooltip.Arrow has aria-hidden=true", () => {
+      const { getByTestId } = render(<TestComponent mode="always-open" />);
+
+      const arrow = getByTestId("tooltip-arrow");
+      expect(arrow.getAttribute("aria-hidden")).toBe("true");
+    });
   });
 });
