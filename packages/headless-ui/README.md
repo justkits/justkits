@@ -29,6 +29,7 @@ import { Alert } from "@justkits/headless-ui";
 | 컴포넌트  | 상태   | 문서                                 |
 | --------- | ------ | ------------------------------------ |
 | `Alert`   | Stable | [docs/alert.md](./docs/alert.md)     |
+| `Popover` | Stable | [docs/popover.md](./docs/popover.md) |
 | `Tooltip` | Stable | [docs/tooltip.md](./docs/tooltip.md) |
 
 ---
