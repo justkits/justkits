@@ -42,7 +42,7 @@ export function Provider({
   const floatingRef = useRef<HTMLDivElement | null>(null);
   const tooltipId = useId();
 
-  const { placement, x, y, shiftX, shiftY } = useFloatingPosition(
+  const { container, arrow } = useFloatingPosition(
     triggerRef,
     floatingRef,
     position,
@@ -64,11 +64,8 @@ export function Provider({
       tooltipId,
       openDelay,
       closeDelay,
-      placement,
-      x,
-      y,
-      shiftX,
-      shiftY,
+      containerStyles: container,
+      arrowStyles: arrow,
       triggerRef,
       floatingRef,
     }),
@@ -81,11 +78,8 @@ export function Provider({
       tooltipId,
       openDelay,
       closeDelay,
-      placement,
-      x,
-      y,
-      shiftX,
-      shiftY,
+      container,
+      arrow,
     ],
   );
 
