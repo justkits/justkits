@@ -7,12 +7,14 @@ import { type SwipeDirection } from "@/core/touch/types";
 import { useSwipe } from "@/core/touch/useSwipe";
 import { ToastContext } from "./internals/contexts";
 
+const DEFAULT_SWIPE_DIRECTIONS: SwipeDirection[] = ["left", "right", "up"];
+
 type ToastProviderProps = {
   children: ReactNode;
   portal?: boolean;
   duration?: number | "infinite";
   isOpen?: boolean;
-  onOpenChange?: (open: boolean) => void | Promise<void>;
+  onOpenChange?: (open: boolean) => void;
   swipeDirection?: SwipeDirection[];
   swipeThreshold?: number;
 };
@@ -23,7 +25,7 @@ export function ToastProvider({
   duration = 5000,
   isOpen: controlledOpen,
   onOpenChange,
-  swipeDirection = ["left", "right", "up"],
+  swipeDirection = DEFAULT_SWIPE_DIRECTIONS,
   swipeThreshold = 50,
 }: Readonly<ToastProviderProps>) {
   const {
