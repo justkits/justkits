@@ -21,9 +21,6 @@
 
 ## Aria
 
-- ID
-  - [x] `Toast.Message`의 ID와 `Toast.Content`의 `aria-describedby`가 자동으로 연결된다.
-  - [x] `Toast.Message`가 없으면 `aria-describedby`는 설정하지 않는다.
 - Attributes
   - [x] `Toast.Content`가 `role="status"`, `aria-atomic="true"`, `aria-live="polite"`를 가진다.
   - [x] 배경 콘텐츠에 `inert`를 적용하지 않는다.
@@ -62,3 +59,4 @@
 - Async Close Actions
   - [x] 클릭 시 dialog가 닫히지 않고 pending 상태가 되며, 모든 `Toast.Close`가 비활성화 되고, resolve 되면 dialog가 자동으로 닫힌다.
   - [x] reject되면 dialog가 닫히지 않는다.
+  - [x] async close가 시작되면 자동 닫힘 타이머가 일시정지되고, reject되면 남은 시간부터 타이머가 재개된다.
