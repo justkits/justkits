@@ -1,5 +1,11 @@
 # @justkits/headless-ui
 
+## 0.3.0
+
+### Minor Changes
+
+- [#56](https://github.com/justkits/design-system/pull/56) [`289889e`](https://github.com/justkits/design-system/commit/289889eaba42b4e103adce208d91d4fd0f4bd858) Thanks [@justwon0307](https://github.com/justwon0307)! - Release the Toast Component!
+
 ## 0.2.2
 
 ### Patch Changes
