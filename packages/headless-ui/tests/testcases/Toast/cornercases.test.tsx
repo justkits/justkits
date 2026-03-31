@@ -1,12 +1,10 @@
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
 
-import { setupTimer, setupUnhandledRejection } from "../_setup";
+import { setupTimer } from "../_setup";
 import { swipe, TestComponent } from "./_setup";
 
 describe("Toast - corner cases", () => {
   describe("Async Close Actions", () => {
-    setupUnhandledRejection();
-
     it("stays open while pending and sets correct properties and closes on resolve", async () => {
       let resolvePromise!: () => void;
       const onClose = () =>
