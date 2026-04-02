@@ -1,5 +1,11 @@
 # @justkits/svg2tsx
 
+## 1.2.3
+
+### Patch Changes
+
+- [#70](https://github.com/justkits/design-system/pull/70) [`afb9a9d`](https://github.com/justkits/design-system/commit/afb9a9d20775baaea5102a12d2d5bf30edd31495) Thanks [@justwon0307](https://github.com/justwon0307)! - Save converted component files in given directory instead of appending 'components/'
+
 ## 1.2.2
 
 ### Patch Changes
