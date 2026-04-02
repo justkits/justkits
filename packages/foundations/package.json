@@ -12,8 +12,8 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
     },
     "./reset.css": "./dist/reset.css",
     "./theme.css": "./dist/theme.css"
@@ -36,8 +36,8 @@
   "license": "SEE LICENSE IN REPOSITORY",
   "scripts": {
     "prebuild": "rm -rf dist",
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
@@ -45,7 +45,6 @@
   },
   "devDependencies": {
     "@justkits/tsconfig": "workspace:*",
-    "tsup": "catalog:",
     "typescript": "catalog:"
   }
 }
