@@ -1,5 +1,11 @@
 # @justkits/headless-ui
 
+## 0.7.0
+
+### Minor Changes
+
+- [#82](https://github.com/justkits/design-system/pull/82) [`af1bba7`](https://github.com/justkits/design-system/commit/af1bba712fb9c1253032de0f688efcdae15be159) Thanks [@justwon0307](https://github.com/justwon0307)! - Release the new Modal component!
+
 ## 0.6.0
 
 ### Minor Changes
