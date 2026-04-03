@@ -10,6 +10,7 @@ export type { DividerProps } from "./Divider";
 
 // Compound Components
 export { Alert } from "./Alert";
+export { Modal } from "./Modal";
 export { Popover } from "./Popover";
 export { Toast } from "./Toast";
 export { Tooltip } from "./Tooltip";
