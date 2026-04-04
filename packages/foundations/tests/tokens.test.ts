@@ -74,27 +74,48 @@ describe("color tokens", () => {
 
 describe("spacing tokens", () => {
   it("spacingVariables has all required keys", () => {
-    const keys = ["xs", "sm", "md", "lg", "xl"] as const;
-    for (const key of keys) {
-      expect(sv[key]).toBeDefined();
+    const atomKeys = ["xs", "sm", "md", "lg", "xl"] as const;
+    const sectionKeys = ["sm", "lg"] as const;
+    const layoutKeys = ["sm", "lg"] as const;
+    for (const key of atomKeys) {
+      expect(sv.atoms[key]).toBeDefined();
+    }
+    for (const key of sectionKeys) {
+      expect(sv.sections[key]).toBeDefined();
+    }
+    for (const key of layoutKeys) {
+      expect(sv.layouts[key]).toBeDefined();
     }
   });
 
   it("spacingVariables values are plain strings (no var())", () => {
-    for (const value of Object.values(sv)) {
-      expect(value).not.toMatch(/^var\(/);
+    for (const section of Object.keys(sv) as Array<keyof typeof sv>) {
+      for (const key of Object.keys(sv[section]) as Array<
+        keyof (typeof sv)[typeof section]
+      >) {
+        expect(sv[section][key]).not.toMatch(/^var\(/);
+      }
     }
   });
 
   it("spacingCSSVariables values are wrapped in var()", () => {
-    for (const value of Object.values(scv)) {
-      expect(value).toMatch(/^var\(--/);
+    for (const section of Object.keys(scv) as Array<keyof typeof scv>) {
+      for (const key of Object.keys(scv[section]) as Array<
+        keyof (typeof scv)[typeof section]
+      >) {
+        expect(scv[section][key]).toMatch(/^var\(--/);
+        expect(scv[section][key]).toMatch(/\)$/);
+      }
     }
   });
 
   it("spacingCSSVariables wraps spacingVariables with var(--...)", () => {
-    for (const key of Object.keys(sv) as Array<keyof typeof sv>) {
-      expect(scv[key]).toBe(`var(--${sv[key]})`);
+    for (const section of Object.keys(sv) as Array<keyof typeof sv>) {
+      for (const key of Object.keys(sv[section]) as Array<
+        keyof (typeof sv)[typeof section]
+      >) {
+        expect(scv[section][key]).toBe(`var(--${sv[section][key]})`);
+      }
     }
   });
 });
