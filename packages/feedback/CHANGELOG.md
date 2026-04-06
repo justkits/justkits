@@ -1,5 +1,11 @@
 # @justkits/feedback
 
+## 1.0.2
+
+### Patch Changes
+
+- [#94](https://github.com/justkits/design-system/pull/94) [`224d277`](https://github.com/justkits/design-system/commit/224d2775703e232cc11a28522e58c67d668cac65) Thanks [@justwon0307](https://github.com/justwon0307)! - Replace random id generating logic from crypto to Date and Math randoms.
+
 ## 1.0.1
 
 ### Patch Changes
