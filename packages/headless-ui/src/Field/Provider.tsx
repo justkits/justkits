@@ -1,13 +1,18 @@
 import { type ReactNode, useId, useMemo, useState } from "react";
 
-import { FormFieldContext, useForm } from "./internals/contexts";
+import { FormFieldContext } from "./internals/contexts";
 
-type FieldProps = {
+export type FieldProps = {
   children: ReactNode;
+  required?: boolean;
+  disabled?: boolean;
 };
 
-export function FormField({ children }: Readonly<FieldProps>) {
-  useForm();
+export function Provider({
+  children,
+  required = false,
+  disabled = false,
+}: Readonly<FieldProps>) {
   const controlId = useId();
   const [descriptionId, setDescriptionId] = useState<string | undefined>(
     undefined,
@@ -16,13 +21,15 @@ export function FormField({ children }: Readonly<FieldProps>) {
 
   const contextValue = useMemo(
     () => ({
+      disabled,
+      required,
       controlId,
       descriptionId,
       setDescriptionId,
       errorId,
       setErrorId,
     }),
-    [controlId, descriptionId, errorId],
+    [disabled, required, controlId, descriptionId, errorId],
   );
 
   return (
