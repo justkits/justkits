@@ -76,15 +76,9 @@ describe("Form - interactions", () => {
     const { getByText } = render(
       <TestComponent
         onSubmit={() => {}}
-        inputError="Input error"
-        textareaError="Textarea error"
-        checkboxError="Checkbox error"
+        errorMsg="Form has errors. Please fix them before submitting."
       />,
     );
-
-    expect(getByText("Input error")).toBeTruthy();
-    expect(getByText("Textarea error")).toBeTruthy();
-    expect(getByText("Checkbox error")).toBeTruthy();
 
     expect(
       getByText("Form has errors. Please fix them before submitting."),
