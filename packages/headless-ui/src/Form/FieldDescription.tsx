@@ -24,7 +24,7 @@ type FormDescriptionProps = (NormalDescriptionProps | AsChildDescriptionProps) &
 export function FieldDescription({
   asChild = false,
   children,
-  ...props
+  ...rest
 }: FormDescriptionProps) {
   const id = useId();
   const { setDescriptionId } = useField(
@@ -38,14 +38,14 @@ export function FieldDescription({
 
   if (asChild) {
     return (
-      <AsChild {...props} id={id}>
+      <AsChild {...rest} id={id}>
         {children}
       </AsChild>
     );
   }
 
   return (
-    <p {...props} id={id}>
+    <p {...rest} id={id}>
       {children}
     </p>
   );

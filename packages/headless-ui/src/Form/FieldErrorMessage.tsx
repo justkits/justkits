@@ -27,7 +27,7 @@ type FieldErrorMessageProps = (NormalMessageProps | AsChildMessageProps) &
 export function FieldErrorMessage({
   asChild = false,
   children,
-  ...props
+  ...rest
 }: FieldErrorMessageProps) {
   const id = useId();
   const { setErrorId } = useField(
@@ -41,14 +41,14 @@ export function FieldErrorMessage({
 
   if (asChild) {
     return (
-      <AsChild {...props} id={id} role="alert" aria-live="polite">
+      <AsChild {...rest} id={id} role="alert" aria-live="polite">
         {children}
       </AsChild>
     );
   }
 
   return (
-    <span {...props} id={id} role="alert" aria-live="polite">
+    <span {...rest} id={id} role="alert" aria-live="polite">
       {children}
     </span>
   );
