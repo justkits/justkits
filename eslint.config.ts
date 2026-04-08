@@ -1,8 +1,8 @@
 import { defineConfig } from "eslint/config";
-import { baseEslintConfig } from "@justkits/eslint-config/base";
+import { reactPackageEslintConfig } from "@justkits/eslint-config/react";
 
 export default defineConfig([
   {
-    extends: [baseEslintConfig],
+    extends: [reactPackageEslintConfig],
   },
 ]);
