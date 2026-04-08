@@ -4,10 +4,9 @@
   "type": "module",
   "private": true,
   "exports": {
-    ".": {
-      "types": "./index.d.ts",
-      "default": "./index.js"
-    }
+    "./base": "./base.js",
+    "./next": "./next.js",
+    "./react": "./react.js"
   },
   "peerDependencies": {
     "eslint": "catalog:"
