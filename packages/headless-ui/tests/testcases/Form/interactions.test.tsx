@@ -4,6 +4,8 @@ import userEvent from "@testing-library/user-event";
 import { TestComponent } from "./_setup";
 
 describe("Form - interactions", () => {
+  const user = userEvent.setup();
+
   it("calls onSubmit when the form is submitted (Submit click)", () => {
     const onSubmit = vi.fn();
     const { getByTestId, getByText } = render(
@@ -109,9 +111,9 @@ describe("Form - interactions", () => {
       <TestComponent onSubmit={onSubmit} disabled />,
     );
 
-    userEvent.type(getByTestId("input-field"), "Test");
-    userEvent.type(getByTestId("textarea-field"), "Test");
-    userEvent.click(getByTestId("checkbox-field"));
+    user.type(getByTestId("input-field"), "Test");
+    user.type(getByTestId("textarea-field"), "Test");
+    user.click(getByTestId("checkbox-field"));
 
     fireEvent.click(getByText("Submit"));
 
