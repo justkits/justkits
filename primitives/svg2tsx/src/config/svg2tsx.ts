@@ -40,19 +40,3 @@ export const defaultConfig: Required<Svg2tsxConfig> = {
   srcDir: "assets",
   outDir: "src",
 };
-
-// store
-let config: Required<Svg2tsxConfig>;
-
-export function setConfig(userConfig: Svg2tsxConfig): void {
-  config = { ...defaultConfig, ...userConfig };
-}
-
-export function getConfig(): Required<Svg2tsxConfig> {
-  if (!config) {
-    throw new Error(
-      "Configuration has not been set. Please call setConfig() first.",
-    );
-  }
-  return config;
-}
