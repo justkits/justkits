@@ -1,4 +1,4 @@
-import { resolve } from "node:path";
+import { relative, resolve } from "node:path";
 import fg from "fast-glob";
 
 import { ConfigManager } from "@/config/manager";
@@ -23,6 +23,7 @@ export class Converter {
   }
 
   public async scanAssets() {
+    this.validateSrcDir();
     await this.loadSvgs();
     this.validateSvgFiles();
   }
@@ -33,6 +34,17 @@ export class Converter {
     });
     this.svgFiles = svgFiles;
     this.loaded = true;
+  }
+
+  private validateSrcDir() {
+    const srcDir = ConfigManager.config.srcDir;
+    const rel = relative(process.cwd(), srcDir);
+
+    if (!rel || rel.startsWith("..")) {
+      throw new Error(
+        `Invalid srcDir: "${srcDir}". srcDir must be a subdirectory of the current working directory. Please specify a valid source directory within the project.`,
+      );
+    }
   }
 
   private validateSvgFiles() {
@@ -77,16 +89,10 @@ export class Converter {
         "SVG files have not been loaded. Call scanAssets() first.",
       );
     }
-    if (this.svgFiles.length === 0) {
-      throw new Error("No SVG files to process.");
-    }
   }
 
   private async getIconMetadata(svgPath: string): Promise<IconMetadata> {
-    const { name, content } = await this.validator.validate(
-      svgPath,
-      this.dirType,
-    );
+    const { name, content } = await this.validator.validate(svgPath);
 
     const componentName = `${kebabToPascal(name)}${ConfigManager.config.suffix}`;
     const icon = {
