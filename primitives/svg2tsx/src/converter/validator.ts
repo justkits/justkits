@@ -15,9 +15,8 @@ export class Validator {
 
   public async validate(
     relPath: string,
-    dirType: "family" | "flat",
   ): Promise<{ name: string; content: string }> {
-    this.validatePath(relPath, dirType);
+    this.validatePath(relPath);
     const name = this.validateName(relPath);
     const content = await this.readContent(relPath);
     const hash = this.validateContentHash(relPath, content);
@@ -28,28 +27,13 @@ export class Validator {
     return { name, content };
   }
 
-  private validatePath(relPath: string, dirType: "family" | "flat"): void {
+  private validatePath(relPath: string): void {
     const slashCount = (relPath.match(/\//g) || []).length;
 
     if (slashCount > 1) {
       throw new Error(
         `Invalid file path: "${relPath}". ` +
           `Please move the file to the correct location.`,
-      );
-    }
-
-    const isFamily = slashCount === 1;
-
-    if (dirType === "family" && !isFamily) {
-      throw new Error(
-        `Invalid file structure detected: "${relPath}" is not inside a family folder. ` +
-          `Expected a family structure where icons are organized in subfolders.`,
-      );
-    }
-    if (dirType === "flat" && isFamily) {
-      throw new Error(
-        `Invalid file structure detected: "${relPath}" is inside a family folder. ` +
-          `Expected a flat structure where all icons are in the same directory.`,
       );
     }
   }
