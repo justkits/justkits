@@ -12,6 +12,7 @@ export default defineConfig({
       exclude: [
         "**/index.ts",
         "**/cli.ts",
+        "**/scanner/watch.ts",
         "**/*/tests/*",
         "**/dist/*",
         "**/node_modules/*",
