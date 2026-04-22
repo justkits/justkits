@@ -152,7 +152,14 @@ importers:
         specifier: ^1.5.3
         version: 1.5.3(rollup@4.60.2)
 
-  design/primitives/headless-ui: {}
+  design/primitives/headless-ui:
+    dependencies:
+      react:
+        specifier: ^19
+        version: 19.2.4
+      react-dom:
+        specifier: ^19
+        version: 19.2.4(react@19.2.4)
 
   design/primitives/svg2tsx:
     dependencies:
