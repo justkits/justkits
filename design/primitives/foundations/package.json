@@ -1,7 +1,7 @@
 {
   "name": "@justkits/design-foundations",
   "description": "JustKits Design Primitives - Design Foundations",
-  "version": "0.0.3",
+  "version": "0.0.0",
   "private": false,
   "type": "module",
   "keywords": [
@@ -13,22 +13,15 @@
     "typescript"
   ],
   "exports": {
-    "./queries": {
-      "types": "./dist/queries.d.mts",
-      "import": "./dist/queries.mjs"
+    "./*": {
+      "types": "./dist/*/index.d.mts",
+      "import": "./dist/*/index.mjs"
     },
-    "./tokens": {
-      "types": "./dist/tokens.d.mts",
-      "import": "./dist/tokens.mjs"
+    "./colors/scheme": {
+      "types": "./dist/colors/scheme.d.mts",
+      "import": "./dist/colors/scheme.mjs"
     },
-    "./utils": {
-      "types": "./dist/utils.d.mts",
-      "import": "./dist/utils.mjs"
-    },
-    "./vanilla-reset.css": {
-      "types": "./dist/vanilla-reset.css.d.mts",
-      "import": "./dist/vanilla-reset.css.mjs"
-    },
+    "./color-scheme.css": "./dist/color-scheme.css",
     "./reset.css": "./dist/reset.css"
   },
   "author": "JustWon",
@@ -52,8 +45,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },
-  "devDependencies": {
-    "@vanilla-extract/css": "^1.20.1",
-    "@vanilla-extract/rollup-plugin": "^1.5.3"
+  "peerDependencies": {
+    "react": "^19"
   }
 }

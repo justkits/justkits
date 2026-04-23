@@ -1,8 +1,8 @@
 import {
   createBreakpointQueries,
   createSimpleBreakpointQueries,
-} from "@/breakpoint/utils";
-import { colorWithOpacity } from "@/color/utils";
+} from "@/breakpoints/utils";
+import { colorWithOpacity } from "@/colors/utils";
 
 describe("utils", () => {
   it("createSimpleBreakpointQueries should return simple breakpoint queries", () => {
