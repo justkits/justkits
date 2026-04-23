@@ -2,8 +2,8 @@ import {
   breakpointCSSVariables,
   breakpointVariables,
   defaultBreakpoints,
-} from "@/breakpoint/variables";
-import { colorCSSVariables, colorVariables } from "@/color/variables";
+} from "@/breakpoints/variables";
+import { colorCSSVariables, colorVariables } from "@/colors/variables";
 import {
   elevationCSSVariables,
   elevationVariables,
