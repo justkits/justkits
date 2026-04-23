@@ -11,8 +11,8 @@ import { STORAGE_KEY } from "./storage";
 import type { ColorMode, ColorScheme } from "../types";
 
 interface ColorSchemeProviderProps {
-  initialMode?: ColorMode;
   children: ReactNode;
+  initialMode?: ColorMode;
 }
 
 export function ColorSchemeProvider({
@@ -26,18 +26,23 @@ export function ColorSchemeProvider({
       return stored;
     return initialMode;
   });
-
   const [systemIsDark, setSystemIsDark] = useState(
     () =>
-      globalThis.window?.matchMedia("(prefers-color-scheme: dark)").matches ??
-      false,
+      globalThis.window?.matchMedia?.("(prefers-color-scheme: dark)")
+        ?.matches ?? false,
   );
 
   useEffect(() => {
-    const query = globalThis.window?.matchMedia("(prefers-color-scheme: dark)");
+    const query = globalThis.window?.matchMedia?.(
+      "(prefers-color-scheme: dark)",
+    );
+
     if (!query) return;
+
     const listener = (e: MediaQueryListEvent) => setSystemIsDark(e.matches);
+
     query.addEventListener("change", listener);
+
     return () => query.removeEventListener("change", listener);
   }, []);
 
