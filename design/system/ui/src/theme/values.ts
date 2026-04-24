@@ -10,16 +10,16 @@ const baseColors = {
   WHITE: {
     light: "#F9FAFB",
     medium: "#F5F5F9",
-    dark: "#E3E5E8",
+    dark: "#BEC0C2",
   },
   BLACK: {
-    light: "#3F4146",
+    light: "#505053",
     medium: "#1F2125",
     dark: "#0A0A0A",
   },
   BLUE: {
     light: "#3B82F6",
-    dark: "#1E40AF",
+    dark: "#1647e8",
   },
   GOLD: "#A78C29",
   SILVER: "#888888",
@@ -84,14 +84,14 @@ export const themeTypography: TypographyTokens = {
 };
 
 export const themeTexts: TextTokens = {
-  hero: `${themeTypography.fontWeight.bold} ${themeTypography.fontSize.headingLarge}/${themeTypography.lineHeight.headingLarge} ${themeTypography.fontFamily.brand}`,
-  titleLarge: `${themeTypography.fontWeight.bold} ${themeTypography.fontSize.headingMedium}/${themeTypography.lineHeight.headingMedium} ${themeTypography.fontFamily.normal}`,
-  titleMedium: `${themeTypography.fontWeight.bold} ${themeTypography.fontSize.headingSmall}/${themeTypography.lineHeight.headingSmall} ${themeTypography.fontFamily.normal}`,
-  titleSmall: `${themeTypography.fontWeight.bold} ${themeTypography.fontSize.bodyLarge}/${themeTypography.lineHeight.bodyLarge} ${themeTypography.fontFamily.normal}`,
+  hero: `${themeTypography.fontWeight.bold} 3rem/3.6rem ${themeTypography.fontFamily.brand}`,
+  titleLarge: `${themeTypography.fontWeight.bold} ${themeTypography.fontSize.headingLarge}/${themeTypography.lineHeight.headingLarge} ${themeTypography.fontFamily.normal}`,
+  titleMedium: `${themeTypography.fontWeight.bold} ${themeTypography.fontSize.headingMedium}/${themeTypography.lineHeight.headingMedium} ${themeTypography.fontFamily.normal}`,
+  titleSmall: `${themeTypography.fontWeight.bold} ${themeTypography.fontSize.headingSmall}/${themeTypography.lineHeight.headingSmall} ${themeTypography.fontFamily.normal}`,
   bodyLarge: `${themeTypography.fontWeight.regular} ${themeTypography.fontSize.bodyLarge}/${themeTypography.lineHeight.bodyLarge} ${themeTypography.fontFamily.normal}`,
   bodyMedium: `${themeTypography.fontWeight.regular} ${themeTypography.fontSize.bodyMedium}/${themeTypography.lineHeight.bodyMedium} ${themeTypography.fontFamily.normal}`,
   bodySmall: `${themeTypography.fontWeight.regular} ${themeTypography.fontSize.bodySmall}/${themeTypography.lineHeight.bodySmall} ${themeTypography.fontFamily.normal}`,
-  description: `${themeTypography.fontWeight.regular} ${themeTypography.fontSize.bodySmall}/${themeTypography.lineHeight.bodySmall} ${themeTypography.fontFamily.normal}`,
+  description: `${themeTypography.fontWeight.regular} 0.75rem/1rem ${themeTypography.fontFamily.normal}`,
   code: `${themeTypography.fontWeight.regular} ${themeTypography.fontSize.bodySmall}/${themeTypography.lineHeight.bodySmall} ${themeTypography.fontFamily.code}`,
   quote: `${themeTypography.fontWeight.regular} ${themeTypography.fontSize.bodyLarge}/${themeTypography.lineHeight.bodyLarge} ${themeTypography.fontFamily.quote}`,
 };
