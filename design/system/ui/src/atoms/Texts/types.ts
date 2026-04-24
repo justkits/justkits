@@ -28,6 +28,7 @@ export type TextProps<T extends TextVariants> = {
   variant: T;
   as?: keyof TagOptions;
   className?: string;
+  style?: React.CSSProperties;
 } & (
   | {
       text: string;
