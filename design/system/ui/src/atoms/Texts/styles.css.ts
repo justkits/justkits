@@ -3,9 +3,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import { tokens } from "@/theme/tokens.css";
 
 const text = recipe({
-  base: {
-    color: tokens.colors.text,
-  },
+  base: {},
   variants: {
     variant: {
       hero: { font: tokens.font.hero, color: tokens.colors.primary },

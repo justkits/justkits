@@ -8,23 +8,21 @@ import { styles } from "./styles.css";
 
 type Props = {
   variant?: "primary" | "subtle" | "outline" | "transparent";
-  size?: "small" | "medium" | "large" | "fill";
 } & ButtonProps;
 
 export function Button({
   children,
   className,
   variant = "transparent",
-  size = "medium",
   isLoading = false,
   ...rest
 }: Readonly<Props>) {
   return (
     <HeadlessButton
       {...rest}
-      className={clsx(styles.button({ variant, size }), className)}
+      className={clsx(styles.button({ variant }), className)}
     >
-      {isLoading ? <div className={styles.spinner({ size })} /> : children}
+      {isLoading ? <div className={styles.spinner} /> : children}
     </HeadlessButton>
   );
 }

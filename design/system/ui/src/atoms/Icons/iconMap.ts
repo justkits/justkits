@@ -3,18 +3,21 @@ import type { IconProps } from "@justkits/svg2tsx";
 
 import { ChevronDown } from "./components/ChevronDown";
 import { ChevronRight } from "./components/ChevronRight";
+import { ColorTheme } from "./components/ColorTheme";
 import { SidebarClose } from "./components/SidebarClose";
 import { SidebarOpen } from "./components/SidebarOpen";
 
 export type IconName =
   | "chevron-down"
   | "chevron-right"
+  | "color-theme"
   | "sidebar-close"
   | "sidebar-open";
 
 export const iconMap: Record<IconName, ComponentType<IconProps>> = {
   "chevron-down": ChevronDown,
   "chevron-right": ChevronRight,
+  "color-theme": ColorTheme,
   "sidebar-close": SidebarClose,
   "sidebar-open": SidebarOpen,
 };
