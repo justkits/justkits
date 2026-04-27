@@ -38,7 +38,7 @@ export function CollapsibleContent({
       id={contentId}
       hidden={!isOpen}
       className={className}
-      style={style}
+      style={{ ...style, display: isOpen ? undefined : "none" }}
       aria-labelledby={role === "region" ? toggleId : undefined}
       data-state={isOpen ? "open" : "closed"}
     >
