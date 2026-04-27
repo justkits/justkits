@@ -2,13 +2,13 @@ import { type ButtonHTMLAttributes } from "react";
 
 import { AsChild } from "@/core/asChild";
 
-export type ButtonProps = {
+export interface ButtonProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "type" | "aria-disabled" | "aria-busy" | "role"
+> {
   isLoading?: boolean;
   asChild?: boolean;
-} & Omit<
-  ButtonHTMLAttributes<HTMLButtonElement>,
-  "type" | "aria-disabled" | "aria-busy"
->;
+}
 
 export function Button({
   children,
@@ -30,6 +30,7 @@ export function Button({
         disabled={isDisabled}
         aria-disabled={isDisabled}
         aria-busy={isLoading}
+        role="button"
       >
         {children}
       </AsChild>
