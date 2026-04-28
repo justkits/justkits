@@ -10,8 +10,6 @@ catalog:
   "@vanilla-extract/recipes": "0.5.7"
   "@vanilla-extract/rollup-plugin": "1.5.3"
   clsx: "2.1.1"
-  react: "19.2.5"
-  react-dom: "19.2.5"
 
 ignoredBuiltDependencies:
   - sharp

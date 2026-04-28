@@ -16,8 +16,8 @@
     "@vanilla-extract/recipes": "catalog:",
     "clsx": "catalog:",
     "next": "16.2.3",
-    "react": "catalog:",
-    "react-dom": "catalog:"
+    "react": "19.2.5",
+    "react-dom": "19.2.5"
   },
   "devDependencies": {
     "@vanilla-extract/next-plugin": "^2.5.1",
