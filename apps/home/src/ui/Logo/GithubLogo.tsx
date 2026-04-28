@@ -1,8 +1,6 @@
-import type { SVGProps } from "react";
-
 type Props = {
   size?: number;
-} & SVGProps<SVGSVGElement>;
+} & React.SVGProps<SVGSVGElement>;
 
 export function GithubLogo({ size = 24, ...props }: Readonly<Props>) {
   return (

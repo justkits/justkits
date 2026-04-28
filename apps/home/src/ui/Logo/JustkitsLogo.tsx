@@ -14,12 +14,12 @@ export function JustkitsLogo({
 }: Readonly<Props>) {
   if (variant === "text") {
     return (
-      <span className={styles.logo}>
+      <span className={styles.logo} style={{ gap: 0.5 * size }}>
         <Logo {...props} size={size} />
         <Text
           variant="hero"
           style={{
-            marginTop: 0.1 * size,
+            marginTop: 0.15 * size,
             fontSize: size,
             lineHeight: 1.2 * size,
           }}
