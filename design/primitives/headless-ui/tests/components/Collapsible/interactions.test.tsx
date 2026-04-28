@@ -85,13 +85,16 @@ describe("Collapsible - interactions", () => {
 
     // 초기에는 콘텐츠가 숨겨져 있어야 한다.
     expect(content).property("hidden", true);
+    expect(content.style.display).toBe("none");
 
     fireEvent.click(toggle);
     // 토글을 클릭하면 콘텐츠가 보여야 한다.
     expect(content).property("hidden", false);
+    expect(content.style.display).toBe("");
 
     fireEvent.click(toggle);
     // 다시 클릭하면 콘텐츠가 숨겨져야 한다.
     expect(content).property("hidden", true);
+    expect(content.style.display).toBe("none");
   });
 });
