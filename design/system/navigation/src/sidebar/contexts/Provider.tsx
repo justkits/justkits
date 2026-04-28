@@ -2,11 +2,20 @@ import { useCallback, useId, useMemo, useRef, useState } from "react";
 
 import { InternalContext, SidebarContext } from "./sidebar";
 
-export interface SidebarProps {
+export type SidebarProps = {
   children: React.ReactNode;
-}
+  width?: number;
+} & (
+  | { scope?: "app"; headerHeight?: never }
+  | { scope?: "page"; headerHeight: number }
+);
 
-export function SidebarProvider({ children }: Readonly<SidebarProps>) {
+export function SidebarProvider({
+  children,
+  scope = "app",
+  headerHeight = 0,
+  width = 280,
+}: Readonly<SidebarProps>) {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const isMountedRef = useRef<boolean>(false);
@@ -47,11 +56,22 @@ export function SidebarProvider({ children }: Readonly<SidebarProps>) {
 
   const contextValue = useMemo(
     () => ({
+      scope,
+      widthExpanded: width,
+      headerHeight,
       isExpanded: isExpanded && isMounted,
       toggleSidebar,
       contentId,
     }),
-    [isExpanded, isMounted, toggleSidebar, contentId],
+    [
+      scope,
+      width,
+      headerHeight,
+      isExpanded,
+      isMounted,
+      toggleSidebar,
+      contentId,
+    ],
   );
 
   const internalValue = useMemo(

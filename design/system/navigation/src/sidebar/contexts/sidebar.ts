@@ -1,6 +1,9 @@
 import { createContext, useContext } from "react";
 
 type SidebarContextValue = {
+  scope: "app" | "page";
+  widthExpanded: number;
+  headerHeight: number;
   isExpanded: boolean;
   toggleSidebar: () => void;
   contentId: string;
