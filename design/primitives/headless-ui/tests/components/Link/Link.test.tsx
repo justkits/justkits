@@ -27,7 +27,7 @@ describe("Link", () => {
 
   it("opens in a new tab when newtab prop is true", () => {
     const { getByText } = render(
-      <Link href="https://example.com" newtab>
+      <Link href="https://example.com" external>
         External Link
       </Link>,
     );
@@ -51,7 +51,7 @@ describe("Link", () => {
 
   it("does not open in a new tab when newtab prop is false even for external links", () => {
     const { getByText } = render(
-      <Link href="https://example.com" newtab={false}>
+      <Link href="https://example.com" external={false}>
         External Link
       </Link>,
     );
@@ -131,7 +131,7 @@ describe("Link", () => {
 
   it("handles asChild prop with newtab, disabled and active correctly", () => {
     const { getByText } = render(
-      <Link href="/test" asChild newtab disabled active>
+      <Link href="/test" asChild external disabled active>
         <button>Button Link</button>
       </Link>,
     );
