@@ -5,7 +5,7 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": {
+    "./sidebar": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.mjs"
     }
@@ -18,11 +18,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@justkits/headless-ui": "workspace:*",
-    "@vanilla-extract/css": "catalog:",
-    "@vanilla-extract/recipes": "catalog:",
-    "@vanilla-extract/rollup-plugin": "catalog:",
-    "clsx": "catalog:"
+    "@justkits/headless-ui": "workspace:*"
   },
   "peerDependencies": {
     "react": "^19",
