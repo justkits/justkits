@@ -1,20 +1,11 @@
 import { AsChild } from "@/core/asChild";
-
-export interface LinkProps extends Omit<
-  React.AnchorHTMLAttributes<HTMLAnchorElement>,
-  "target" | "rel" | "aria-disabled" | "aria-current"
-> {
-  asChild?: boolean;
-  disabled?: boolean;
-  active?: boolean;
-  newtab?: boolean;
-}
+import type { LinkProps } from "./types";
 
 export function Link({
   children,
   href,
   onClick: _onClick,
-  newtab,
+  external,
   active = false,
   disabled = false,
   asChild = false,
@@ -22,7 +13,7 @@ export function Link({
 }: Readonly<LinkProps>) {
   const isExternal =
     href?.startsWith("http://") || href?.startsWith("https://");
-  const isNewTab = newtab || (isExternal && newtab !== false);
+  const isNewTab = external || (isExternal && external !== false);
 
   const onClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (disabled) {
