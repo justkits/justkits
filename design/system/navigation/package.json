@@ -18,7 +18,11 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@justkits/headless-ui": "workspace:*"
+    "@justkits/headless-ui": "workspace:*",
+    "@vanilla-extract/css": "catalog:",
+    "@vanilla-extract/recipes": "catalog:",
+    "@vanilla-extract/rollup-plugin": "catalog:",
+    "clsx": "catalog:"
   },
   "peerDependencies": {
     "react": "^19",
