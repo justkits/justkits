@@ -1,5 +1,5 @@
 import type { IconProps } from "@justkits/svg2tsx";
-export function SidebarOpen({ size = 16, ...props }: Readonly<IconProps>) {
+export function Sidebar({ size = 16, ...props }: Readonly<IconProps>) {
   return (
     <svg
       {...props}
@@ -14,14 +14,7 @@ export function SidebarOpen({ size = 16, ...props }: Readonly<IconProps>) {
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2}
-        d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2"
-      />
-      <path
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M9 3v18m5-12 3 3-3 3"
+        d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2M9 3v18"
       />
     </svg>
   );

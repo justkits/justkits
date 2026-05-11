@@ -1,5 +1,5 @@
 import type { IconProps } from "@justkits/svg2tsx";
-export function SidebarClose({ size = 16, ...props }: Readonly<IconProps>) {
+export function SidebarArrow({ size = 16, ...props }: Readonly<IconProps>) {
   return (
     <svg
       {...props}
@@ -21,7 +21,7 @@ export function SidebarClose({ size = 16, ...props }: Readonly<IconProps>) {
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2}
-        d="M9 3v18m7-6-3-3 3-3"
+        d="M9 3v18m5-12 3 3-3 3"
       />
     </svg>
   );
