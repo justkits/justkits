@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { SidebarContext } from "./_contexts";
+import { ContentContext, SidebarContext } from "./_contexts";
 
 export interface SidebarContentProps extends Omit<
   React.HTMLAttributes<HTMLElement>,
@@ -25,12 +25,14 @@ export function SidebarContent({
   const Component = scope === "app" ? "aside" : "div";
 
   return (
-    <Component
-      {...rest}
-      id={contentId}
-      data-state={isExpanded ? "expanded" : "collapsed"}
-    >
-      {children}
-    </Component>
+    <ContentContext.Provider value={true}>
+      <Component
+        {...rest}
+        id={contentId}
+        data-state={isExpanded ? "expanded" : "collapsed"}
+      >
+        {children}
+      </Component>
+    </ContentContext.Provider>
   );
 }

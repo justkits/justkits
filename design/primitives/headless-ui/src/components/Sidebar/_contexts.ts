@@ -8,3 +8,6 @@ type SidebarContextValue = {
 };
 
 export const SidebarContext = createContext<SidebarContextValue | null>(null);
+
+export const ContentContext = createContext<boolean>(false);
+export const NavContext = createContext<boolean>(false);
