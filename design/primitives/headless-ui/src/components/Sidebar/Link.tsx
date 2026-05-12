@@ -1,6 +1,5 @@
 import { useContext } from "react";
 
-import { zIndex } from "@/core/zIndex";
 import { NavContext } from "./_contexts";
 
 export interface SidebarLinkProps extends Omit<
@@ -62,7 +61,6 @@ export function SidebarLink({
           position: "absolute",
           inset: 0,
           padding: 0,
-          zIndex: zIndex.hidden,
         }}
       />
     </div>
