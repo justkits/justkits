@@ -1,0 +1,34 @@
+{
+  "name": "@justkits/icons",
+  "description": "JustKits Design System - Icons",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "keywords": [
+    "icons",
+    "svg",
+    "react",
+    "typescript"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "generate": "svg2tsx && prettier --write ./src/"
+  },
+  "devDependencies": {
+    "@justkits/svg2tsx": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19"
+  }
+}
