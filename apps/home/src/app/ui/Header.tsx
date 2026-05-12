@@ -1,14 +1,13 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Link } from "@justkits/ui/Buttons";
-import { NavTabs, type Tab } from "@justkits/ui/Tabs";
+import { Link, TabLink } from "@justkits/ui/Buttons";
 import { Text } from "@justkits/ui/Texts";
 
 import { styles } from "./styles.css";
 
 export function Header() {
-  const pages: Tab[] = [
+  const pages = [
     { label: "Primitives", href: "/primitives" },
     { label: "Design System", href: "/design-system" },
     { label: "Colors", href: "/colors" },
@@ -22,7 +21,20 @@ export function Header() {
           <JustkitsLogo />
         </Link>
       </div>
-      <NavTabs tabs={pages} pathname={pathname ?? undefined} />
+      <nav
+        className={styles.tabs}
+        role="navigation"
+        aria-label="Main Tab Navigation"
+      >
+        {pages.map((page) => (
+          <TabLink
+            key={page.href}
+            label={page.label}
+            href={page.href}
+            active={pathname?.startsWith(page.href)}
+          />
+        ))}
+      </nav>
       <div className={styles.headerPanel}>
         <Link
           href="https://github.com/justkits/justkits"

@@ -22,6 +22,15 @@ const headerPanel = style({
   gap: tokens.spacing.md,
 });
 
+const tabs = style({
+  flex: 1,
+  display: "flex",
+  justifyContent: "flex-start",
+  padding: `0 ${tokens.spacing.layoutSmall}`,
+  gap: tokens.spacing.xl,
+  height: "100%",
+});
+
 const homeLink = style({
   padding: 0,
   borderRadius: tokens.radius.sm,
@@ -43,4 +52,11 @@ const justkitsText = style({
   lineHeight: tokens.typography.lineHeight.headingMedium,
 });
 
-export const styles = { header, headerPanel, homeLink, justkits, justkitsText };
+export const styles = {
+  header,
+  headerPanel,
+  tabs,
+  homeLink,
+  justkits,
+  justkitsText,
+};
