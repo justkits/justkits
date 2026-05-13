@@ -53,6 +53,7 @@
   "devDependencies": {
     "@justkits/design-foundations": "workspace:*",
     "@justkits/headless-ui": "workspace:*",
+    "@justkits/icons": "workspace:*",
     "@justkits/svg2tsx": "workspace:*",
     "@vanilla-extract/css": "catalog:",
     "@vanilla-extract/dynamic": "^2.1.5",
