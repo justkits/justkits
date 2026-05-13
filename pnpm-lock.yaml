@@ -88,7 +88,7 @@ importers:
         version: link:../../packages/docs
       '@justkits/ui':
         specifier: workspace:*
-        version: link:../../design/system/ui
+        version: link:../../design-system/ui
       '@vanilla-extract/css':
         specifier: 'catalog:'
         version: 1.20.1
@@ -165,15 +165,7 @@ importers:
         specifier: ^29.1.1
         version: 29.1.1
 
-  design/primitives/alert: {}
-
-  design/primitives/foundations:
-    dependencies:
-      react:
-        specifier: ^19
-        version: 19.2.6
-
-  design/primitives/headless-ui:
+  design-system/components/icons:
     dependencies:
       react:
         specifier: ^19
@@ -181,8 +173,12 @@ importers:
       react-dom:
         specifier: ^19
         version: 19.2.6(react@19.2.6)
+    devDependencies:
+      '@justkits/svg2tsx':
+        specifier: workspace:*
+        version: link:../../primitives/svg2tsx
 
-  design/primitives/svg2tsx:
+  design-system/primitives/svg2tsx:
     dependencies:
       jiti:
         specifier: ^2.7.0
@@ -210,9 +206,7 @@ importers:
         specifier: ^7.3.0
         version: 7.3.0
 
-  design/primitives/toast: {}
-
-  design/system/ui:
+  design-system/ui:
     dependencies:
       react:
         specifier: ^19
@@ -223,13 +217,16 @@ importers:
     devDependencies:
       '@justkits/design-foundations':
         specifier: workspace:*
-        version: link:../../primitives/foundations
+        version: link:../../design/primitives/foundations
       '@justkits/headless-ui':
         specifier: workspace:*
-        version: link:../../primitives/headless-ui
+        version: link:../../design/primitives/headless-ui
+      '@justkits/icons':
+        specifier: workspace:*
+        version: link:../components/icons
       '@justkits/svg2tsx':
         specifier: workspace:*
-        version: link:../../primitives/svg2tsx
+        version: link:../primitives/svg2tsx
       '@vanilla-extract/css':
         specifier: 'catalog:'
         version: 1.20.1
@@ -245,6 +242,25 @@ importers:
       clsx:
         specifier: 'catalog:'
         version: 2.1.1
+
+  design/primitives/alert: {}
+
+  design/primitives/foundations:
+    dependencies:
+      react:
+        specifier: ^19
+        version: 19.2.6
+
+  design/primitives/headless-ui:
+    dependencies:
+      react:
+        specifier: ^19
+        version: 19.2.6
+      react-dom:
+        specifier: ^19
+        version: 19.2.6(react@19.2.6)
+
+  design/primitives/toast: {}
 
   packages/docs:
     dependencies:

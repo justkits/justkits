@@ -4,5 +4,5 @@ export default defineConfig({
   mode: "facade",
   facadeName: "AppIcon",
   srcDir: "assets",
-  outDir: "src/atoms/Icons",
+  outDir: "src",
 });

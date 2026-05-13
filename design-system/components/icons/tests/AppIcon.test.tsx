@@ -1,9 +1,7 @@
 import { render } from "@testing-library/react";
 
-import { AppIcon } from "@/atoms/Icons";
-import { iconMap, IconName } from "@/atoms/Icons/iconMap";
-
-vi.unmock("@/icons");
+import { AppIcon } from "@/AppIcon";
+import { iconMap, type IconName } from "@/iconMap";
 
 describe("AppIcon", () => {
   const iconNames = Object.keys(iconMap) as IconName[];
