@@ -1,3 +1,7 @@
+import clsx from "clsx";
+
+import { styles } from "./styles.css";
+
 type TagOptions = Pick<
   React.JSX.IntrinsicElements,
   "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span"
@@ -13,7 +17,7 @@ export type TextVariants =
   | "bodySmall"
   | "description";
 
-export const tagMap: Record<TextVariants, keyof TagOptions> = {
+const tagMap: Record<TextVariants, keyof TagOptions> = {
   hero: "h1",
   titleLarge: "h2",
   titleMedium: "h3",
@@ -24,18 +28,26 @@ export const tagMap: Record<TextVariants, keyof TagOptions> = {
   description: "p",
 };
 
-export type TextProps<T extends TextVariants> = {
+export interface TextProps<T extends TextVariants> {
   variant: T;
+  children: string;
   as?: keyof TagOptions;
   className?: string;
   style?: React.CSSProperties;
-} & (
-  | {
-      text: string;
-      children?: never;
-    }
-  | {
-      text?: never;
-      children: React.ReactNode;
-    }
-);
+}
+
+export function Text<T extends TextVariants>({
+  variant,
+  as,
+  children,
+  className,
+  ...rest
+}: Readonly<TextProps<T>>) {
+  const Component = as || tagMap[variant];
+
+  return (
+    <Component {...rest} className={clsx(styles.text({ variant }), className)}>
+      {children}
+    </Component>
+  );
+}
