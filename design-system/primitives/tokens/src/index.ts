@@ -29,3 +29,11 @@ export { tokens, mediaQueries } from "./tokens";
 
 // Presets
 export { justkitsDefault } from "./presets/justkits-default";
+
+// temp
+export { colorCssVariables } from "./models/colors";
+export { elevationCssVariables } from "./models/elevation";
+export { radiusCssVariables } from "./models/radius";
+export { spacingCssVariables } from "./models/spacing";
+export { textCssVariables } from "./models/text";
+export { typographyCssVariables } from "./models/typography";
