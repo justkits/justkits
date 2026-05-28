@@ -22,10 +22,10 @@ describe("breakpoint-queries", () => {
     const result = createSimpleBreakpointQueries();
     expect(result).toEqual({
       small: "screen and (max-width: 768px)",
-      medium: "screen and (min-width: 768px) and (max-width: 1080px)",
-      large: "screen and (min-width: 1080px)",
+      medium: "screen and (min-width: 768px) and (max-width: 1280px)",
+      large: "screen and (min-width: 1280px)",
       notSmall: "screen and (min-width: 768px)",
-      notLarge: "screen and (max-width: 1080px)",
+      notLarge: "screen and (max-width: 1280px)",
     });
   });
 
