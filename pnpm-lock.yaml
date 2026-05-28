@@ -180,11 +180,7 @@ importers:
 
   design-system/primitives/colors: {}
 
-  design-system/primitives/foundations:
-    dependencies:
-      react:
-        specifier: ^19
-        version: 19.2.6
+  design-system/primitives/reset-css: {}
 
   design-system/primitives/svg2tsx:
     dependencies:
@@ -235,21 +231,24 @@ importers:
         specifier: ^19
         version: 19.2.6(react@19.2.6)
     devDependencies:
-      '@justkits/design-foundations':
-        specifier: workspace:*
-        version: link:../primitives/foundations
       '@justkits/headless-ui':
         specifier: workspace:*
         version: link:../../design/primitives/headless-ui
       '@justkits/icons':
         specifier: workspace:*
         version: link:../components/icons
+      '@justkits/reset-css':
+        specifier: workspace:*
+        version: link:../primitives/reset-css
       '@justkits/svg2tsx':
         specifier: workspace:*
         version: link:../primitives/svg2tsx
       '@justkits/theme':
         specifier: workspace:*
         version: link:../primitives/theme
+      '@justkits/tokens':
+        specifier: workspace:*
+        version: link:../primitives/tokens
       '@vanilla-extract/css':
         specifier: 'catalog:'
         version: 1.20.1
