@@ -16,8 +16,8 @@ export type SimpleBreakpointQueries = {
 
 export function createSimpleBreakpointQueries({
   sm = "768px",
-  lg = "1024px",
-}: Pick<BreakpointTokens, "sm" | "lg">): SimpleBreakpointQueries {
+  lg = "1280px",
+}: Partial<Pick<BreakpointTokens, "sm" | "lg">> = {}): SimpleBreakpointQueries {
   return {
     small: `screen and (max-width: ${sm})`,
     medium: `screen and (min-width: ${sm}) and (max-width: ${lg})`,
@@ -50,7 +50,7 @@ export function createBreakpointQueries({
   md = "1024px",
   lg = "1280px",
   xl = "1440px",
-}: BreakpointTokens): BreakpointQueries {
+}: Partial<BreakpointTokens> = {}): BreakpointQueries {
   return {
     mobilePortrait: {
       only: `screen and (max-width: ${xs})`,
