@@ -22,8 +22,7 @@ export {
   createSimpleBreakpointQueries,
   createBreakpointQueries,
 } from "./utils/breakpoint-queries";
-// re-export utility functions from the colors package
-export { colorWithOpacity, convertToLightDark } from "@justkits/colors";
+export { colorWithOpacity } from "./utils/color-with-opacity";
 
 // Token constant (default)
 export { tokens, mediaQueries } from "./tokens";
