@@ -14,5 +14,13 @@ export type { DesignTokens } from "./tokens";
 // Utility functions
 export { buildCssVariables, defaultCss } from "./utils/buildCssVariables";
 export { applyTokens } from "./utils/applyTokens";
+export {
+  createSimpleBreakpointQueries,
+  createBreakpointQueries,
+} from "./utils/breakpoint-queries";
 
 export type { ThemeInput } from "./utils/buildCssVariables";
+export type {
+  BreakpointQueries,
+  SimpleBreakpointQueries,
+} from "./utils/breakpoint-queries";
