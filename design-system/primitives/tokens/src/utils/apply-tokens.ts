@@ -1,4 +1,4 @@
-import { buildCssVariables, type ThemeInput } from "./buildCssVariables";
+import { buildCssVariables, type ThemeInput } from "./css-variables";
 
 const STYLE_TAG_ID = "justkits-tokens";
 
