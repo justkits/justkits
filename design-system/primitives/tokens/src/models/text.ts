@@ -17,18 +17,18 @@ export interface TextTokens {
 }
 
 export const textCssVariables: TextTokens = {
-  hero: "--font-hero",
-  titleLarge: "--font-title-large",
-  titleMedium: "--font-title-medium",
-  titleSmall: "--font-title-small",
-  bodyLarge: "--font-body-large",
-  bodyMedium: "--font-body-medium",
-  bodySmall: "--font-body-small",
-  description: "--font-description",
-  codeLarge: "--font-code-large",
-  codeSmall: "--font-code-small",
-  quoteLarge: "--font-quote-large",
-  quoteSmall: "--font-quote-small",
+  hero: "--text-hero",
+  titleLarge: "--text-title-large",
+  titleMedium: "--text-title-medium",
+  titleSmall: "--text-title-small",
+  bodyLarge: "--text-body-large",
+  bodyMedium: "--text-body-medium",
+  bodySmall: "--text-body-small",
+  description: "--text-description",
+  codeLarge: "--text-code-large",
+  codeSmall: "--text-code-small",
+  quoteLarge: "--text-quote-large",
+  quoteSmall: "--text-quote-small",
 };
 
 export const defaultTextTokens: TextTokens = {
