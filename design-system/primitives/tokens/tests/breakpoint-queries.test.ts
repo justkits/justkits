@@ -1,10 +1,9 @@
 import {
   createBreakpointQueries,
   createSimpleBreakpointQueries,
-} from "@/breakpoints/utils";
-import { colorWithOpacity } from "@/colors/utils";
+} from "@/utils/breakpoint-queries";
 
-describe("utils", () => {
+describe("breakpoint-queries", () => {
   it("createSimpleBreakpointQueries should return simple breakpoint queries", () => {
     const result = createSimpleBreakpointQueries({
       sm: "600px",
@@ -55,12 +54,5 @@ describe("utils", () => {
         only: "screen and (min-width: 1280px)",
       },
     });
-  });
-
-  it("colorWithOpacity should return color with opacity", () => {
-    const result = colorWithOpacity("#ff0000", 50);
-    expect(result).toBe(
-      "color-mix(in srgb, #ff0000 50%, light-dark(#ffffff, #000000))",
-    );
   });
 });
