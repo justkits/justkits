@@ -22,6 +22,7 @@ import {
   typographyCssVariables,
   typographyTokens,
 } from "@/models/typography";
+import { tokens, mediaQueries } from "@/tokens";
 
 describe("tokens", () => {
   describe("color", () => {
@@ -123,6 +124,28 @@ describe("tokens", () => {
           );
         }
       }
+    });
+  });
+
+  describe("design tokens", () => {
+    it("tokens object should have all token categories with correct values", () => {
+      expect(tokens).toBeDefined();
+      expect(tokens.colors).toEqual(colorTokens);
+      expect(tokens.elevation).toEqual(elevationTokens);
+      expect(tokens.radius).toEqual(radiusTokens);
+      expect(tokens.spacing).toEqual(spacingTokens);
+      expect(tokens.text).toEqual(textTokens);
+      expect(tokens.typography).toEqual(typographyTokens);
+    });
+  });
+
+  describe("media queries", () => {
+    it("mediaQueries should have breakpoints and hoverable", () => {
+      expect(mediaQueries).toBeDefined();
+      expect(mediaQueries.breakpoints).toBeDefined();
+      expect(mediaQueries.hoverable).toBeDefined();
+      expect(typeof mediaQueries.breakpoints).toBe("object");
+      expect(typeof mediaQueries.hoverable).toBe("string");
     });
   });
 });
