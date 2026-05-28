@@ -1,7 +1,7 @@
 import { Collapsible } from "@justkits/headless-ui/Collapsible";
 
 import { IconButton } from "@/atoms/Buttons";
-import { Text } from "@/atoms/Texts";
+import { Text } from "@/components/Texts";
 import { styles } from "./styles.css";
 
 interface SidebarSectionProps {

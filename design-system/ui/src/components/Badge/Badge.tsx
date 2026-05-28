@@ -1,7 +1,7 @@
-import { colorWithOpacity } from "@justkits/design-foundations/colors";
+import { colorWithOpacity } from "@justkits/tokens";
 import clsx from "clsx";
 
-import { Text } from "@/atoms/Texts";
+import { Text } from "@/components/Texts";
 import { styles } from "./styles.css";
 
 type Props = {
