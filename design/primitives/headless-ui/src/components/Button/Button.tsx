@@ -2,35 +2,62 @@ import { type ButtonHTMLAttributes } from "react";
 
 import { AsChild } from "@/core/asChild";
 
-export interface ButtonProps extends Omit<
-  ButtonHTMLAttributes<HTMLButtonElement>,
-  "type" | "aria-disabled" | "aria-busy" | "role"
-> {
+export interface ButtonProps
+  extends
+    Omit<
+      ButtonHTMLAttributes<HTMLButtonElement>,
+      "disabled" | "aria-disabled" | "aria-busy" | "role"
+    >,
+    React.RefAttributes<HTMLButtonElement> {
+  isDisabled?: boolean;
   isLoading?: boolean;
   asChild?: boolean;
 }
 
 export function Button({
   children,
-  className,
-  style,
-  asChild = false,
-  disabled,
+  isDisabled = false,
   isLoading = false,
+  asChild = false,
+  onClick,
+  onKeyDown,
+  type = "button",
+  ref,
   ...rest
 }: Readonly<ButtonProps>) {
-  const isDisabled = disabled || isLoading;
+  const disableEvents = isDisabled || isLoading;
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (disableEvents) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+
+    onClick?.(event);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (disableEvents && (event.key === "Enter" || event.key === " ")) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+
+    onKeyDown?.(event);
+  };
 
   if (asChild) {
     return (
       <AsChild
-        className={className}
-        style={style}
         {...rest}
-        disabled={isDisabled}
-        aria-disabled={isDisabled}
-        aria-busy={isLoading}
-        role="button"
+        ref={ref}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        aria-disabled={isDisabled ? "true" : undefined}
+        aria-busy={isLoading ? "true" : undefined}
+        data-loading={isLoading}
+        data-disabled={isDisabled}
       >
         {children}
       </AsChild>
@@ -40,12 +67,14 @@ export function Button({
   return (
     <button
       {...rest}
-      className={className}
-      style={style}
-      type="button"
-      disabled={isDisabled}
-      aria-disabled={isDisabled}
-      aria-busy={isLoading}
+      ref={ref}
+      type={type}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      aria-disabled={isDisabled ? "true" : undefined}
+      aria-busy={isLoading ? "true" : undefined}
+      data-loading={isLoading}
+      data-disabled={isDisabled}
     >
       {children}
     </button>
