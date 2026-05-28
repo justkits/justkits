@@ -1,19 +1,18 @@
 import { justkitsLight } from "@justkits/colors";
 
-import { type DesignTokens } from "@/tokens";
-
-import { colorCssVariables } from "../models/colors";
+import { colorCssVariables } from "@/models/colors";
 import {
   elevationCssVariables,
   defaultElevationTokens,
-} from "../models/elevation";
-import { radiusCssVariables, defaultRadiusTokens } from "../models/radius";
-import { spacingCssVariables, defaultSpacingTokens } from "../models/spacing";
-import { textCssVariables, defaultTextTokens } from "../models/text";
+} from "@/models/elevation";
+import { radiusCssVariables, defaultRadiusTokens } from "@/models/radius";
+import { spacingCssVariables, defaultSpacingTokens } from "@/models/spacing";
+import { textCssVariables, defaultTextTokens } from "@/models/text";
 import {
   typographyCssVariables,
   defaultTypographyTokens,
-} from "../models/typography";
+} from "@/models/typography";
+import { type DesignTokens } from "@/tokens";
 
 function flatEntries(cssVars: object, values: object): [string, string][] {
   return Object.entries(values).map(([key, value]) => [
@@ -59,5 +58,3 @@ export function buildCssVariables(
     .join("\n");
   return `${selector} {\n${declarations}\n}`;
 }
-
-export const defaultCss = buildCssVariables();
