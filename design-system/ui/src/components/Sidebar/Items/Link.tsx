@@ -4,7 +4,7 @@ import {
 } from "@justkits/headless-ui/Sidebar";
 
 import { AppIcon, type IconName } from "@/atoms/Icons";
-import { Text } from "@/atoms/Texts";
+import { Text } from "@/components/Texts";
 import { styles } from "./styles.css";
 
 export interface SidebarLinkProps extends Omit<

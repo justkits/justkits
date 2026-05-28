@@ -1,6 +1,6 @@
-import { createSimpleBreakpointQueries } from "@justkits/design-foundations/breakpoints";
+import { createSimpleBreakpointQueries } from "@justkits/tokens";
 
-export { colorWithOpacity } from "@justkits/design-foundations/colors";
+export { colorWithOpacity } from "@justkits/tokens";
 
 export const media = {
   breakpoints: createSimpleBreakpointQueries({

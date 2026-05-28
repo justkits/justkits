@@ -1,0 +1,34 @@
+{
+  "name": "@justkits/reset-css",
+  "description": "JustKits Design Primitives - Reset CSS",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "keywords": [
+    "reset",
+    "css",
+    "design"
+  ],
+  "exports": {
+    "./reset.css": "./dist/reset.css"
+  },
+  "author": "JustWon",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justkits/justkits.git",
+    "directory": "design-system/primitives/reset-css"
+  },
+  "license": "UNLICENSED",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "mkdir -p dist && cp src/reset.css dist/reset.css",
+    "lint": "eslint ."
+  }
+}

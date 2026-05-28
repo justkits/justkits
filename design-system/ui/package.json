@@ -25,10 +25,6 @@
       "types": "./dist/atoms/Icons/index.d.mts",
       "default": "./dist/atoms/Icons/index.mjs"
     },
-    "./Texts": {
-      "types": "./dist/atoms/Texts/index.d.mts",
-      "default": "./dist/atoms/Texts/index.mjs"
-    },
     "./*": {
       "types": "./dist/components/*/index.d.mts",
       "default": "./dist/components/*/index.mjs"
@@ -51,11 +47,12 @@
     "icons": "svg2tsx && prettier --write ./src/atoms/Icons/ --log-level silent"
   },
   "devDependencies": {
-    "@justkits/design-foundations": "workspace:*",
     "@justkits/headless-ui": "workspace:*",
     "@justkits/icons": "workspace:*",
+    "@justkits/reset-css": "workspace:*",
     "@justkits/svg2tsx": "workspace:*",
     "@justkits/theme": "workspace:*",
+    "@justkits/tokens": "workspace:*",
     "@vanilla-extract/css": "catalog:",
     "@vanilla-extract/dynamic": "^2.1.5",
     "@vanilla-extract/recipes": "catalog:",

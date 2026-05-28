@@ -1,21 +1,15 @@
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { type ColorTokens } from "@justkits/design-foundations/colors";
-import { type ElevationTokens } from "@justkits/design-foundations/elevation";
 import {
-  defaultRadius,
+  type ColorTokens,
+  type ElevationTokens,
   type RadiusTokens,
-} from "@justkits/design-foundations/radius";
-import {
-  defaultSpacing,
   type SpacingTokens,
-} from "@justkits/design-foundations/spacing";
-import {
   type TextTokens,
   type TypographyTokens,
-} from "@justkits/design-foundations/typography";
+} from "@justkits/tokens";
 import { ThemeProvider } from "@justkits/theme/light-dark";
 
-import "@justkits/design-foundations/reset.css";
+import "@justkits/reset-css/reset.css";
 import "@justkits/theme/color-scheme.css";
 import { tokens } from "./tokens.css";
 
@@ -102,14 +96,36 @@ export function UIProvider({
     bodyMedium: `${defaultTypography.fontWeight.regular} ${defaultTypography.fontSize.bodyMedium}/${defaultTypography.lineHeight.bodyMedium} ${defaultTypography.fontFamily.normal}`,
     bodySmall: `${defaultTypography.fontWeight.regular} ${defaultTypography.fontSize.bodySmall}/${defaultTypography.lineHeight.bodySmall} ${defaultTypography.fontFamily.normal}`,
     description: `${defaultTypography.fontWeight.regular} 0.75rem/1rem ${defaultTypography.fontFamily.normal}`,
-    code: `${defaultTypography.fontWeight.regular} ${defaultTypography.fontSize.bodySmall}/${defaultTypography.lineHeight.bodySmall} ${defaultTypography.fontFamily.code}`,
-    quote: `${defaultTypography.fontWeight.regular} ${defaultTypography.fontSize.bodyLarge}/${defaultTypography.lineHeight.bodyLarge} ${defaultTypography.fontFamily.quote}`,
+    codeLarge: `${defaultTypography.fontWeight.regular} ${defaultTypography.fontSize.bodyLarge}/${defaultTypography.lineHeight.bodyLarge} ${defaultTypography.fontFamily.code}`,
+    codeSmall: `${defaultTypography.fontWeight.regular} ${defaultTypography.fontSize.bodySmall}/${defaultTypography.lineHeight.bodySmall} ${defaultTypography.fontFamily.code}`,
+    quoteLarge: `${defaultTypography.fontWeight.regular} ${defaultTypography.fontSize.bodyLarge}/${defaultTypography.lineHeight.bodyLarge} ${defaultTypography.fontFamily.quote}`,
+    quoteSmall: `${defaultTypography.fontWeight.regular} ${defaultTypography.fontSize.bodySmall}/${defaultTypography.lineHeight.bodySmall} ${defaultTypography.fontFamily.quote}`,
   };
 
   const defaultElevation: ElevationTokens = {
     lv1: "inset 1px -1px 0 0 rgba(127, 127, 127, 0.2)",
     lv2: "0px 1px 3px rgba(0, 0, 0, 0.2), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.12)",
     lv3: "0px 3px 5px rgba(0, 0, 0, 0.2), 0px 6px 10px rgba(0, 0, 0, 0.14), 0px 1px 18px rgba(0, 0, 0, 0.12)",
+  };
+
+  const defaultRadius: RadiusTokens = {
+    xs: "2px",
+    sm: "4px",
+    md: "8px",
+    lg: "12px",
+    xl: "16px",
+    full: "50%",
+  };
+
+  const defaultSpacing: SpacingTokens = {
+    xs: "--spacing-xs",
+    sm: "--spacing-sm",
+    md: "--spacing-md",
+    lg: "--spacing-lg",
+    xl: "--spacing-xl",
+    layoutSmall: "--spacing-layouts-sm",
+    layoutMedium: "--spacing-layouts-md",
+    layoutLarge: "--spacing-layouts-lg",
   };
 
   const style = assignInlineVars(tokens, {
