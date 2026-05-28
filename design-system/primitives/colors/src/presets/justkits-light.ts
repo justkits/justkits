@@ -1,0 +1,24 @@
+import type { SemanticColors } from "../types";
+
+export const justkitsLight: SemanticColors = {
+  primary: "#1647E8",
+  primaryHover: "#1647E8CC",
+  onPrimary: "#F9FAFB",
+  secondary: "#A78C29",
+  secondaryHover: "#888888",
+  onSecondary: "#0A0A0A",
+  error: "#B91C1C",
+  warning: "#EBB30B",
+  success: "#007200",
+  info: "#888888",
+  background: "#F9FAFB",
+  backgroundHover: "#88888825",
+  surface: "#F5F5F9",
+  overlay: "#1F212580",
+  text: "#0A0A0A",
+  textMuted: "#505053",
+  textDisabled: "#888888",
+  border: "#50505340",
+  borderMuted: "#88888840",
+  borderInverted: "#F9FAFB40",
+};
