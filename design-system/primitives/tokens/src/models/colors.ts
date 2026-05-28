@@ -1,5 +1,7 @@
 import { type SemanticColors, justkitsLight } from "@justkits/colors";
 
+export type { SemanticColors as ColorTokens } from "@justkits/colors";
+
 export const colorCssVariables: SemanticColors = {
   primary: "--color-primary",
   primaryHover: "--color-primary-hover",
