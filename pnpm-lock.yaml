@@ -178,6 +178,8 @@ importers:
         specifier: workspace:*
         version: link:../../primitives/svg2tsx
 
+  design-system/primitives/colors: {}
+
   design-system/primitives/foundations:
     dependencies:
       react:
@@ -217,6 +219,12 @@ importers:
       react:
         specifier: ^19
         version: 19.2.6
+
+  design-system/primitives/tokens:
+    devDependencies:
+      '@justkits/colors':
+        specifier: workspace:*
+        version: link:../colors
 
   design-system/ui:
     dependencies:
