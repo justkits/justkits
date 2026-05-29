@@ -30,6 +30,7 @@
     "@justkits/tokens": "workspace:*",
     "@vanilla-extract/css": "catalog:",
     "@vanilla-extract/recipes": "catalog:",
+    "@vanilla-extract/rollup-plugin": "catalog:",
     "clsx": "catalog:"
   },
   "peerDependencies": {
