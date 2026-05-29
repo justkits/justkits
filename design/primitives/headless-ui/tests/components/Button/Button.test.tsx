@@ -13,9 +13,77 @@ describe("Button", () => {
     expect(button.getAttribute("type")).toBe("button");
   });
 
+  it("handles disabled state correctly", () => {
+    const onClick = vi.fn();
+    const onKeyDown = vi.fn();
+
+    const { getByTestId } = render(
+      <Button
+        data-testid="button"
+        isDisabled
+        onClick={onClick}
+        onKeyDown={onKeyDown}
+      >
+        Click me
+      </Button>,
+    );
+
+    const button = getByTestId("button");
+    expect(button).toBeTruthy();
+
+    // aria-disabled와 data-disabled 속성 확인
+    expect(button.getAttribute("aria-disabled")).toBe("true");
+    expect(button.getAttribute("data-disabled")).toBe("true");
+
+    // 클릭 이벤트가 발생하지 않는지 확인
+    fireEvent.click(button);
+    expect(onClick).not.toHaveBeenCalled();
+
+    // 키보드 이벤트가 발생하지 않는지 확인
+    fireEvent.keyDown(button, { key: "Enter" });
+    expect(onKeyDown).not.toHaveBeenCalled();
+    fireEvent.keyDown(button, { key: " " });
+    expect(onKeyDown).not.toHaveBeenCalled();
+  });
+
+  it("handles loading state correctly", () => {
+    const onClick = vi.fn();
+    const onKeyDown = vi.fn();
+
+    const { getByTestId } = render(
+      <Button
+        data-testid="button"
+        isLoading
+        onClick={onClick}
+        onKeyDown={onKeyDown}
+      >
+        Click me
+      </Button>,
+    );
+
+    const button = getByTestId("button");
+    expect(button).toBeTruthy();
+
+    // aria-busy와 data-loading 속성 확인
+    expect(button.getAttribute("aria-busy")).toBe("true");
+    expect(button.getAttribute("data-loading")).toBe("true");
+
+    // 클릭 이벤트가 발생하지 않는지 확인
+    fireEvent.click(button);
+    expect(onClick).not.toHaveBeenCalled();
+
+    // 키보드 이벤트가 발생하지 않는지 확인
+    fireEvent.keyDown(button, { key: "Enter" });
+    expect(onKeyDown).not.toHaveBeenCalled();
+    fireEvent.keyDown(button, { key: " " });
+    expect(onKeyDown).not.toHaveBeenCalled();
+  });
+
   it("handles asChild prop correctly", () => {
     const buttonClick = vi.fn();
     const linkClick = vi.fn((e) => e.preventDefault());
+    const buttonKeyDown = vi.fn();
+    const linkKeyDown = vi.fn();
 
     const { getByTestId } = render(
       <Button
@@ -23,12 +91,14 @@ describe("Button", () => {
         asChild
         className="button-class"
         onClick={buttonClick}
+        onKeyDown={buttonKeyDown}
         style={{ color: "red" }}
       >
         <a
           href="./test/"
           className="a-class"
           onClick={linkClick}
+          onKeyDown={linkKeyDown}
           style={{ textDecoration: "underline" }}
         >
           Click me
@@ -50,5 +120,51 @@ describe("Button", () => {
     fireEvent.click(button);
     expect(linkClick).toHaveBeenCalledTimes(1);
     expect(buttonClick).toHaveBeenCalledTimes(1);
+
+    fireEvent.keyDown(button, { key: "Enter" });
+    expect(linkKeyDown).toHaveBeenCalledTimes(1);
+    expect(buttonKeyDown).toHaveBeenCalledTimes(1);
+
+    fireEvent.keyDown(button, { key: " " });
+    expect(linkKeyDown).toHaveBeenCalledTimes(2);
+    expect(buttonKeyDown).toHaveBeenCalledTimes(2);
+  });
+
+  it("handles disabled and loading states with asChild prop correctly", () => {
+    const onClick = vi.fn();
+    const onKeyDown = vi.fn();
+
+    const { getByTestId } = render(
+      <Button
+        data-testid="button"
+        asChild
+        isDisabled
+        isLoading
+        onClick={onClick}
+        onKeyDown={onKeyDown}
+      >
+        <a href="./test/">Click me</a>
+      </Button>,
+    );
+
+    const button = getByTestId("button");
+    expect(button).toBeTruthy();
+    expect(button.tagName).toBe("A");
+
+    // aria-disabled, aria-busy, data-disabled, data-loading 속성 확인
+    expect(button.getAttribute("aria-disabled")).toBe("true");
+    expect(button.getAttribute("aria-busy")).toBe("true");
+    expect(button.getAttribute("data-disabled")).toBe("true");
+    expect(button.getAttribute("data-loading")).toBe("true");
+
+    // 클릭 이벤트가 발생하지 않는지 확인
+    fireEvent.click(button);
+    expect(onClick).not.toHaveBeenCalled();
+
+    // 키보드 이벤트가 발생하지 않는지 확인
+    fireEvent.keyDown(button, { key: "Enter" });
+    expect(onKeyDown).not.toHaveBeenCalled();
+    fireEvent.keyDown(button, { key: " " });
+    expect(onKeyDown).not.toHaveBeenCalled();
   });
 });

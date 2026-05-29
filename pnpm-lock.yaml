@@ -165,6 +165,31 @@ importers:
         specifier: ^29.1.1
         version: 29.1.1
 
+  design-system/components/buttons:
+    dependencies:
+      react:
+        specifier: ^19
+        version: 19.2.6
+      react-dom:
+        specifier: ^19
+        version: 19.2.6(react@19.2.6)
+    devDependencies:
+      '@justkits/headless-ui':
+        specifier: workspace:*
+        version: link:../../../design/primitives/headless-ui
+      '@justkits/tokens':
+        specifier: workspace:*
+        version: link:../../primitives/tokens
+      '@vanilla-extract/css':
+        specifier: 'catalog:'
+        version: 1.20.1
+      '@vanilla-extract/recipes':
+        specifier: 'catalog:'
+        version: 0.5.7(@vanilla-extract/css@1.20.1)
+      clsx:
+        specifier: 'catalog:'
+        version: 2.1.1
+
   design-system/components/icons:
     dependencies:
       react:
@@ -8001,7 +8026,7 @@ snapshots:
 
   media-query-parser@2.0.2:
     dependencies:
-      '@babel/runtime': 7.29.2
+      '@babel/runtime': 7.29.7
 
   merge-stream@2.0.0: {}
 
