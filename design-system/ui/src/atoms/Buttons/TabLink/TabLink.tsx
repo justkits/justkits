@@ -10,6 +10,7 @@ export interface TabLinkProps extends Omit<
 > {
   label: string;
   href: string;
+  active?: boolean;
 }
 
 export function TabLink({
@@ -24,7 +25,6 @@ export function TabLink({
       <Link
         {...rest}
         href={href}
-        active={active}
         className={clsx(styles.link({ active }), className)}
       >
         <Text variant="titleMedium" className={styles.label({ active })}>
