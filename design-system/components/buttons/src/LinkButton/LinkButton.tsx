@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
 import { Pressable, type PressableProps } from "@/Pressable";
-import { styles } from "./styles.css";
+import { styles } from "../styles.css";
 
 export interface LinkButtonProps extends Omit<PressableProps, "children"> {
   children: React.ReactNode;
