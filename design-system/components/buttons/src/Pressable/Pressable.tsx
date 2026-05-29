@@ -1,7 +1,7 @@
 import { Button, type ButtonProps } from "@justkits/headless-ui/Button";
 import clsx from "clsx";
 
-import { styles } from "./styles.css";
+import { styles } from "../styles.css";
 
 export function Pressable({
   children,
@@ -9,7 +9,10 @@ export function Pressable({
   ...rest
 }: Readonly<ButtonProps>) {
   return (
-    <Button {...rest} className={clsx(styles.pressable, className)}>
+    <Button
+      {...rest}
+      className={clsx(styles.pressable({ type: "button" }), className)}
+    >
       {children}
     </Button>
   );
