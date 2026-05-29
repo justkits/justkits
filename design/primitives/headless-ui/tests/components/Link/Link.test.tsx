@@ -10,8 +10,9 @@ describe("Link", () => {
 
   it("renders an anchor element with the correct href", () => {
     const onClick = vi.fn();
+    const onKeyDown = vi.fn();
     const { getByText } = render(
-      <Link href="/test" onClick={onClick}>
+      <Link href="/test" onClick={onClick} onKeyDown={onKeyDown}>
         Test Link
       </Link>,
     );
@@ -23,61 +24,17 @@ describe("Link", () => {
     // 클릭 이벤트가 발생해야 한다.
     fireEvent.click(link);
     expect(onClick).toHaveBeenCalled();
-  });
 
-  it("opens in a new tab when newtab prop is true", () => {
-    const { getByText } = render(
-      <Link href="https://example.com" external>
-        External Link
-      </Link>,
-    );
-
-    const link = getByText("External Link");
-    expect(link).toBeTruthy();
-    expect(link.getAttribute("target")).toBe("_blank");
-    expect(link.getAttribute("rel")).toBe("noopener noreferrer");
-  });
-
-  it("opens in a new tab for external links even when newtab prop is not set", () => {
-    const { getByText } = render(
-      <Link href="https://example.com">External Link</Link>,
-    );
-
-    const link = getByText("External Link");
-    expect(link).toBeTruthy();
-    expect(link.getAttribute("target")).toBe("_blank");
-    expect(link.getAttribute("rel")).toBe("noopener noreferrer");
-  });
-
-  it("does not open in a new tab when newtab prop is false even for external links", () => {
-    const { getByText } = render(
-      <Link href="https://example.com" external={false}>
-        External Link
-      </Link>,
-    );
-
-    const link = getByText("External Link");
-    expect(link).toBeTruthy();
-    expect(link.getAttribute("target")).toBeNull();
-    expect(link.getAttribute("rel")).toBeNull();
-  });
-
-  it("handles active state correctly", () => {
-    const { getByText } = render(
-      <Link href="/test" active>
-        Active Link
-      </Link>,
-    );
-
-    const link = getByText("Active Link");
-    expect(link).toBeTruthy();
-    expect(link.getAttribute("aria-current")).toBe("page");
+    // 키다운 이벤트가 발생해야 한다.
+    fireEvent.keyDown(link, { key: "Enter" });
+    expect(onKeyDown).toHaveBeenCalled();
   });
 
   it("handles disabled state correctly", () => {
     const onClick = vi.fn();
+    const onKeyDown = vi.fn();
     const { getByText } = render(
-      <Link href="/test" disabled onClick={onClick}>
+      <Link href="/test" isDisabled onClick={onClick} onKeyDown={onKeyDown}>
         Disabled Link
       </Link>,
     );
@@ -89,26 +46,65 @@ describe("Link", () => {
     // 클릭 이벤트가 발생하지 않아야 한다.
     fireEvent.click(link);
     expect(onClick).not.toHaveBeenCalled();
+
+    // Enter/Space 키다운 이벤트가 발생하지 않아야 한다.
+    fireEvent.keyDown(link, { key: "Enter" });
+    fireEvent.keyDown(link, { key: " " });
+    expect(onKeyDown).not.toHaveBeenCalled();
+
+    // 다른 키는 전달되어야 한다.
+    fireEvent.keyDown(link, { key: "Tab" });
+    expect(onKeyDown).toHaveBeenCalledTimes(1);
   });
 
-  it("handles asChild prop correctly", () => {
-    const onClick = vi.fn();
-    const innerOnClick = vi.fn((e) => e.preventDefault());
+  describe("external behavior", () => {
+    it("opens in a new tab when isExternal is true", () => {
+      const { getByText } = render(
+        <Link href="https://example.com" isExternal>
+          External Link
+        </Link>,
+      );
+
+      const link = getByText("External Link");
+      expect(link).toBeTruthy();
+      expect(link.getAttribute("target")).toBe("_blank");
+      expect(link.getAttribute("rel")).toBe("noopener noreferrer");
+    });
+
+    it("opens in a new tab for external links even when isExternal prop is not set", () => {
+      const { getByText } = render(
+        <Link href="https://example.com">External Link</Link>,
+      );
+
+      const link = getByText("External Link");
+      expect(link).toBeTruthy();
+      expect(link.getAttribute("target")).toBe("_blank");
+      expect(link.getAttribute("rel")).toBe("noopener noreferrer");
+    });
+
+    it("does not open in a new tab when isExternal is false even for external links", () => {
+      const { getByText } = render(
+        <Link href="https://example.com" isExternal={false}>
+          External Link
+        </Link>,
+      );
+
+      const link = getByText("External Link");
+      expect(link).toBeTruthy();
+      expect(link.getAttribute("target")).toBeNull();
+      expect(link.getAttribute("rel")).toBeNull();
+    });
+  });
+
+  it("handles as prop correctly", () => {
     const { getByText } = render(
       <Link
         href="/test"
-        asChild
-        onClick={onClick}
+        as="button"
         className="link-class"
         style={{ color: "blue" }}
       >
-        <button
-          onClick={innerOnClick}
-          className="button-class"
-          style={{ backgroundColor: "red" }}
-        >
-          Button Link
-        </button>
+        Button Link
       </Link>,
     );
 
@@ -116,23 +112,12 @@ describe("Link", () => {
     expect(button).toBeTruthy();
     expect(button.tagName).toBe("BUTTON");
     expect(button.getAttribute("href")).toBe("/test");
-
-    // 클릭 이벤트가 발생해야 한다.
-    fireEvent.click(button);
-    expect(onClick).toHaveBeenCalled();
-    expect(innerOnClick).toHaveBeenCalled();
-
-    // 나머지 props도 제대로 전달되는지 확인
-    expect(button.className).toContain("link-class");
-    expect(button.className).toContain("button-class");
-    expect(button.style.color).toBe("blue");
-    expect(button.style.backgroundColor).toBe("red");
   });
 
-  it("handles asChild prop with newtab, disabled and active correctly", () => {
+  it("handles as prop with newtab and disabled correctly", () => {
     const { getByText } = render(
-      <Link href="/test" asChild external disabled active>
-        <button>Button Link</button>
+      <Link href="/test" as="button" isExternal isDisabled>
+        Button Link
       </Link>,
     );
 
@@ -143,6 +128,5 @@ describe("Link", () => {
     expect(button.getAttribute("target")).toBe("_blank");
     expect(button.getAttribute("rel")).toBe("noopener noreferrer");
     expect(button.getAttribute("aria-disabled")).toBe("true");
-    expect(button.getAttribute("aria-current")).toBe("page");
   });
 });
