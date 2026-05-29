@@ -33,7 +33,7 @@ describe("Button", () => {
 
     // aria-disabled와 data-disabled 속성 확인
     expect(button.getAttribute("aria-disabled")).toBe("true");
-    expect(button.getAttribute("data-disabled")).toBe("true");
+    expect(button.dataset.disabled).toBe("true");
 
     // 클릭 이벤트가 발생하지 않는지 확인
     fireEvent.click(button);
@@ -66,7 +66,7 @@ describe("Button", () => {
 
     // aria-busy와 data-loading 속성 확인
     expect(button.getAttribute("aria-busy")).toBe("true");
-    expect(button.getAttribute("data-loading")).toBe("true");
+    expect(button.dataset.loading).toBe("true");
 
     // 클릭 이벤트가 발생하지 않는지 확인
     fireEvent.click(button);
@@ -154,8 +154,8 @@ describe("Button", () => {
     // aria-disabled, aria-busy, data-disabled, data-loading 속성 확인
     expect(button.getAttribute("aria-disabled")).toBe("true");
     expect(button.getAttribute("aria-busy")).toBe("true");
-    expect(button.getAttribute("data-disabled")).toBe("true");
-    expect(button.getAttribute("data-loading")).toBe("true");
+    expect(button.dataset.disabled).toBe("true");
+    expect(button.dataset.loading).toBe("true");
 
     // 클릭 이벤트가 발생하지 않는지 확인
     fireEvent.click(button);
