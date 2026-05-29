@@ -51,6 +51,7 @@
     "@justkits/icons": "workspace:*",
     "@justkits/reset-css": "workspace:*",
     "@justkits/svg2tsx": "workspace:*",
+    "@justkits/texts": "workspace:*",
     "@justkits/theme": "workspace:*",
     "@justkits/tokens": "workspace:*",
     "@vanilla-extract/css": "catalog:",
