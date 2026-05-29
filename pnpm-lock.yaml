@@ -186,9 +186,6 @@ importers:
       '@vanilla-extract/recipes':
         specifier: 'catalog:'
         version: 0.5.7(@vanilla-extract/css@1.20.1)
-      '@vanilla-extract/rollup-plugin':
-        specifier: 'catalog:'
-        version: 1.5.3(rollup@4.60.2)
       clsx:
         specifier: 'catalog:'
         version: 2.1.1
