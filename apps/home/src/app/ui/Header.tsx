@@ -39,11 +39,11 @@ export function Header() {
         <Link
           href="https://github.com/justkits/justkits"
           variant="icon"
-          external
+          isExternal
         >
           <GithubLogo />
         </Link>
-        <Link href="https://justwon.dev" variant="icon" external>
+        <Link href="https://justwon.dev" variant="icon" isExternal>
           BlogLink
         </Link>
       </div>
