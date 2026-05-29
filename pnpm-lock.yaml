@@ -186,6 +186,9 @@ importers:
       '@vanilla-extract/recipes':
         specifier: 'catalog:'
         version: 0.5.7(@vanilla-extract/css@1.20.1)
+      '@vanilla-extract/rollup-plugin':
+        specifier: 'catalog:'
+        version: 1.5.3(rollup@4.60.2)
       clsx:
         specifier: 'catalog:'
         version: 2.1.1
@@ -202,6 +205,31 @@ importers:
       '@justkits/svg2tsx':
         specifier: workspace:*
         version: link:../../primitives/svg2tsx
+
+  design-system/components/texts:
+    dependencies:
+      react:
+        specifier: ^19
+        version: 19.2.6
+      react-dom:
+        specifier: ^19
+        version: 19.2.6(react@19.2.6)
+    devDependencies:
+      '@justkits/tokens':
+        specifier: workspace:*
+        version: link:../../primitives/tokens
+      '@vanilla-extract/css':
+        specifier: 'catalog:'
+        version: 1.20.1
+      '@vanilla-extract/recipes':
+        specifier: 'catalog:'
+        version: 0.5.7(@vanilla-extract/css@1.20.1)
+      '@vanilla-extract/rollup-plugin':
+        specifier: 'catalog:'
+        version: 1.5.3(rollup@4.60.2)
+      clsx:
+        specifier: 'catalog:'
+        version: 2.1.1
 
   design-system/primitives/colors: {}
 
@@ -268,6 +296,9 @@ importers:
       '@justkits/svg2tsx':
         specifier: workspace:*
         version: link:../primitives/svg2tsx
+      '@justkits/texts':
+        specifier: workspace:*
+        version: link:../components/texts
       '@justkits/theme':
         specifier: workspace:*
         version: link:../primitives/theme
