@@ -28,20 +28,6 @@ const link = recipe({
     backgroundColor: "transparent",
     transform: "translateY(2px)",
     transition: "all 0.3s ease",
-    selectors: {
-      "&:focus-visible": {
-        outline: "none",
-      },
-    },
-    "@media": {
-      [mediaQueries.hoverable]: {
-        selectors: {
-          "&:hover": {
-            cursor: "pointer",
-          },
-        },
-      },
-    },
   },
   variants: {
     isActive: {
@@ -75,19 +61,4 @@ const link = recipe({
   },
 });
 
-const label = recipe({
-  base: {
-    fontSize: tokens.typography.fontSize.bodyMedium,
-    fontWeight: tokens.typography.fontWeight.regular,
-    lineHeight: tokens.typography.lineHeight.bodyMedium,
-  },
-  variants: {
-    isActive: {
-      true: {
-        fontWeight: tokens.typography.fontWeight.semibold,
-      },
-    },
-  },
-});
-
-export const styles = { tab, link, label };
+export const styles = { tab, link };

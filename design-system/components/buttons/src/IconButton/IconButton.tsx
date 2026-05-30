@@ -1,9 +1,12 @@
 import clsx from "clsx";
 
 import { Pressable, type PressableProps } from "@/Pressable";
-import { styles } from "./styles.css";
+import { styles } from "../styles.css";
 
-export interface IconButtonProps extends Omit<PressableProps, "children"> {
+export interface IconButtonProps extends Omit<
+  PressableProps,
+  "asChild" | "children"
+> {
   icon: React.ReactNode;
   label?: React.ReactNode;
   rounded?: boolean;

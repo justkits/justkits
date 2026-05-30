@@ -1,6 +1,6 @@
-import { Link, type LinkProps } from "@justkits/headless-ui/Link";
 import clsx from "clsx";
 
+import { Link, type LinkProps } from "@/Link";
 import { styles } from "./styles.css";
 
 export interface TabLinkProps extends Omit<LinkProps, "href" | "children"> {
