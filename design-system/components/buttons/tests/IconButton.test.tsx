@@ -5,7 +5,10 @@ import { IconButton } from "@/IconButton/IconButton";
 describe("IconButton", () => {
   it("renders icon and label correctly", () => {
     const { getByText } = render(
-      <IconButton icon={<span>Icon</span>} label="Label" />,
+      <IconButton>
+        <span>Icon</span>
+        <span>Label</span>
+      </IconButton>,
     );
 
     expect(getByText("Icon")).toBeTruthy();

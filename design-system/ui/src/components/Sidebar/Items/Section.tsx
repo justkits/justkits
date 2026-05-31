@@ -1,6 +1,6 @@
 import { Collapsible } from "@justkits/headless-ui/Collapsible";
 
-import { IconButton } from "@/atoms/Buttons";
+import { IconButton } from "@/components/Buttons";
 import { Text } from "@/components/Texts";
 import { styles } from "./styles.css";
 
@@ -20,12 +20,7 @@ export function SidebarSection({
           {label}
         </Text>
         <Collapsible.Toggle asChild>
-          <IconButton
-            className={styles.toggle}
-            icon="chevron-right"
-            size={16}
-            animateIcon="rotate90"
-          />
+          <IconButton className={styles.toggle} icon="chevron-right" />
         </Collapsible.Toggle>
       </div>
       <Collapsible.Content role="group">

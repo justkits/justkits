@@ -5,22 +5,22 @@ import { Link, type LinkProps } from "@/Link";
 import { styles } from "../styles.css";
 
 export interface IconLinkProps extends Omit<LinkProps, "children"> {
-  icon: React.ReactNode;
-  label?: React.ReactNode;
+  children: React.ReactNode;
+  tooltip?: React.ReactNode;
   rounded?: boolean;
   ghost?: boolean;
   size?: "small" | "medium" | "large";
 }
 
-export function IconLink({ label, ...linkProps }: IconLinkProps) {
-  if (label) {
+export function IconLink({ tooltip, ...linkProps }: Readonly<IconLinkProps>) {
+  if (tooltip) {
     return (
       <Tooltip portal>
         <Tooltip.Trigger asChild>
           <Component {...linkProps} />
         </Tooltip.Trigger>
         <Tooltip.Content>
-          <Tooltip.Message>{label}</Tooltip.Message>
+          <Tooltip.Message>{tooltip}</Tooltip.Message>
           <Tooltip.Arrow />
         </Tooltip.Content>
       </Tooltip>
@@ -31,19 +31,19 @@ export function IconLink({ label, ...linkProps }: IconLinkProps) {
 }
 
 function Component({
-  icon,
+  children,
   rounded = false,
   ghost = false,
   size = "medium",
   className,
   ...rest
-}: Omit<IconLinkProps, "tooltip">) {
+}: Readonly<Omit<IconLinkProps, "tooltip">>) {
   return (
     <Link
       {...rest}
       className={clsx(styles.iconButton({ rounded, ghost, size }), className)}
     >
-      {icon}
+      {children}
     </Link>
   );
 }
