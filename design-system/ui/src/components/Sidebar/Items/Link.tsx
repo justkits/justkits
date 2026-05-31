@@ -2,8 +2,8 @@ import {
   SidebarLink as SideLink,
   type SidebarLinkProps as SideLinkProps,
 } from "@justkits/headless-ui/Sidebar";
+import { AppIcon, type IconName } from "@justkits/icons";
 
-import { AppIcon, type IconName } from "@/atoms/Icons";
 import { Text } from "@/components/Texts";
 import { styles } from "./styles.css";
 
