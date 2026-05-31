@@ -5,7 +5,7 @@ import {
   CollapsibleToggle,
 } from "@justkits/headless-ui/Collapsible";
 
-import { IconButton } from "@/atoms/Buttons";
+import { IconButton } from "@/components/Buttons";
 import { SidebarLink, type SidebarLinkProps } from "./Link";
 import { styles } from "./styles.css";
 
@@ -60,11 +60,7 @@ export function SidebarSectionLink({
 function Toggle() {
   return (
     <CollapsibleToggle asChild>
-      <IconButton
-        icon="chevron-right"
-        animateIcon="rotate90"
-        className={styles.sectionLinkToggle}
-      />
+      <IconButton icon="chevron-right" className={styles.sectionLinkToggle} />
     </CollapsibleToggle>
   );
 }
