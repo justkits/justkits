@@ -17,7 +17,7 @@ export function Header() {
   return (
     <header role="banner" className={styles.header}>
       <div className={styles.headerPanel}>
-        <Link href="/" variant="icon" className={styles.homeLink}>
+        <Link href="/" className={styles.homeLink}>
           <JustkitsLogo />
         </Link>
       </div>
@@ -31,19 +31,15 @@ export function Header() {
             key={page.href}
             label={page.label}
             href={page.href}
-            active={pathname?.startsWith(page.href)}
+            isActive={pathname?.startsWith(page.href)}
           />
         ))}
       </nav>
       <div className={styles.headerPanel}>
-        <Link
-          href="https://github.com/justkits/justkits"
-          variant="icon"
-          isExternal
-        >
+        <Link href="https://github.com/justkits/justkits" isExternal>
           <GithubLogo />
         </Link>
-        <Link href="https://justwon.dev" variant="icon" isExternal>
+        <Link href="https://justwon.dev" isExternal>
           BlogLink
         </Link>
       </div>
