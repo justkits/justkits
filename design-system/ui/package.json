@@ -17,10 +17,6 @@
       "types": "./dist/Provider.d.mts",
       "default": "./dist/Provider.mjs"
     },
-    "./Buttons": {
-      "types": "./dist/atoms/Buttons/index.d.mts",
-      "default": "./dist/atoms/Buttons/index.mjs"
-    },
     "./Icons": {
       "types": "./dist/atoms/Icons/index.d.mts",
       "default": "./dist/atoms/Icons/index.mjs"
@@ -47,6 +43,7 @@
     "icons": "svg2tsx && prettier --write ./src/atoms/Icons/ --log-level silent"
   },
   "devDependencies": {
+    "@justkits/buttons": "workspace:*",
     "@justkits/headless-ui": "workspace:*",
     "@justkits/icons": "workspace:*",
     "@justkits/reset-css": "workspace:*",
