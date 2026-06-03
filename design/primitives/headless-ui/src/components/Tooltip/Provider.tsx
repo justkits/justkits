@@ -16,7 +16,7 @@ export interface TooltipProps {
   openDelay?: number;
   closeDelay?: number;
   longTouchDelay?: number;
-  disabled?: boolean;
+  isDisabled?: boolean;
 }
 
 export function TooltipProvider({
@@ -29,7 +29,7 @@ export function TooltipProvider({
   openDelay = 300,
   closeDelay = 700,
   longTouchDelay = 500,
-  disabled = false,
+  isDisabled = false,
 }: Readonly<TooltipProps>) {
   const {
     isOpen,
@@ -50,7 +50,7 @@ export function TooltipProvider({
 
   useClickOutside(floatingRef, hideTooltip, isOpen, triggerRef);
   useEscapeClose(hideTooltip, isOpen);
-  useLongTouch(triggerRef, showTooltip, !isOpen && !disabled, longTouchDelay); // 롱터치는 터치 자체에 delay가 있기 때문에, show에 delay를 주지 않는다.
+  useLongTouch(triggerRef, showTooltip, !isOpen && !isDisabled, longTouchDelay); // 롱터치는 터치 자체에 delay가 있기 때문에, show에 delay를 주지 않는다.
 
   const showTooltipWithDelay = useCallback(() => {
     if (timer.current) clearTimeout(timer.current);
@@ -75,7 +75,7 @@ export function TooltipProvider({
 
   const contextValue = useMemo(
     () => ({
-      disabled,
+      isDisabled,
       isOpen,
       showTooltip,
       showTooltipWithDelay,
@@ -91,7 +91,7 @@ export function TooltipProvider({
       floatingRef,
     }),
     [
-      disabled,
+      isDisabled,
       isOpen,
       showTooltip,
       showTooltipWithDelay,

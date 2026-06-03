@@ -2,7 +2,7 @@ import { createContext } from "react";
 
 type TooltipContextType = {
   // Open State
-  disabled: boolean;
+  isDisabled: boolean;
   isOpen: boolean;
   showTooltip: () => void;
   showTooltipWithDelay: () => void;
