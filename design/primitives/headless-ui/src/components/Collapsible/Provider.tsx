@@ -8,7 +8,7 @@ export interface CollapsibleProps {
   isOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
   defaultOpen?: boolean;
-  disabled?: boolean;
+  isDisabled?: boolean;
   unmountOnHide?: boolean;
 }
 
@@ -17,7 +17,7 @@ export function CollapsibleProvider({
   isOpen: controlledOpen,
   onOpenChange,
   defaultOpen = false,
-  disabled = false,
+  isDisabled = false,
   unmountOnHide = false,
 }: Readonly<CollapsibleProps>) {
   const { isOpen, show, hide } = useOpenState(
@@ -38,14 +38,14 @@ export function CollapsibleProvider({
 
   const contextValue = useMemo(
     () => ({
-      isOpen: disabled ? false : isOpen,
-      disabled,
+      isOpen: isDisabled ? false : isOpen,
+      isDisabled,
       unmountOnHide,
       toggle,
       contentId,
       toggleId,
     }),
-    [isOpen, disabled, unmountOnHide, toggle, contentId, toggleId],
+    [isOpen, isDisabled, unmountOnHide, toggle, contentId, toggleId],
   );
 
   return (
