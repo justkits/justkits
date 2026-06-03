@@ -1,16 +1,15 @@
 import { useContext, useEffect } from "react";
 
-import { AsChild } from "@/core/asChild";
+import { Button, type ButtonProps } from "@/components/Button";
 import { ContentContext, PopoverContext } from "./_internals/contexts";
 
 export interface PopoverCloseProps extends Omit<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  "children" | "type" | "onClick"
+  ButtonProps,
+  "onClick" | "children"
 > {
   children: React.ReactNode;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>;
-  asChild?: boolean;
-  ctxErrMsg?: string; // context가 없는 경우에 대한 에러 메시지
+  ctxErrMsg?: string;
 }
 
 export function PopoverClose({
@@ -18,7 +17,7 @@ export function PopoverClose({
   asChild = false,
   ctxErrMsg = "Popover.Close must be used inside the Popover wrapper.",
   onClick,
-  disabled,
+  isDisabled,
   ...rest
 }: Readonly<PopoverCloseProps>) {
   const context = useContext(PopoverContext);
@@ -35,7 +34,7 @@ export function PopoverClose({
   const { hidePopover, isPending, setPending } = context;
 
   useEffect(() => {
-    return () => setPending(false); // 컴포넌트 언마운트 시 pending 상태 초기화
+    return () => setPending(false);
   }, [setPending]);
 
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -52,33 +51,20 @@ export function PopoverClose({
       await result;
       hidePopover();
     } catch {
-      // Promise가 거부되면, Popover는 닫히지 않고 pending 상태만 해제
+      // rejected promise — popover stays open, pending cleared in finally
     } finally {
       setPending(false);
     }
   };
 
-  if (asChild) {
-    return (
-      <AsChild
-        {...rest}
-        type="button"
-        disabled={isPending || disabled}
-        onClick={handleClick}
-      >
-        {children}
-      </AsChild>
-    );
-  }
-
   return (
-    <button
+    <Button
       {...rest}
-      type="button"
-      disabled={isPending || disabled}
+      asChild={asChild}
+      isDisabled={isPending || isDisabled}
       onClick={handleClick}
     >
       {children}
-    </button>
+    </Button>
   );
 }

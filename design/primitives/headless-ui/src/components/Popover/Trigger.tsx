@@ -1,19 +1,13 @@
 import { useContext } from "react";
 
-import { AsChild } from "@/core/asChild";
+import { Button, type ButtonProps } from "@/components/Button";
 import { PopoverContext } from "./_internals/contexts";
 
 export interface PopoverTriggerProps extends Omit<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  | "children"
-  | "type"
-  | "onClick"
-  | "aria-controls"
-  | "aria-haspopup"
-  | "aria-expanded"
+  ButtonProps,
+  "onClick" | "aria-controls" | "aria-haspopup" | "aria-expanded" | "children"
 > {
   children: React.ReactNode;
-  asChild?: boolean;
   ctxErrMsg?: string;
 }
 
@@ -33,33 +27,17 @@ export function PopoverTrigger({
     context;
   const ariaControls = unmountOnHide && !isOpen ? undefined : contentId;
 
-  if (asChild) {
-    return (
-      <AsChild
-        {...rest}
-        type="button"
-        ref={triggerRef as React.RefObject<HTMLButtonElement>}
-        aria-controls={ariaControls}
-        aria-haspopup="dialog"
-        aria-expanded={isOpen}
-        onClick={togglePopover}
-      >
-        {children}
-      </AsChild>
-    );
-  }
-
   return (
-    <button
+    <Button
       {...rest}
-      type="button"
-      ref={triggerRef as React.RefObject<HTMLButtonElement>}
+      ref={triggerRef}
+      asChild={asChild}
+      onClick={togglePopover}
       aria-controls={ariaControls}
       aria-haspopup="dialog"
       aria-expanded={isOpen}
-      onClick={togglePopover}
     >
       {children}
-    </button>
+    </Button>
   );
 }
