@@ -36,7 +36,7 @@ export function TooltipProvider({
     show: showTooltip,
     hide: hideTooltip,
   } = useOpenState(controlledOpen, onOpenChange);
-  const triggerRef = useRef<HTMLElement | null>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
   const floatingRef = useRef<HTMLDivElement | null>(null);
   const timer = useRef<NodeJS.Timeout | null>(null);
   const tooltipId = useId();

@@ -18,7 +18,7 @@ type TooltipContextType = {
   containerStyles: React.CSSProperties;
   arrowStyles: React.CSSProperties;
   // DOM 참조
-  triggerRef: React.RefObject<HTMLElement | null>;
+  triggerRef: React.RefObject<HTMLButtonElement | null>;
   floatingRef: React.RefObject<HTMLDivElement | null>;
 };
 

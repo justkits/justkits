@@ -34,7 +34,7 @@ export function TooltipTrigger({
   }
 
   const {
-    disabled,
+    isDisabled,
     showTooltip,
     showTooltipWithDelay,
     hideTooltip,
@@ -48,12 +48,12 @@ export function TooltipTrigger({
       {...rest}
       ref={triggerRef}
       asChild={asChild}
-      isDisabled={disabled}
-      aria-describedby={disabled ? undefined : tooltipId}
-      onMouseEnter={showTooltipWithDelay}
-      onMouseLeave={hideTooltipWithDelay}
-      onFocus={showTooltip}
-      onBlur={hideTooltip}
+      isDisabled={isDisabled}
+      aria-describedby={isDisabled ? undefined : tooltipId}
+      onMouseEnter={isDisabled ? undefined : showTooltipWithDelay}
+      onMouseLeave={isDisabled ? undefined : hideTooltipWithDelay}
+      onFocus={isDisabled ? undefined : showTooltip}
+      onBlur={isDisabled ? undefined : hideTooltip}
     >
       {children}
     </Button>
