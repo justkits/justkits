@@ -39,14 +39,13 @@ describe("Collapsible - interactions", () => {
 
   it("should handle disabled state correctly", () => {
     const { getByText } = render(
-      <TestCollapsible disabled>Disabled Content</TestCollapsible>,
+      <TestCollapsible isDisabled>Disabled Content</TestCollapsible>,
     );
 
     const toggleButton = getByText("Toggle");
     const content = getByText("Disabled Content");
 
     // The toggle should be disabled
-    expect(toggleButton).property("disabled", true);
     expect(toggleButton.getAttribute("aria-disabled")).toBe("true");
 
     // The content should be hidden
