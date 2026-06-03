@@ -23,7 +23,7 @@ export function CollapsibleToggle({
     throw new Error(ctxErrMsg);
   }
 
-  const { isOpen, disabled, unmountOnHide, toggle, contentId, toggleId } =
+  const { isOpen, isDisabled, unmountOnHide, toggle, contentId, toggleId } =
     context;
   const ariaControls = unmountOnHide && !isOpen ? undefined : contentId;
 
@@ -32,7 +32,7 @@ export function CollapsibleToggle({
       {...rest}
       id={toggleId}
       asChild={asChild}
-      isDisabled={disabled}
+      isDisabled={isDisabled}
       onClick={toggle}
       aria-controls={ariaControls}
       aria-expanded={isOpen}
