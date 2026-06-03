@@ -1,13 +1,13 @@
 import { useContext } from "react";
 
-import { AsChild } from "@/core/asChild";
+import { Button, type ButtonProps } from "@/components/Button";
 import { TooltipContext } from "./_internals/contexts";
 
 export interface TooltipTriggerProps extends Omit<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  ButtonProps,
+  | "isDisabled"
   | "children"
   | "aria-describedby"
-  | "disabled"
   | "onMouseEnter"
   | "onMouseLeave"
   | "onFocus"
@@ -18,7 +18,6 @@ export interface TooltipTriggerProps extends Omit<
   | "onTouchCancel"
 > {
   children: React.ReactNode;
-  asChild?: boolean;
   ctxErrMsg?: string;
 }
 
@@ -35,7 +34,7 @@ export function TooltipTrigger({
   }
 
   const {
-    disabled,
+    isDisabled,
     showTooltip,
     showTooltipWithDelay,
     hideTooltip,
@@ -44,37 +43,19 @@ export function TooltipTrigger({
     triggerRef,
   } = context;
 
-  if (asChild) {
-    return (
-      <AsChild
-        {...rest}
-        ref={triggerRef as React.RefObject<HTMLButtonElement>}
-        aria-describedby={disabled ? undefined : tooltipId}
-        disabled={disabled}
-        onMouseEnter={showTooltipWithDelay}
-        onMouseLeave={hideTooltipWithDelay}
-        onFocus={showTooltip}
-        onBlur={hideTooltip}
-      >
-        {children}
-      </AsChild>
-    );
-  }
-
-  // type는 override 가능
   return (
-    <button
-      type="button"
+    <Button
       {...rest}
-      ref={triggerRef as React.RefObject<HTMLButtonElement>}
-      aria-describedby={disabled ? undefined : tooltipId}
-      disabled={disabled}
-      onMouseEnter={showTooltipWithDelay}
-      onMouseLeave={hideTooltipWithDelay}
-      onFocus={showTooltip}
-      onBlur={hideTooltip}
+      ref={triggerRef}
+      asChild={asChild}
+      isDisabled={isDisabled}
+      aria-describedby={isDisabled ? undefined : tooltipId}
+      onMouseEnter={isDisabled ? undefined : showTooltipWithDelay}
+      onMouseLeave={isDisabled ? undefined : hideTooltipWithDelay}
+      onFocus={isDisabled ? undefined : showTooltip}
+      onBlur={isDisabled ? undefined : hideTooltip}
     >
       {children}
-    </button>
+    </Button>
   );
 }

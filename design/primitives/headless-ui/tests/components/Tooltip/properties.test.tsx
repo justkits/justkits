@@ -174,7 +174,7 @@ describe("Tooltip - properties", () => {
 
     it("supports disabled state", () => {
       const { getByTestId } = render(
-        <TestComponent disabled>Tooltip Message</TestComponent>,
+        <TestComponent isDisabled>Tooltip Message</TestComponent>,
       );
 
       const trigger = getByTestId("tooltip-trigger");
@@ -196,7 +196,7 @@ describe("Tooltip - properties", () => {
 
     it("should respect disabled state even on asChild trigger", () => {
       const { getByTestId } = render(
-        <Tooltip disabled>
+        <Tooltip isDisabled>
           <Tooltip.Trigger asChild>
             <button data-testid="custom-trigger">Custom Trigger</button>
           </Tooltip.Trigger>

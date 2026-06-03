@@ -1,21 +1,14 @@
 import { useContext } from "react";
 
-import { AsChild } from "@/core/asChild";
+import { Button, type ButtonProps } from "@/components/Button";
 import { CollapsibleContext } from "./_internals/contexts";
 
 export interface CollapsibleToggleProps extends Omit<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  | "disabled"
-  | "children"
-  | "role"
-  | "onClick"
-  | "aria-controls"
-  | "aria-disabled"
-  | "aria-expanded"
+  ButtonProps,
+  "isDisabled" | "onClick" | "aria-controls" | "aria-expanded" | "children"
 > {
-  children: React.ReactNode; // 필수로 만든다
-  asChild?: boolean;
-  ctxErrMsg?: string; // context가 없는 경우에 대한 에러 메시지
+  children: React.ReactNode;
+  ctxErrMsg?: string;
 }
 
 export function CollapsibleToggle({
@@ -30,40 +23,22 @@ export function CollapsibleToggle({
     throw new Error(ctxErrMsg);
   }
 
-  const { isOpen, disabled, unmountOnHide, toggle, contentId, toggleId } =
+  const { isOpen, isDisabled, unmountOnHide, toggle, contentId, toggleId } =
     context;
   const ariaControls = unmountOnHide && !isOpen ? undefined : contentId;
 
-  if (asChild) {
-    return (
-      <AsChild
-        {...rest}
-        id={toggleId}
-        role="button"
-        onClick={toggle}
-        disabled={disabled}
-        aria-controls={ariaControls}
-        aria-disabled={disabled}
-        aria-expanded={isOpen}
-        data-state={isOpen ? "open" : "closed"}
-      >
-        {children}
-      </AsChild>
-    );
-  }
-
   return (
-    <button
+    <Button
       {...rest}
       id={toggleId}
+      asChild={asChild}
+      isDisabled={isDisabled}
       onClick={toggle}
-      disabled={disabled}
       aria-controls={ariaControls}
-      aria-disabled={disabled}
       aria-expanded={isOpen}
       data-state={isOpen ? "open" : "closed"}
     >
       {children}
-    </button>
+    </Button>
   );
 }

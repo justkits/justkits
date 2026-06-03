@@ -28,7 +28,7 @@ export function PopoverProvider({
     show: showPopover,
     hide: hidePopover,
   } = useOpenState(controlledOpen, onOpenChange, false);
-  const triggerRef = useRef<HTMLElement | null>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
   const floatingRef = useRef<HTMLDialogElement | null>(null);
   const [isPending, setPending] = useState<boolean>(false);
   const [titleId, setTitleId] = useState<string | undefined>(undefined);

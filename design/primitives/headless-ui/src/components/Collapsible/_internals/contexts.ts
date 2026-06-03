@@ -2,7 +2,7 @@ import { createContext } from "react";
 
 type CollapsibleContextValue = {
   isOpen: boolean;
-  disabled: boolean;
+  isDisabled: boolean;
   unmountOnHide: boolean;
   toggle: () => void;
   contentId: string;

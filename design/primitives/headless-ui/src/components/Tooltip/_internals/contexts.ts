@@ -2,7 +2,7 @@ import { createContext } from "react";
 
 type TooltipContextType = {
   // Open State
-  disabled: boolean;
+  isDisabled: boolean;
   isOpen: boolean;
   showTooltip: () => void;
   showTooltipWithDelay: () => void;
@@ -18,7 +18,7 @@ type TooltipContextType = {
   containerStyles: React.CSSProperties;
   arrowStyles: React.CSSProperties;
   // DOM 참조
-  triggerRef: React.RefObject<HTMLElement | null>;
+  triggerRef: React.RefObject<HTMLButtonElement | null>;
   floatingRef: React.RefObject<HTMLDivElement | null>;
 };
 
