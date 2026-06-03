@@ -11,7 +11,7 @@ type PopoverContextValue = {
   titleId: string | undefined;
   setTitleId: (id: string | undefined) => void;
   contentId: string;
-  triggerRef: React.RefObject<HTMLElement | null>;
+  triggerRef: React.RefObject<HTMLButtonElement | null>;
   floatingRef: React.RefObject<HTMLDialogElement | null>;
   containerStyles: React.CSSProperties;
   arrowStyles: React.CSSProperties;
