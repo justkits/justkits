@@ -1,8 +1,13 @@
+import { keyframes, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { style } from "@vanilla-extract/css";
 import { tokens } from "@justkits/tokens";
 
-export const header = recipe({
+const fadeIn = keyframes({
+  from: { opacity: 0 },
+  to: { opacity: 1 },
+});
+
+const header = recipe({
   base: {
     display: "flex",
     alignItems: "center",
@@ -12,32 +17,47 @@ export const header = recipe({
     padding: `${tokens.spacing.lg} ${tokens.spacing.sm}`,
   },
   variants: {
-    collapsed: {
-      true: { justifyContent: "center", padding: tokens.spacing.lg },
-      false: {},
+    variant: {
+      expanded: {},
+      collapsed: {},
+      collapsedToIcons: {
+        justifyContent: "center",
+      },
     },
   },
 });
 
-export const expandedSlot = style({
-  display: "flex",
-  flex: 1,
-  alignItems: "center",
-  overflow: "hidden",
-  transition: "opacity 0.2s ease",
+const swapContainer = style({
+  display: "grid",
+  placeItems: "center",
+});
+
+const collapsedIcon = style({
+  gridArea: "1 / 1",
+  opacity: 1,
+  transition: "opacity 200ms ease",
   selectors: {
-    "[data-state='collapsed'] &": { opacity: 0, pointerEvents: "none" },
-    "[data-state='expanded'] &": { opacity: 1 },
+    [`${swapContainer}:hover &`]: {
+      opacity: 0,
+      pointerEvents: "none",
+    },
   },
 });
 
-export const collapsedSlot = style({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  transition: "opacity 0.2s ease",
+const toggle = style({
+  gridArea: "1 / 1",
+  opacity: 0,
+  cursor: "pointer",
+  pointerEvents: "none",
+  animation: `${fadeIn} 200ms ease`,
+  animationPlayState: "paused",
   selectors: {
-    "[data-state='collapsed'] &": { opacity: 1 },
-    "[data-state='expanded'] &": { opacity: 0, pointerEvents: "none" },
+    [`${swapContainer}:hover &`]: {
+      opacity: 1,
+      pointerEvents: "auto",
+      animationPlayState: "running",
+    },
   },
 });
+
+export const styles = { header, swapContainer, collapsedIcon, toggle };
