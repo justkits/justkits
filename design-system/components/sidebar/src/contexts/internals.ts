@@ -4,6 +4,7 @@ type InternalSidebarContextValue = {
   collapse: "hide" | "icons" | "disable";
   side: "left" | "right";
   isIconMode: boolean;
+  isCollapsedToIcons: boolean;
   contentId: string;
 };
 
