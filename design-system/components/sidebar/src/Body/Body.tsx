@@ -4,7 +4,7 @@ import { useSidebar } from "@/contexts/core";
 import { SidebarBodyContext, useInternalSidebar } from "@/contexts/internals";
 import { sidebar } from "./styles.css";
 
-export interface SidebarProps extends Omit<
+export interface SidebarBodyProps extends Omit<
   React.HTMLAttributes<HTMLElement>,
   "children" | "id"
 > {
@@ -13,14 +13,14 @@ export interface SidebarProps extends Omit<
   appearance?: "default" | "floating" | "inset";
 }
 
-export function Sidebar({
+export function SidebarBody({
   children,
   scope = "app",
   appearance = "default",
   className,
   "aria-label": ariaLabel = scope === "app" ? "Sidebar" : undefined,
   ...rest
-}: Readonly<SidebarProps>) {
+}: Readonly<SidebarBodyProps>) {
   const { isExpanded } = useSidebar();
   const { contentId, collapse, side } = useInternalSidebar();
 
