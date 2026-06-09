@@ -1,4 +1,4 @@
-import { SidebarProvider, Sidebar, SidebarNav } from "@justkits/ui/Sidebar";
+import { SidebarProvider, SidebarBody, SidebarNav } from "@justkits/sidebar";
 
 import { kebabToTitleCase } from "@/shared/lib/strings";
 import { getSidebarItems } from "./api/sidebar";
@@ -18,7 +18,7 @@ export async function DocsLayout({ params, children }: Readonly<Props>) {
   return (
     <SidebarProvider>
       <div className={styles.container}>
-        <Sidebar className={styles.sidebar}>
+        <SidebarBody className={styles.sidebar}>
           <SidebarNav
             aria-label={`${kebabToTitleCase(page)} Documentation Navigation`}
           >
@@ -26,7 +26,7 @@ export async function DocsLayout({ params, children }: Readonly<Props>) {
               <SidebarNode key={`${item.label}-${idx}`} item={item} />
             ))}
           </SidebarNav>
-        </Sidebar>
+        </SidebarBody>
         <div className={styles.main}>
           {/* TODO: Breadcrumbs with sidebar toggle */}
           {children}
