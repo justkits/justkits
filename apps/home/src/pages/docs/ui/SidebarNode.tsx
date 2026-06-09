@@ -39,7 +39,7 @@ export function SidebarNode({ item }: Readonly<Props>) {
         as={NextLink}
         label={item.label}
         href={item.href}
-        active={active}
+        isActive={active}
         subitemActive={subitemActive}
         right={<SidebarStatus status={item.fields.status} />}
       >
@@ -55,7 +55,7 @@ export function SidebarNode({ item }: Readonly<Props>) {
       as={NextLink}
       label={item.label}
       href={item.href}
-      active={active}
+      isActive={active}
       left={<div />}
       right={<SidebarStatus status={item.fields.status} />}
       indicator

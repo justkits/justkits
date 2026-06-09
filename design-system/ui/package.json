@@ -43,6 +43,7 @@
     "@justkits/headless-ui": "workspace:*",
     "@justkits/icons": "workspace:*",
     "@justkits/reset-css": "workspace:*",
+    "@justkits/sidebar": "workspace:*",
     "@justkits/svg2tsx": "workspace:*",
     "@justkits/texts": "workspace:*",
     "@justkits/theme": "workspace:*",

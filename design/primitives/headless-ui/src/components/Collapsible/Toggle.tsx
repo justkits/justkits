@@ -5,9 +5,8 @@ import { CollapsibleContext } from "./_internals/contexts";
 
 export interface CollapsibleToggleProps extends Omit<
   ButtonProps,
-  "isDisabled" | "onClick" | "aria-controls" | "aria-expanded" | "children"
+  "isDisabled" | "onClick" | "aria-controls" | "aria-expanded"
 > {
-  children: React.ReactNode;
   ctxErrMsg?: string;
 }
 

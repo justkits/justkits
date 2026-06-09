@@ -1,18 +1,15 @@
-import {
-  SidebarLink as SideLink,
-  type SidebarLinkProps as SideLinkProps,
-} from "@justkits/headless-ui/Sidebar";
+import { Link, type LinkProps } from "@justkits/headless-ui/Link";
 import { AppIcon, type IconName } from "@justkits/icons";
 
 import { Text } from "@/components/Texts";
 import { styles } from "./styles.css";
 
-export interface SidebarLinkProps extends Omit<
-  SideLinkProps,
-  "href" | "children"
-> {
+export interface SidebarLinkProps extends Omit<LinkProps, "href" | "children"> {
   label: string;
   href: string;
+  left?: React.ReactNode;
+  right?: React.ReactNode;
+  isActive?: boolean;
   indicator?: boolean;
   icon?: IconName;
 }
@@ -20,37 +17,35 @@ export interface SidebarLinkProps extends Omit<
 export function SidebarLink({
   label,
   href,
-  active = false,
-  disabled = false,
-  external = false,
+  isActive = false,
+  isDisabled = false,
+  isExternal = false,
   indicator = false,
   icon,
   left,
   right,
   ...rest
 }: Readonly<SidebarLinkProps>) {
-  const isActive = active && !disabled;
   const showIndicator = isActive && indicator;
 
   return (
-    <SideLink
+    <Link
       {...rest}
-      className={styles.link({ active: isActive, disabled })}
+      className={styles.link({ active: isActive, isDisabled })}
       href={href}
-      active={active}
-      disabled={disabled}
-      external={external}
+      isDisabled={isDisabled}
+      isExternal={isExternal}
     >
       <Left left={left} icon={icon} />
       <Text
         variant="bodySmall"
-        className={styles.linkLabel({ active: isActive, disabled })}
+        className={styles.linkLabel({ active: isActive, isDisabled })}
       >
         {label}
       </Text>
-      <Right right={right} external={external} />
+      <Right right={right} isExternal={isExternal} />
       {showIndicator && <span className={styles.indicator} />}
-    </SideLink>
+    </Link>
   );
 }
 
@@ -69,11 +64,11 @@ function Left({
 
 function Right({
   right,
-  external,
-}: Readonly<Pick<SidebarLinkProps, "right" | "external">>) {
+  isExternal,
+}: Readonly<Pick<SidebarLinkProps, "right" | "isExternal">>) {
   if (right) return right;
 
-  if (external) {
+  if (isExternal) {
     return <AppIcon icon="external-link" />;
   }
 

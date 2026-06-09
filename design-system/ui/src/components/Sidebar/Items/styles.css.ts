@@ -1,8 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-
-import { tokens } from "@/tokens.css";
-import { colorWithOpacity, media } from "@/utils";
+import { colorWithOpacity, mediaQueries, tokens } from "@justkits/tokens";
 
 // #region link
 const link = recipe({
@@ -18,7 +16,7 @@ const link = recipe({
     transition: "background-color 0.3s ease",
 
     "@media": {
-      [media.hoverable]: {
+      [mediaQueries.hoverable]: {
         selectors: {
           "&:hover": {
             cursor: "pointer",
@@ -33,7 +31,7 @@ const link = recipe({
         backgroundColor: colorWithOpacity(tokens.colors.primary, 15),
 
         "@media": {
-          [media.hoverable]: {
+          [mediaQueries.hoverable]: {
             selectors: {
               "&:hover": {
                 backgroundColor: colorWithOpacity(tokens.colors.primary, 25),
@@ -44,7 +42,7 @@ const link = recipe({
       },
       false: {
         "@media": {
-          [media.hoverable]: {
+          [mediaQueries.hoverable]: {
             selectors: {
               "&:hover": {
                 backgroundColor: tokens.colors.backgroundHover,
@@ -54,7 +52,7 @@ const link = recipe({
         },
       },
     },
-    disabled: {
+    isDisabled: {
       true: {
         pointerEvents: "none",
         cursor: "not-allowed",
@@ -75,7 +73,7 @@ const linkLabel = recipe({
         fontWeight: tokens.typography.fontWeight.semibold,
       },
     },
-    disabled: {
+    isDisabled: {
       true: {
         color: tokens.colors.textMuted,
       },
