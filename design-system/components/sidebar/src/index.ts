@@ -3,8 +3,8 @@ export { useSidebar } from "./contexts/core";
 export { SidebarProvider } from "./Provider";
 export type { SidebarProviderProps } from "./Provider";
 
-export { Sidebar } from "./Sidebar/Sidebar";
-export type { SidebarProps } from "./Sidebar/Sidebar";
+export { SidebarBody } from "./Body/Body";
+export type { SidebarBodyProps } from "./Body/Body";
 export { SidebarHeader } from "./Header/Header";
 export type { SidebarHeaderProps } from "./Header/Header";
 export { SidebarFooter } from "./Footer/Footer";
