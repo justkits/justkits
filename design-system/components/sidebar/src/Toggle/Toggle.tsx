@@ -34,10 +34,10 @@ export function SidebarToggle({
       {children ?? (
         <>
           <span className={sidebarIcon}>
-            <AppIcon name="sidebar" />
+            <AppIcon icon="sidebar" />
           </span>
           <span className={arrowIcon}>
-            <AppIcon name="sidebar-arrow" />
+            <AppIcon icon="sidebar-arrow" />
           </span>
         </>
       )}
