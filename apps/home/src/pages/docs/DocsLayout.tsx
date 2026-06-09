@@ -1,4 +1,4 @@
-import { SidebarProvider, SidebarBody, SidebarNav } from "@justkits/sidebar";
+import { SidebarProvider, SidebarBody, SidebarNav } from "@justkits/ui/Sidebar";
 
 import { kebabToTitleCase } from "@/shared/lib/strings";
 import { getSidebarItems } from "./api/sidebar";
