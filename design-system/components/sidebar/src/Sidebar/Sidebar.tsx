@@ -4,7 +4,7 @@ import { useSidebar } from "@/contexts/core";
 import { SidebarBodyContext, useInternalSidebar } from "@/contexts/internals";
 import { sidebar } from "./styles.css";
 
-interface SidebarProps extends Omit<
+export interface SidebarProps extends Omit<
   React.HTMLAttributes<HTMLElement>,
   "children" | "id"
 > {

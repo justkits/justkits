@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { SidebarBodyContext, useInternalSidebar } from "@/contexts/internals";
 import { styles } from "./styles.css";
 
-interface SidebarFooterProps {
+export interface SidebarFooterProps {
   children: React.ReactNode;
   collapsed?: React.ReactNode;
   className?: string;

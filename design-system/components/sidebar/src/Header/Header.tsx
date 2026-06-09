@@ -6,7 +6,7 @@ import { SidebarBodyContext, useInternalSidebar } from "@/contexts/internals";
 import { styles } from "./styles.css";
 import { SidebarToggle } from "@/Toggle/Toggle";
 
-interface SidebarHeaderProps {
+export interface SidebarHeaderProps {
   children: React.ReactNode;
   collapsed?: React.ReactNode;
   toggle?: React.ReactNode;
