@@ -1,5 +1,6 @@
 import { useContext } from "react";
 
+import { AsChild } from "@/core/asChild";
 import { CollapsibleContext } from "./_internals/contexts";
 
 export interface CollapsibleContentProps extends Omit<
@@ -7,15 +8,15 @@ export interface CollapsibleContentProps extends Omit<
   "children" | "id" | "hidden" | "aria-hidden" | "role" | "aria-labelledby"
 > {
   children: React.ReactNode; // 필수로 만든다
+  asChild?: boolean;
   role?: "region" | "group";
   ctxErrMsg?: string; // context가 없는 경우에 대한 에러 메시지
 }
 
 export function CollapsibleContent({
   children,
-  className,
-  style,
-  role = "region",
+  asChild,
+  role = asChild ? undefined : "group",
   ctxErrMsg = "Collapsible.Content must be used inside the Collapsible wrapper.",
   ...rest
 }: Readonly<CollapsibleContentProps>) {
@@ -26,23 +27,23 @@ export function CollapsibleContent({
   }
 
   const { isOpen, unmountOnHide, contentId, toggleId } = context;
-  const HtmlTag: React.ElementType = role === "region" ? "section" : "div";
 
   if (unmountOnHide && !isOpen) {
     return null;
   }
 
+  const Component = asChild ? AsChild : "div";
+
   return (
-    <HtmlTag
+    <Component
       {...rest}
       id={contentId}
+      role={role}
       hidden={!isOpen}
-      className={className}
-      style={{ ...style, display: isOpen ? undefined : "none" }}
       aria-labelledby={role === "region" ? toggleId : undefined}
       data-state={isOpen ? "open" : "closed"}
     >
       {children}
-    </HtmlTag>
+    </Component>
   );
 }
