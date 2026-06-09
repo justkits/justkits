@@ -3,8 +3,8 @@ import clsx from "clsx";
 
 import { useSidebar } from "@/contexts/core";
 import { SidebarBodyContext, useInternalSidebar } from "@/contexts/internals";
-import { styles } from "./styles.css";
 import { SidebarToggle } from "@/Toggle/Toggle";
+import { styles } from "./styles.css";
 
 export interface SidebarHeaderProps {
   children: React.ReactNode;
@@ -28,7 +28,7 @@ export function SidebarHeader({
   const { isCollapsedToIcons } = useInternalSidebar();
 
   if (!isInsideSidebar) {
-    throw new Error("Sidebar.Header must be used inside Sidebar.");
+    throw new Error("SidebarHeader must be used inside SidebarBody.");
   }
 
   if (isCollapsedToIcons) {
@@ -75,7 +75,7 @@ function CollapsedToIcons({
 
   if (!collapsed) {
     console.warn(
-      "Sidebar.Header: 'collapsed' prop should be provided when toggleVariant is not 'always'.",
+      "SidebarHeader: 'collapsed' prop should be provided when toggleVariant is not 'always'.",
     );
   }
 

@@ -21,12 +21,12 @@ export function SidebarFooter({
   const { isCollapsedToIcons } = useInternalSidebar();
 
   if (!isInsideSidebar) {
-    throw new Error("Sidebar.Footer must be used inside Sidebar.");
+    throw new Error("SidebarFooter must be used inside SidebarBody.");
   }
 
   if (isCollapsedToIcons && !collapsed) {
     console.warn(
-      "Sidebar.Footer: 'collapsed' prop should be provided when collapse is set to \"icons\".",
+      "SidebarFooter: 'collapsed' prop should be provided when collapse is set to \"icons\".",
     );
   }
 
