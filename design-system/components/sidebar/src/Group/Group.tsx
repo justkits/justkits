@@ -58,7 +58,7 @@ export function SidebarGroup({
   const { isCollapsedToIcons } = useInternalSidebar();
 
   if (!isInsideNav) {
-    throw new Error("Sidebar.Group must be used inside Sidebar.Nav.");
+    throw new Error("SidebarGroup must be used inside SidebarNav.");
   }
 
   if (collapsible && iconSide === "end" && right) {
