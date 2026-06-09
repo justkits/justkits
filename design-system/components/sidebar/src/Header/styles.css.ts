@@ -18,8 +18,14 @@ const header = recipe({
   },
   variants: {
     variant: {
-      expanded: {},
-      collapsed: {},
+      expanded: {
+        opacity: 1,
+        transition: "opacity 150ms ease",
+      },
+      collapsed: {
+        opacity: 0,
+        pointerEvents: "none",
+      },
       collapsedToIcons: {
         justifyContent: "center",
       },
