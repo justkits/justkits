@@ -12,6 +12,25 @@ describe("Collapsible - structure", () => {
     );
   });
 
+  it("Collapsible.Content should support asChild property", () => {
+    const TestComponent = () => {
+      const [isOpen, setIsOpen] = useState<boolean>(true);
+
+      return (
+        <Collapsible isOpen={isOpen} onOpenChange={setIsOpen}>
+          <Collapsible.Content asChild>
+            <section>Content</section>
+          </Collapsible.Content>
+        </Collapsible>
+      );
+    };
+
+    const { getByText } = render(<TestComponent />);
+
+    // asChild로 감싸진 section이 렌더링되어야 한다.
+    expect(getByText("Content").tagName).toBe("SECTION");
+  });
+
   it("Collapsible.Toggle must be used within the Collapsible wrapper", () => {
     expect(() =>
       render(<Collapsible.Toggle>Trigger</Collapsible.Toggle>),
