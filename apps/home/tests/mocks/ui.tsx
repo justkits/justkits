@@ -42,7 +42,7 @@ vi.mock("@justkits/ui/Icons", () => ({
 }));
 vi.mock("@justkits/ui/Sidebar", () => ({
   SidebarProvider: ({ children }: { children: React.ReactNode }) => children,
-  Sidebar: ({ children }: { children: React.ReactNode }) => (
+  SidebarBody: ({ children }: { children: React.ReactNode }) => (
     <aside>{children}</aside>
   ),
   SidebarNav: ({ children }: { children: React.ReactNode }) => (
