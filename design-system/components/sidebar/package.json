@@ -24,6 +24,12 @@
     "access": "restricted",
     "registry": "https://npm.pkg.github.com/"
   },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "tsdown",
@@ -41,6 +47,7 @@
     "clsx": "catalog:"
   },
   "peerDependencies": {
-    "react": "^19"
+    "react": "^19",
+    "react-dom": "^19"
   }
 }
