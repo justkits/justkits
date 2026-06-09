@@ -2,7 +2,7 @@ import { useContext } from "react";
 import clsx from "clsx";
 
 import { SidebarBodyContext, SidebarNavContext } from "@/contexts/internals";
-import { nav } from "./styles.css";
+import { styles } from "./styles.css";
 
 export interface SidebarNavProps extends Omit<
   React.HTMLAttributes<HTMLElement>,
@@ -29,7 +29,7 @@ export function SidebarNav({
         {...rest}
         role="navigation"
         aria-label={ariaLabel}
-        className={clsx(nav, className)}
+        className={clsx(styles.nav, className)}
       >
         {children}
       </nav>

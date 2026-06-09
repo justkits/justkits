@@ -2,7 +2,7 @@ import clsx from "clsx";
 
 import { useSidebar } from "@/contexts/core";
 import { SidebarBodyContext, useInternalSidebar } from "@/contexts/internals";
-import { sidebar } from "./styles.css";
+import { styles } from "./styles.css";
 
 export interface SidebarBodyProps extends Omit<
   React.HTMLAttributes<HTMLElement>,
@@ -35,7 +35,10 @@ export function SidebarBody({
         data-state={isExpanded ? "expanded" : "collapsed"}
         data-appearance={appearance}
         data-side={side}
-        className={clsx(sidebar({ appearance, collapse, side }), className)}
+        className={clsx(
+          styles.sidebar({ appearance, collapse, side }),
+          className,
+        )}
       >
         {children}
       </Component>

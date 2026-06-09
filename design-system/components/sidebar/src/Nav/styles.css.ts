@@ -1,12 +1,17 @@
 import { style } from "@vanilla-extract/css";
 import { tokens } from "@justkits/tokens";
 
-export const nav = style({
+const nav = style({
+  flex: 1,
   display: "flex",
   flexDirection: "column",
-  flex: 1,
   overflowY: "auto",
   padding: `0 ${tokens.spacing.sm}`,
+  gap: tokens.spacing.sm,
   scrollbarWidth: "thin",
   scrollbarColor: `${tokens.colors.border} transparent`,
+  scrollbarGutter: "auto",
+  WebkitOverflowScrolling: "touch",
 });
+
+export const styles = { nav };

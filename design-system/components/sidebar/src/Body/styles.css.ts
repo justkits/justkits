@@ -4,7 +4,7 @@ import { tokens } from "@justkits/tokens";
 const EXPANDED_WIDTH = "240px";
 const ICON_WIDTH = "56px";
 
-export const sidebar = recipe({
+const sidebar = recipe({
   base: {
     display: "grid",
     gridTemplateColumns: "1fr",
@@ -63,3 +63,5 @@ export const sidebar = recipe({
     },
   ],
 });
+
+export const styles = { sidebar };
