@@ -6,7 +6,7 @@ import { sidebar } from "./styles.css";
 
 interface SidebarProps extends Omit<
   React.HTMLAttributes<HTMLElement>,
-  "children"
+  "children" | "id"
 > {
   children: React.ReactNode;
   scope?: "app" | "page";
@@ -18,6 +18,7 @@ export function Sidebar({
   scope = "app",
   appearance = "default",
   className,
+  "aria-label": ariaLabel = scope === "app" ? "Sidebar" : undefined,
   ...rest
 }: Readonly<SidebarProps>) {
   const { isExpanded } = useSidebar();
@@ -29,6 +30,7 @@ export function Sidebar({
     <SidebarBodyContext value={true}>
       <Component
         {...rest}
+        aria-label={ariaLabel}
         id={contentId}
         data-state={isExpanded ? "expanded" : "collapsed"}
         data-appearance={appearance}
