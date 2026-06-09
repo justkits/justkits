@@ -52,7 +52,7 @@ const link = recipe({
         },
       },
     },
-    disabled: {
+    isDisabled: {
       true: {
         pointerEvents: "none",
         cursor: "not-allowed",
@@ -73,7 +73,7 @@ const linkLabel = recipe({
         fontWeight: tokens.typography.fontWeight.semibold,
       },
     },
-    disabled: {
+    isDisabled: {
       true: {
         color: tokens.colors.textMuted,
       },
