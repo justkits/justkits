@@ -86,6 +86,9 @@ importers:
       '@justkits/docs':
         specifier: workspace:*
         version: link:../../packages/docs
+      '@justkits/sidebar':
+        specifier: workspace:*
+        version: link:../../design-system/components/sidebar
       '@justkits/ui':
         specifier: workspace:*
         version: link:../../design-system/ui
@@ -327,6 +330,9 @@ importers:
       '@justkits/reset-css':
         specifier: workspace:*
         version: link:../primitives/reset-css
+      '@justkits/sidebar':
+        specifier: workspace:*
+        version: link:../components/sidebar
       '@justkits/svg2tsx':
         specifier: workspace:*
         version: link:../primitives/svg2tsx
