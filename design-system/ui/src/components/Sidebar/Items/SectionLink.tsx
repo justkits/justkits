@@ -25,17 +25,17 @@ export function SidebarSectionLink({
   right,
   toggleSide = "left",
   children, // = subitems
-  active = false,
+  isActive = false,
   subitemActive = false,
   ...rest
 }: Readonly<SidebarSectionLinkProps>) {
-  const [prevIsActive, setPrevIsActive] = useState<boolean>(active);
-  const [isOpen, setIsOpen] = useState<boolean>(subitemActive || active);
+  const [prevIsActive, setPrevIsActive] = useState<boolean>(isActive);
+  const [isOpen, setIsOpen] = useState<boolean>(subitemActive || isActive);
 
-  if (prevIsActive !== active) {
-    setPrevIsActive(active);
+  if (prevIsActive !== isActive) {
+    setPrevIsActive(isActive);
     // 닫혀있는 경우 활성화되면 열기 (이미 열려있는 경우는 굳이 닫지 않음)
-    if (!isOpen && active) {
+    if (!isOpen && isActive) {
       setIsOpen(true);
     }
   }
@@ -48,7 +48,7 @@ export function SidebarSectionLink({
         label={label}
         left={toggleSide === "left" ? <Toggle /> : left}
         right={toggleSide === "right" ? <Toggle /> : right}
-        active={active}
+        isActive={isActive}
       />
       <CollapsibleContent className={styles.items} role="group">
         {children}

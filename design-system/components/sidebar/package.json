@@ -1,0 +1,53 @@
+{
+  "name": "@justkits/sidebar",
+  "description": "JustKits Design System - Sidebar",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "keywords": [
+    "sidebar",
+    "navigation",
+    "react",
+    "typescript"
+  ],
+  "author": "JustWon",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justkits/justkits.git",
+    "directory": "design-system/components/sidebar"
+  },
+  "license": "UNLICENSED",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@justkits/headless-ui": "workspace:*",
+    "@justkits/icons": "workspace:*",
+    "@justkits/tokens": "workspace:*",
+    "@vanilla-extract/css": "catalog:",
+    "@vanilla-extract/recipes": "catalog:",
+    "@vanilla-extract/rollup-plugin": "catalog:",
+    "clsx": "catalog:"
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19"
+  }
+}
