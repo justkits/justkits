@@ -3,7 +3,6 @@ import { Collapsible } from "@justkits/headless-ui/Collapsible";
 import { AppIcon } from "@justkits/icons";
 import clsx from "clsx";
 
-import { useSidebar } from "@/contexts/core";
 import { SidebarNavContext, useInternalSidebar } from "@/contexts/internals";
 import { styles } from "./styles.css";
 
@@ -56,14 +55,19 @@ export function SidebarGroup({
   style,
 }: Readonly<SidebarGroupProps>) {
   const isInsideNav = useContext(SidebarNavContext);
-  const { isExpanded } = useSidebar();
-  const { isIconMode } = useInternalSidebar();
+  const { isCollapsedToIcons } = useInternalSidebar();
 
   if (!isInsideNav) {
     throw new Error("Sidebar.Group must be used inside Sidebar.Nav.");
   }
 
-  if (isIconMode && !isExpanded) {
+  if (collapsible && iconSide === "end" && right) {
+    console.warn(
+      "Sidebar.Group: 'icon' is ignored when iconSide=\"end\" and 'right' is also provided. Only 'right' will be shown.",
+    );
+  }
+
+  if (isCollapsedToIcons) {
     return (
       <div className={clsx(styles.group, className)} style={style}>
         {children}
