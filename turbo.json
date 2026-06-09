@@ -18,5 +18,6 @@
     "lint": {
       "dependsOn": ["^lint"]
     }
-  }
+  },
+  "concurrency": "12"
 }
