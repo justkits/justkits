@@ -20,7 +20,7 @@ export function SidebarNav({
   const isInsideSidebar = useContext(SidebarBodyContext);
 
   if (!isInsideSidebar) {
-    throw new Error("Sidebar.Nav must be used inside Sidebar.Content.");
+    throw new Error("Sidebar.Nav must be used inside Sidebar.");
   }
 
   return (
