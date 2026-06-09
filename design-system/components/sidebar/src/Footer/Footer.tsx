@@ -24,6 +24,12 @@ export function SidebarFooter({
     throw new Error("Sidebar.Footer must be used inside Sidebar.");
   }
 
+  if (isCollapsedToIcons && !collapsed) {
+    console.warn(
+      "Sidebar.Footer: 'collapsed' prop should be provided when collapse is set to \"icons\".",
+    );
+  }
+
   return (
     <div
       className={clsx(styles.footer({ isCollapsedToIcons }), className)}

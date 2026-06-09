@@ -12,7 +12,7 @@ const footer = recipe({
   },
   variants: {
     isCollapsedToIcons: {
-      true: { justifyContent: "center", padding: tokens.spacing.lg },
+      true: { justifyContent: "center" },
       false: {},
     },
   },
