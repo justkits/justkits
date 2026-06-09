@@ -8,7 +8,7 @@ export interface SidebarProviderProps {
   collapse?: "hide" | "icons" | "disable";
   side?: "left" | "right";
   defaultExpanded?: boolean;
-  expanded?: boolean;
+  isExpanded?: boolean;
   onExpandedChange?: (expanded: boolean) => void;
 }
 
@@ -16,23 +16,34 @@ export function SidebarProvider({
   children,
   collapse = "hide",
   side = "left",
-  defaultExpanded = false,
-  expanded,
+  defaultExpanded = true,
+  isExpanded: controlledExpanded,
   onExpandedChange,
 }: Readonly<SidebarProviderProps>) {
   const [internalExpanded, setInternalExpanded] = useState(defaultExpanded);
-  const isExpanded = expanded ?? internalExpanded;
+  const isExpanded = controlledExpanded ?? internalExpanded;
   const contentId = useId();
 
   const toggleSidebar = useCallback(() => {
-    if (collapse === "disable") return;
+    if (collapse === "disable") {
+      console.warn(
+        'SidebarProvider: toggleSidebar called but collapse is set to "disable".',
+      );
+      return;
+    }
 
-    if (expanded === undefined) {
+    if (controlledExpanded === undefined) {
       setInternalExpanded((prev) => !prev);
     } else {
-      onExpandedChange?.(!expanded);
+      if (!onExpandedChange) {
+        console.warn(
+          "SidebarProvider: `isExpanded` is controlled but `onExpandedChange` is not provided. The sidebar cannot be toggled.",
+        );
+        return;
+      }
+      onExpandedChange(!controlledExpanded);
     }
-  }, [collapse, expanded, onExpandedChange]);
+  }, [collapse, controlledExpanded, onExpandedChange]);
 
   const contextValue = useMemo(
     () => ({ isExpanded, toggleSidebar }),
@@ -41,10 +52,11 @@ export function SidebarProvider({
 
   const internalContextValue = useMemo(
     () => ({
-      contentId,
       collapse,
       side,
-      isIconMode: collapse === "icons" && !isExpanded,
+      isIconMode: collapse === "icons",
+      isCollapsedToIcons: collapse === "icons" && !isExpanded,
+      contentId,
     }),
     [contentId, collapse, side, isExpanded],
   );
