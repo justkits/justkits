@@ -43,7 +43,7 @@ const collapsedIcon = style({
   opacity: 1,
   transition: "opacity 200ms ease",
   selectors: {
-    [`${swapContainer}:hover &`]: {
+    [`${swapContainer}:hover &, ${swapContainer}:focus-within &`]: {
       opacity: 0,
       pointerEvents: "none",
     },
@@ -58,7 +58,7 @@ const toggle = style({
   animation: `${fadeIn} 200ms ease`,
   animationPlayState: "paused",
   selectors: {
-    [`${swapContainer}:hover &`]: {
+    [`${swapContainer}:hover &, ${swapContainer}:focus-within &`]: {
       opacity: 1,
       pointerEvents: "auto",
       animationPlayState: "running",
