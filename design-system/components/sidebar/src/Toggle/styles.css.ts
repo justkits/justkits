@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 import { tokens } from "@justkits/tokens";
 
-export const toggle = style({
+const toggle = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -17,14 +17,14 @@ export const toggle = style({
   },
 });
 
-export const sidebarIcon = style({
+const sidebarIcon = style({
   display: "flex",
   selectors: {
     [`${toggle}:hover &`]: { display: "none" },
   },
 });
 
-export const arrowIcon = style({
+const arrowIcon = style({
   display: "none",
   transition: "transform 0.2s ease",
   selectors: {
@@ -37,3 +37,5 @@ export const arrowIcon = style({
     },
   },
 });
+
+export const styles = { toggle, sidebarIcon, arrowIcon };
