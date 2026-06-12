@@ -15,6 +15,7 @@ export type SidebarGroupProps = {
   showRight?: "always" | "hover";
   // escape hatch for the header
   header?: React.ReactNode;
+  "aria-label"?: string;
   className?: string;
   style?: React.CSSProperties;
 } & (
@@ -44,6 +45,7 @@ export function SidebarGroup({
   right,
   showRight = "hover",
   header,
+  "aria-label": ariaLabel,
   collapsible = false,
   icon,
   iconSide = "right",
@@ -92,6 +94,9 @@ export function SidebarGroup({
   const isIconEnd = iconSide === "end";
   const showEndIcon = isIconEnd && !right;
 
+  const toggleLabel =
+    ariaLabel ?? (typeof label === "string" ? label : "Toggle group");
+
   return (
     <Collapsible
       defaultOpen={defaultOpen}
@@ -111,7 +116,10 @@ export function SidebarGroup({
             </div>
             <Right right={right} showRight={showRight} />
             {showEndIcon && <Icon icon={icon} showIcon={showIcon} />}
-            <Collapsible.Toggle className={styles.toggle} />
+            <Collapsible.Toggle
+              aria-label={toggleLabel}
+              className={styles.toggle}
+            />
           </div>
         )}
         <Collapsible.Content asChild className={styles.children}>

@@ -60,7 +60,8 @@ const headerRight = recipe({
       hover: {
         display: "none",
         selectors: {
-          [`${header.classNames.base}:hover &`]: { display: "block" },
+          [`${header.classNames.base}:hover &, ${header.classNames.base}:focus-within &`]:
+            { display: "block" },
         },
       },
       always: { display: "block" },
@@ -80,7 +81,8 @@ const icon = recipe({
       hover: {
         display: "none",
         selectors: {
-          [`${header.classNames.base}:hover &`]: { display: "block" },
+          [`${header.classNames.base}:hover &, ${header.classNames.base}:focus-within &`]:
+            { display: "block" },
         },
       },
       always: { display: "block" },
