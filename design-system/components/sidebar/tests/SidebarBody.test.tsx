@@ -1,7 +1,8 @@
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 
 import { SidebarProvider } from "@/Provider";
 import { SidebarBody } from "@/Body/Body";
+import { SidebarToggle } from "@/Toggle/Toggle";
 
 describe("SidebarBody", () => {
   it("renders children correctly", () => {
@@ -32,5 +33,47 @@ describe("SidebarBody", () => {
       "Sidebar",
     );
     expect(getByTestId("page-sidebar").getAttribute("aria-label")).toBeNull();
+  });
+
+  describe("collapse='hide' inert behavior", () => {
+    it("is not inert when expanded", () => {
+      const { getByTestId } = render(
+        <SidebarProvider collapse="hide" defaultExpanded>
+          <SidebarBody data-testid="sidebar">
+            <div />
+          </SidebarBody>
+        </SidebarProvider>,
+      );
+
+      expect(getByTestId("sidebar").hasAttribute("inert")).toBe(false);
+    });
+
+    it("becomes inert when collapsed", () => {
+      const { getByTestId } = render(
+        <SidebarProvider collapse="hide" defaultExpanded>
+          <SidebarBody data-testid="sidebar">
+            <div />
+          </SidebarBody>
+          <SidebarToggle data-testid="toggle" />
+        </SidebarProvider>,
+      );
+
+      fireEvent.click(getByTestId("toggle"));
+      expect(getByTestId("sidebar").hasAttribute("inert")).toBe(true);
+    });
+
+    it("is not inert when collapsed with collapse='icons'", () => {
+      const { getByTestId } = render(
+        <SidebarProvider collapse="icons" defaultExpanded>
+          <SidebarBody data-testid="sidebar">
+            <div />
+          </SidebarBody>
+          <SidebarToggle data-testid="toggle" />
+        </SidebarProvider>,
+      );
+
+      fireEvent.click(getByTestId("toggle"));
+      expect(getByTestId("sidebar").hasAttribute("inert")).toBe(false);
+    });
   });
 });
