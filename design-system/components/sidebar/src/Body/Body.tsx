@@ -26,12 +26,15 @@ export function SidebarBody({
 
   const Component = scope === "app" ? "aside" : "div";
 
+  const isHidden = collapse === "hide" && !isExpanded;
+
   return (
     <SidebarBodyContext value={true}>
       <Component
         {...rest}
         aria-label={ariaLabel}
         id={contentId}
+        inert={isHidden ? true : undefined}
         data-state={isExpanded ? "expanded" : "collapsed"}
         data-appearance={appearance}
         data-side={side}

@@ -3,7 +3,7 @@ import { AppIcon } from "@justkits/icons";
 
 import { useSidebar } from "@/contexts/core";
 import { useInternalSidebar } from "@/contexts/internals";
-import { toggle, sidebarIcon, arrowIcon } from "./styles.css";
+import { styles } from "./styles.css";
 
 export interface SidebarToggleProps extends Omit<ButtonProps, "children"> {
   children?: React.ReactNode;
@@ -29,14 +29,14 @@ export function SidebarToggle({
       aria-expanded={isExpanded}
       data-expanded={isExpanded}
       data-side={side}
-      className={toggle}
+      className={styles.toggle}
     >
       {children ?? (
         <>
-          <span className={sidebarIcon}>
+          <span className={styles.sidebarIcon}>
             <AppIcon icon="sidebar" />
           </span>
-          <span className={arrowIcon}>
+          <span className={styles.arrowIcon}>
             <AppIcon icon="sidebar-arrow" />
           </span>
         </>
