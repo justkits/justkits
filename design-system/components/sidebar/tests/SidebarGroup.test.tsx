@@ -107,6 +107,62 @@ describe("SidebarGroup", () => {
     expect(queryByText("Test Group")).toBeNull(); // label should not be visible
   });
 
+  describe("collapsible toggle accessible name", () => {
+    it("uses string label as aria-label on the toggle", () => {
+      const { getByRole } = render(
+        <SidebarProvider>
+          <SidebarBody>
+            <SidebarNav>
+              <SidebarGroup label="Projects" collapsible>
+                <div>Child Content</div>
+              </SidebarGroup>
+            </SidebarNav>
+          </SidebarBody>
+        </SidebarProvider>,
+      );
+
+      expect(getByRole("button", { name: "Projects" })).toBeTruthy();
+    });
+
+    it("uses aria-label prop over string label", () => {
+      const { getByRole } = render(
+        <SidebarProvider>
+          <SidebarBody>
+            <SidebarNav>
+              <SidebarGroup
+                label="Projects"
+                aria-label="Toggle Projects group"
+                collapsible
+              >
+                <div>Child Content</div>
+              </SidebarGroup>
+            </SidebarNav>
+          </SidebarBody>
+        </SidebarProvider>,
+      );
+
+      expect(
+        getByRole("button", { name: "Toggle Projects group" }),
+      ).toBeTruthy();
+    });
+
+    it("falls back to 'Toggle group' when label is a ReactNode", () => {
+      const { getByRole } = render(
+        <SidebarProvider>
+          <SidebarBody>
+            <SidebarNav>
+              <SidebarGroup label={<span>Projects</span>} collapsible>
+                <div>Child Content</div>
+              </SidebarGroup>
+            </SidebarNav>
+          </SidebarBody>
+        </SidebarProvider>,
+      );
+
+      expect(getByRole("button", { name: "Toggle group" })).toBeTruthy();
+    });
+  });
+
   describe("collapsible behavior", () => {
     it("handles collapsible state changes correctly", () => {
       const { getByTestId, getByRole } = render(
