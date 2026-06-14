@@ -1,7 +1,8 @@
 import clsx from "clsx";
 
 import { Keyboard } from "./Keyboard";
-import { detectOS, resolveKey, resolveReadableName, type OS } from "./keys";
+import { detectOS, type OS } from "@/utils/os";
+import { resolveKey, resolveReadableName } from "@/utils/keys";
 import { styles } from "./styles.css";
 
 export interface KeyboardGroupProps {
