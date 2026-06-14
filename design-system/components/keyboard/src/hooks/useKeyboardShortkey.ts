@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
 
-import { isMac } from "@/utils";
+import { isMac } from "@/utils/os";
 
 export interface UseKeyboardShortkeyOptions {
   enabled?: boolean;

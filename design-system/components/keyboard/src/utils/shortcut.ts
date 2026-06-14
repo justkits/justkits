@@ -1,5 +1,4 @@
-export const isMac =
-  typeof navigator !== "undefined" && /mac/i.test(navigator.platform);
+import { isMac } from "./os";
 
 export function parseShortcutKeys(shortcut: string): string[] {
   return shortcut
