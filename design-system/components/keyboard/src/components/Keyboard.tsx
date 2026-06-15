@@ -2,27 +2,19 @@ import clsx from "clsx";
 
 import { styles } from "./styles.css";
 
-export interface KeyboardProps {
+export interface KeyboardProps extends React.HTMLAttributes<HTMLElement> {
   size?: "small" | "large";
   children: string;
-  "aria-label"?: string;
-  className?: string;
-  style?: React.CSSProperties;
 }
 
 export function Keyboard({
   size = "small",
   children,
-  "aria-label": ariaLabel,
   className,
-  style,
+  ...rest
 }: Readonly<KeyboardProps>) {
   return (
-    <kbd
-      aria-label={ariaLabel}
-      className={clsx(styles.keyboard({ size }), className)}
-      style={style}
-    >
+    <kbd {...rest} className={clsx(styles.keyboard({ size }), className)}>
       {children}
     </kbd>
   );
