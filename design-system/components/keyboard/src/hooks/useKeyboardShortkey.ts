@@ -60,10 +60,10 @@ export function useKeyboardShortkey(
       }
 
       if (e.key.toLowerCase() !== targetKey.toLowerCase()) return;
-      if (metaKey && !e.metaKey) return;
-      if (ctrlKey && !e.ctrlKey) return;
-      if (altKey && !e.altKey) return;
-      if (shiftKey && !e.shiftKey) return;
+      if (metaKey !== e.metaKey) return;
+      if (ctrlKey !== e.ctrlKey) return;
+      if (altKey !== e.altKey) return;
+      if (shiftKey !== e.shiftKey) return;
 
       e.preventDefault();
       callbackRef.current();
