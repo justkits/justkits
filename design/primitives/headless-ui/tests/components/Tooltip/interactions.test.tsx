@@ -8,22 +8,21 @@ describe("Tooltip - interactions", () => {
     setupTimer();
 
     it("should not open the tooltip on clicks", () => {
-      const { getByTestId } = render(
+      const { getByTestId, queryByTestId } = render(
         <TestComponent>Tooltip Message</TestComponent>,
       );
 
       const trigger = getByTestId("tooltip-trigger");
-      const content = getByTestId("tooltip-content");
 
       // 초기에는 보이지 않는다.
-      expect(content.dataset.state).toBe("closed");
+      expect(queryByTestId("tooltip-content")).toBeNull();
 
       // 클릭 시에도 보이지 않아야 한다.
       fireEvent.click(trigger);
       act(() => {
         vi.advanceTimersByTime(1000); // 충분한 시간이 지나도 보이지 않아야 한다.
       });
-      expect(content.dataset.state).toBe("closed");
+      expect(queryByTestId("tooltip-content")).toBeNull();
     });
 
     it("should close the tooltip on outside clicks when it's open", () => {
@@ -46,19 +45,19 @@ describe("Tooltip - interactions", () => {
     });
 
     it("should open the tooltip on long press", () => {
-      const { getByTestId } = render(
+      const { getByTestId, queryByTestId } = render(
         <TestComponent>Tooltip Message</TestComponent>,
       );
 
       const trigger = getByTestId("tooltip-trigger");
-      const content = getByTestId("tooltip-content");
 
       // 초기에는 보이지 않는다.
-      expect(content.dataset.state).toBe("closed");
+      expect(queryByTestId("tooltip-content")).toBeNull();
 
       // 트리거를 길게 누르면 툴팁이 열려야 한다. (기본값 500ms)
       fireEvent.touchStart(trigger);
       act(() => vi.advanceTimersByTime(500));
+      const content = getByTestId("tooltip-content");
       expect(content.dataset.state).toBe("open");
 
       // 한번 열리면, 터치를 끝내도 바로 닫히지 않아야 한다.
@@ -72,38 +71,38 @@ describe("Tooltip - interactions", () => {
     setupTimer();
 
     it("shows the tooltip on mouse enter and hides it on mouse leave", () => {
-      const { getByTestId } = render(
+      const { getByTestId, queryByTestId } = render(
         <TestComponent>Tooltip Message</TestComponent>,
       );
 
       const trigger = getByTestId("tooltip-trigger");
-      const content = getByTestId("tooltip-content");
 
       // 초기에는 Tooltip.Content가 렌더링되지 않아야 한다.
-      expect(content.dataset.state).toBe("closed");
+      expect(queryByTestId("tooltip-content")).toBeNull();
 
       // Tooltip.Trigger에 마우스를 올려 툴팁을 연다. (기본값 300ms)
       fireEvent.mouseEnter(trigger);
       act(() => vi.advanceTimersByTime(300));
+      const content = getByTestId("tooltip-content");
       expect(content.dataset.state).toBe("open");
 
       // Tooltip.Trigger에서 마우스를 내리면 툴팁이 닫혀야 한다. (700ms delay)
       fireEvent.mouseLeave(trigger);
       act(() => vi.advanceTimersByTime(700));
-      expect(content.dataset.state).toBe("closed");
+      expect(queryByTestId("tooltip-content")).toBeNull();
     });
 
     it("does not hide the tooltip if mouse enters the tooltip content while it's open", () => {
-      const { getByTestId } = render(
+      const { getByTestId, queryByTestId } = render(
         <TestComponent>Tooltip Message</TestComponent>,
       );
 
       const trigger = getByTestId("tooltip-trigger");
-      const content = getByTestId("tooltip-content");
 
       // Tooltip.Trigger에 마우스를 올려 툴팁을 연다. (500ms delay)
       fireEvent.mouseEnter(trigger);
       act(() => vi.advanceTimersByTime(500));
+      const content = getByTestId("tooltip-content");
       expect(content.dataset.state).toBe("open");
 
       // Tooltip.Content에 마우스를 올려도 툴팁이 닫히지 않아야 한다.
@@ -115,31 +114,31 @@ describe("Tooltip - interactions", () => {
       // Tooltip.Content에서도 마우스를 내리면 툴팁이 닫혀야 한다. (700ms delay)
       fireEvent.mouseLeave(content);
       act(() => vi.advanceTimersByTime(700));
-      expect(content.dataset.state).toBe("closed");
+      expect(queryByTestId("tooltip-content")).toBeNull();
     });
   });
 
   describe("Focus", () => {
     it("shows the tooltip on focus and hides it on blur", () => {
-      const { getByTestId } = render(
+      const { getByTestId, queryByTestId } = render(
         <TestComponent>Tooltip Message</TestComponent>,
       );
 
       const trigger = getByTestId("tooltip-trigger");
-      const content = getByTestId("tooltip-content");
 
       // 초기에는 Tooltip.Content가 렌더링되지 않아야 한다.
-      expect(content.dataset.state).toBe("closed");
+      expect(queryByTestId("tooltip-content")).toBeNull();
 
       // Tooltip.Trigger에 포커스하여 툴팁을 연다.
       act(() => trigger.focus());
+      const content = getByTestId("tooltip-content");
       expect(content.dataset.state).toBe("open");
       expect(document.activeElement).toBe(trigger); // 포커스가 트리거에 남아 있어야 한다.
       expect(document.activeElement).not.toBe(content); // 포커스가 툴팁 콘텐츠로 이동하면 안 된다.
 
       // Tooltip.Trigger에서 포커스가 해제되면 툴팁이 닫혀야 한다.
       act(() => trigger.blur());
-      expect(content.dataset.state).toBe("closed");
+      expect(queryByTestId("tooltip-content")).toBeNull();
     });
   });
 

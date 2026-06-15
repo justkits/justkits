@@ -25,7 +25,7 @@ export function TooltipProvider({
   onOpenChange,
   portal = false,
   position = "bottom",
-  unmountOnHide = false,
+  unmountOnHide = true,
   openDelay = 300,
   closeDelay = 700,
   longTouchDelay = 500,
