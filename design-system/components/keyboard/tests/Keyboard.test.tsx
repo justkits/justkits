@@ -1,16 +1,12 @@
 import { render } from "@testing-library/react";
 
-import { Keyboard } from "@/Keyboard";
+import { Keyboard } from "@/components/Keyboard";
 
 describe("Keyboard", () => {
-  it("renders the key label", () => {
+  it("renders the key label as a kbd element", () => {
     const { getByText } = render(<Keyboard>⌘</Keyboard>);
     expect(getByText("⌘")).toBeTruthy();
-  });
-
-  it("renders a kbd element", () => {
-    const { getByText } = render(<Keyboard>K</Keyboard>);
-    expect(getByText("K").tagName).toBe("KBD");
+    expect(getByText("⌘").tagName).toBe("KBD");
   });
 
   it("applies size prop", () => {
