@@ -47,6 +47,12 @@ export function useKeyboardShortkey(
     const hasCommandModifier = metaKey || ctrlKey;
 
     const handler = (e: KeyboardEvent) => {
+      if (e.key.toLowerCase() !== targetKey.toLowerCase()) return;
+      if (metaKey !== e.metaKey) return;
+      if (ctrlKey !== e.ctrlKey) return;
+      if (altKey !== e.altKey) return;
+      if (shiftKey !== e.shiftKey) return;
+
       if (!hasCommandModifier) {
         const active = document.activeElement;
         const tag = active?.tagName.toLowerCase();
@@ -54,16 +60,11 @@ export function useKeyboardShortkey(
         if (
           tag === "input" ||
           tag === "textarea" ||
+          tag === "select" ||
           (active as HTMLElement)?.isContentEditable
         )
           return;
       }
-
-      if (e.key.toLowerCase() !== targetKey.toLowerCase()) return;
-      if (metaKey !== e.metaKey) return;
-      if (ctrlKey !== e.ctrlKey) return;
-      if (altKey !== e.altKey) return;
-      if (shiftKey !== e.shiftKey) return;
 
       e.preventDefault();
       callbackRef.current();
