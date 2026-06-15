@@ -86,9 +86,6 @@ importers:
       '@justkits/docs':
         specifier: workspace:*
         version: link:../../packages/docs
-      '@justkits/sidebar':
-        specifier: workspace:*
-        version: link:../../design-system/components/sidebar
       '@justkits/ui':
         specifier: workspace:*
         version: link:../../design-system/ui
