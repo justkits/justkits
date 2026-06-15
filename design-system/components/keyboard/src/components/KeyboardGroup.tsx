@@ -1,57 +1,89 @@
 import clsx from "clsx";
 
 import { Keyboard } from "./Keyboard";
-import { detectOS, type OS } from "@/utils/os";
-import { resolveKey, resolveReadableName } from "@/utils/keys";
+import type { Shortkey } from "@/keys/types";
+import { isMac, parseShortkey } from "@/keys/utils";
 import { styles } from "./styles.css";
 
-export interface KeyboardGroupProps {
-  keys: string | string[];
+export interface KeyboardGroupProps extends React.HTMLAttributes<HTMLElement> {
+  keys: Shortkey;
   size?: "small" | "large";
-  os?: OS;
-  "aria-label"?: string;
-  className?: string;
-  style?: React.CSSProperties;
 }
 
 export function KeyboardGroup({
   keys,
   size,
-  os,
   "aria-label": ariaLabel,
   className,
-  style,
+  ...rest
 }: Readonly<KeyboardGroupProps>) {
-  const resolvedOS = os ?? detectOS();
-  const keyList = Array.isArray(keys) ? keys : [keys];
-  const resolvedLabel =
-    ariaLabel ??
-    keyList.map((key) => resolveReadableName(key, resolvedOS)).join(" ");
+  const { targetKey, ctrlKey, shiftKey, altKey, metaKey } = parseShortkey(keys);
 
-  if (keyList.length === 1) {
+  const keysToRender: string[] = [];
+
+  if (ctrlKey) keysToRender.push(isMac ? "^" : "Ctrl");
+  if (shiftKey) keysToRender.push(isMac ? "⇧" : "Shift");
+  if (altKey) keysToRender.push(isMac ? "⌥" : "Alt");
+  if (metaKey) keysToRender.push(isMac ? "⌘" : "Win");
+
+  keysToRender.push(targetKey);
+
+  const resolvedLabel = ariaLabel ?? resolveLabel(keys);
+
+  if (keysToRender.length === 1) {
     return (
       <Keyboard
+        {...rest}
         size={size}
         aria-label={resolvedLabel}
         className={className}
-        style={style}
       >
-        {resolveKey(keyList[0], resolvedOS)}
+        {keysToRender[0]}
       </Keyboard>
     );
   }
 
   return (
     <kbd
+      {...rest}
       aria-label={resolvedLabel}
       className={clsx(styles.keyboardGroup, className)}
-      style={style}
     >
-      {keyList.map((key) => (
-        <Keyboard key={key} size={size}>
-          {resolveKey(key, resolvedOS)}
+      {keysToRender.map((key) => (
+        <Keyboard key={key} size={size} aria-hidden="true">
+          {key}
         </Keyboard>
       ))}
     </kbd>
   );
+}
+
+function resolveLabel(shortkey: Shortkey): string {
+  return shortkey
+    .split("+")
+    .map((part) => {
+      switch (part) {
+        case "Mod":
+          return isMac ? "Command" : "Control";
+        case "Ctrl":
+        case "Control":
+          return "Control";
+        case "Alt":
+        case "Opt":
+        case "Option":
+          return isMac ? "Option" : "Alt";
+        case "Shift":
+          return "Shift";
+        case "Cmd":
+        case "Command":
+        case "Meta":
+          return "Command";
+        case "Win":
+        case "Windows":
+          return "Windows";
+        default:
+          return part;
+      }
+    })
+    .join(" ");
 }
