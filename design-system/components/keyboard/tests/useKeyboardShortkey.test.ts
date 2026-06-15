@@ -128,6 +128,38 @@ describe("useKeyboardShortkey", () => {
     expect(callback).not.toHaveBeenCalled();
   });
 
+  it("should not trigger when focus is on content editable element if shortkey does not have command modifier", () => {
+    const callback = vi.fn();
+    renderHook(() => useKeyboardShortkey("K", callback));
+
+    const contentEditable = document.createElement("div");
+    contentEditable.contentEditable = "true";
+    document.body.appendChild(contentEditable);
+    contentEditable.focus();
+
+    fireEvent.keyDown(contentEditable, { key: "k" });
+    expect(callback).not.toHaveBeenCalled();
+  });
+
+  it("should trigger when focus is on input/textarea element if shortkey has command modifier", () => {
+    const callback = vi.fn();
+    renderHook(() => useKeyboardShortkey("Ctrl+K", callback));
+
+    const input = document.createElement("input");
+    document.body.appendChild(input);
+    input.focus();
+
+    fireEvent.keyDown(input, { key: "k", ctrlKey: true });
+    expect(callback).toHaveBeenCalledTimes(1);
+
+    const textarea = document.createElement("textarea");
+    document.body.appendChild(textarea);
+    textarea.focus();
+
+    fireEvent.keyDown(textarea, { key: "k", ctrlKey: true });
+    expect(callback).toHaveBeenCalledTimes(2);
+  });
+
   it("should trigger even when focus is on content editable element if shortkey has command modifier", () => {
     const callback = vi.fn();
     renderHook(() => useKeyboardShortkey("Ctrl+K", callback));
