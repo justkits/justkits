@@ -6,7 +6,7 @@ describe("Tooltip - aria", () => {
   describe("ID", () => {
     it("Tooltip.Content's ID matches Tooltip.Trigger's aria-describedby", () => {
       const { getByTestId } = render(
-        <TestComponent>Tooltip Message</TestComponent>,
+        <TestComponent isOpen>Tooltip Message</TestComponent>,
       );
 
       const trigger = getByTestId("tooltip-trigger");
@@ -19,7 +19,7 @@ describe("Tooltip - aria", () => {
   describe("Attributes", () => {
     it("Tooltip.Content has role=tooltip", () => {
       const { getByTestId } = render(
-        <TestComponent>Tooltip Message</TestComponent>,
+        <TestComponent isOpen>Tooltip Message</TestComponent>,
       );
 
       const content = getByTestId("tooltip-content");
@@ -38,7 +38,7 @@ describe("Tooltip - aria", () => {
 
     it("Tooltip.Arrow has aria-hidden=true", () => {
       const { getByTestId } = render(
-        <TestComponent>Tooltip Message</TestComponent>,
+        <TestComponent isOpen>Tooltip Message</TestComponent>,
       );
 
       const arrow = getByTestId("tooltip-arrow");
