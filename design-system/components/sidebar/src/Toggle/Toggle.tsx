@@ -1,5 +1,7 @@
 import { Button, type ButtonProps } from "@justkits/headless-ui/Button";
+import { Tooltip } from "@justkits/headless-ui/Tooltip";
 import { AppIcon } from "@justkits/icons";
+import { KeyboardGroup } from "@justkits/keyboard";
 
 import { useSidebar } from "@/contexts/core";
 import { useInternalSidebar } from "@/contexts/internals";
@@ -13,13 +15,36 @@ export function SidebarToggle({
   children,
   ...rest
 }: Readonly<SidebarToggleProps>) {
-  const { isExpanded, toggleSidebar } = useSidebar();
-  const { contentId, collapse, side } = useInternalSidebar();
+  const { collapse, keyboardShortkey, ariaKeyshortcuts } = useInternalSidebar();
 
   if (collapse === "disable") {
     console.warn("Sidebar.Toggle: renders nothing when collapse is 'disable'.");
     return null;
   }
+
+  if (!keyboardShortkey) {
+    return <Toggle {...rest}>{children}</Toggle>;
+  }
+
+  return (
+    <Tooltip>
+      <Tooltip.Trigger asChild>
+        <Toggle {...rest} aria-keyshortcuts={ariaKeyshortcuts}>
+          {children}
+        </Toggle>
+      </Tooltip.Trigger>
+      <Tooltip.Content>
+        <Tooltip.Message>
+          <KeyboardGroup keys={keyboardShortkey} />
+        </Tooltip.Message>
+      </Tooltip.Content>
+    </Tooltip>
+  );
+}
+
+function Toggle({ children, ...rest }: Readonly<SidebarToggleProps>) {
+  const { isExpanded, toggleSidebar } = useSidebar();
+  const { contentId, side } = useInternalSidebar();
 
   return (
     <Button

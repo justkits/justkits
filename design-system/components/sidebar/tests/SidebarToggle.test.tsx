@@ -5,7 +5,7 @@ import { SidebarProvider, SidebarProviderProps } from "@/Provider";
 import { SidebarBody } from "@/Body/Body";
 import { SidebarToggle } from "@/Toggle/Toggle";
 
-function TestComponent({ children, ...rest }: SidebarProviderProps) {
+function TestComponent({ children, ...rest }: Readonly<SidebarProviderProps>) {
   return (
     <SidebarProvider {...rest}>
       <SidebarBody data-testid="sidebar">{children}</SidebarBody>
@@ -49,6 +49,28 @@ describe("SidebarToggle", () => {
 
     fireEvent.click(toggle);
     expect(onExpandedChange).toHaveBeenCalledWith(true);
+  });
+
+  describe("keyboard shortcut", () => {
+    it("adds aria-keyshortcuts to the button when keyboardShortkey is set", () => {
+      const { getByTestId } = render(
+        <TestComponent>Sidebar Contents</TestComponent>,
+      );
+
+      expect(
+        getByTestId("sidebar-toggle").getAttribute("aria-keyshortcuts"),
+      ).toBe("Control+B");
+    });
+
+    it("uses the default shortcut when keyboardShortkey is not provided", () => {
+      const { getByTestId } = render(
+        <TestComponent>Sidebar Contents</TestComponent>,
+      );
+
+      expect(
+        getByTestId("sidebar-toggle").getAttribute("aria-keyshortcuts"),
+      ).toBe("Control+B");
+    });
   });
 
   describe("warnings", () => {
