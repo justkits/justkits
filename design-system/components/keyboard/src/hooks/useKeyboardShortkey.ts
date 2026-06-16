@@ -9,8 +9,8 @@ export interface UseKeyboardShortkeyOptions {
 }
 
 export interface UseKeyboardShortkeyResult {
-  /** Value for the `aria-keyshortcuts` attribute on the element that triggers this shortkey. */
-  ariaKeyshortcuts: string;
+  /** Value for the `aria-keyshortcuts` attribute on the element that triggers this shortkey. `undefined` when `key` is `null`. */
+  ariaKeyshortcuts: string | undefined;
 }
 
 /**
@@ -23,13 +23,13 @@ export interface UseKeyboardShortkeyResult {
  * `<textarea>`, or `contenteditable` element — unless the shortkey includes
  * `Mod` or `Ctrl`, in which case it is safe to fire regardless.
  *
- * @param key - The shortkey string, e.g. `"Mod+K"` or `"Shift+/"`.
+ * @param key - The shortkey string, e.g. `"Mod+K"` or `"Shift+/"`. Pass `null` to disable entirely.
  * @param callback - Called when the shortkey is matched. Stable across renders — no need to wrap in `useCallback`.
  * @param options - Optional configuration.
- * @returns `ariaKeyshortcuts` — the formatted value for the `aria-keyshortcuts` attribute.
+ * @returns `ariaKeyshortcuts` — the formatted value for the `aria-keyshortcuts` attribute, or `undefined` when `key` is `null`.
  */
 export function useKeyboardShortkey(
-  key: Shortkey,
+  key: Shortkey | null,
   callback: () => void,
   { enabled = true }: UseKeyboardShortkeyOptions = {},
 ): UseKeyboardShortkeyResult {
@@ -40,7 +40,7 @@ export function useKeyboardShortkey(
   });
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled || !key) return;
 
     const { targetKey, ctrlKey, altKey, shiftKey, metaKey } =
       parseShortkey(key);
@@ -74,7 +74,7 @@ export function useKeyboardShortkey(
     return () => document.removeEventListener("keydown", handler);
   }, [key, enabled]);
 
-  return { ariaKeyshortcuts: buildAriaKeyshortcuts(key) };
+  return { ariaKeyshortcuts: key ? buildAriaKeyshortcuts(key) : undefined };
 }
 
 function buildAriaKeyshortcuts(key: Shortkey): string {
