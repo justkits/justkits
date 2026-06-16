@@ -51,6 +51,15 @@ describe("SidebarToggle", () => {
     expect(onExpandedChange).toHaveBeenCalledWith(true);
   });
 
+  it("doesn't render tooltip when keyboardShortkey is not set", () => {
+    const { queryByText } = render(
+      <TestComponent keyboardShortkey={null}>Sidebar Contents</TestComponent>,
+    );
+
+    const tooltipMessage = queryByText("Control+B");
+    expect(tooltipMessage).toBeNull();
+  });
+
   describe("keyboard shortcut", () => {
     it("adds aria-keyshortcuts to the button when keyboardShortkey is set", () => {
       const { getByTestId } = render(
