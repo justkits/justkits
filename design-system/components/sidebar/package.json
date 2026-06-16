@@ -40,6 +40,7 @@
   "devDependencies": {
     "@justkits/headless-ui": "workspace:*",
     "@justkits/icons": "workspace:*",
+    "@justkits/keyboard": "workspace:*",
     "@justkits/tokens": "workspace:*",
     "@vanilla-extract/css": "catalog:",
     "@vanilla-extract/recipes": "catalog:",
