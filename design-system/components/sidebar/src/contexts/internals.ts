@@ -1,10 +1,13 @@
 import { createContext, useContext } from "react";
+import { type Shortkey } from "@justkits/keyboard";
 
 type InternalSidebarContextValue = {
   collapse: "hide" | "icons" | "disable";
   side: "left" | "right";
   isIconMode: boolean;
   isCollapsedToIcons: boolean;
+  keyboardShortkey: Shortkey | null;
+  ariaKeyshortcuts: string | undefined;
   contentId: string;
 };
 

@@ -22,7 +22,7 @@ export function SidebarBody({
   ...rest
 }: Readonly<SidebarBodyProps>) {
   const { isExpanded } = useSidebar();
-  const { contentId, collapse, side } = useInternalSidebar();
+  const { contentId, collapse, side, ariaKeyshortcuts } = useInternalSidebar();
 
   const Component = scope === "app" ? "aside" : "div";
 
@@ -33,6 +33,7 @@ export function SidebarBody({
       <Component
         {...rest}
         aria-label={ariaLabel}
+        aria-keyshortcuts={ariaKeyshortcuts}
         id={contentId}
         inert={isHidden ? true : undefined}
         data-state={isExpanded ? "expanded" : "collapsed"}

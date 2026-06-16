@@ -1,4 +1,5 @@
 import { useCallback, useId, useMemo, useState } from "react";
+import { useKeyboardShortkey, type Shortkey } from "@justkits/keyboard";
 
 import { SidebarContext } from "./contexts/core";
 import { InternalSidebarContext } from "./contexts/internals";
@@ -10,6 +11,7 @@ export interface SidebarProviderProps {
   defaultExpanded?: boolean;
   isExpanded?: boolean;
   onExpandedChange?: (expanded: boolean) => void;
+  keyboardShortkey?: Shortkey | null;
 }
 
 export function SidebarProvider({
@@ -19,6 +21,7 @@ export function SidebarProvider({
   defaultExpanded = true,
   isExpanded: controlledExpanded,
   onExpandedChange,
+  keyboardShortkey = "Mod+B",
 }: Readonly<SidebarProviderProps>) {
   const [internalExpanded, setInternalExpanded] = useState(defaultExpanded);
   const isExpanded = controlledExpanded ?? internalExpanded;
@@ -45,6 +48,14 @@ export function SidebarProvider({
     }
   }, [collapse, controlledExpanded, onExpandedChange]);
 
+  const { ariaKeyshortcuts } = useKeyboardShortkey(
+    keyboardShortkey,
+    toggleSidebar,
+    {
+      enabled: collapse !== "disable",
+    },
+  );
+
   const contextValue = useMemo(
     () => ({ isExpanded, toggleSidebar }),
     [isExpanded, toggleSidebar],
@@ -57,8 +68,10 @@ export function SidebarProvider({
       isIconMode: collapse === "icons",
       isCollapsedToIcons: collapse === "icons" && !isExpanded,
       contentId,
+      keyboardShortkey,
+      ariaKeyshortcuts,
     }),
-    [contentId, collapse, side, isExpanded],
+    [contentId, collapse, side, isExpanded, keyboardShortkey, ariaKeyshortcuts],
   );
 
   return (

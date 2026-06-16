@@ -35,6 +35,36 @@ describe("SidebarBody", () => {
     expect(getByTestId("page-sidebar").getAttribute("aria-label")).toBeNull();
   });
 
+  describe("keyboard shortcut", () => {
+    it("adds aria-keyshortcuts when keyboardShortkey is set", () => {
+      const { getByTestId } = render(
+        <SidebarProvider keyboardShortkey="Mod+B">
+          <SidebarBody data-testid="sidebar">
+            <div />
+          </SidebarBody>
+        </SidebarProvider>,
+      );
+
+      expect(getByTestId("sidebar").getAttribute("aria-keyshortcuts")).toBe(
+        "Control+B",
+      );
+    });
+
+    it("uses the default shortcut when keyboardShortkey is not provided", () => {
+      const { getByTestId } = render(
+        <SidebarProvider>
+          <SidebarBody data-testid="sidebar">
+            <div />
+          </SidebarBody>
+        </SidebarProvider>,
+      );
+
+      expect(getByTestId("sidebar").getAttribute("aria-keyshortcuts")).toBe(
+        "Control+B",
+      );
+    });
+  });
+
   describe("collapse='hide' inert behavior", () => {
     it("is not inert when expanded", () => {
       const { getByTestId } = render(
