@@ -109,6 +109,15 @@ describe("useKeyboardShortkey", () => {
     expect(callback).not.toHaveBeenCalled();
   });
 
+  it("does not call callback and returns undefined ariaKeyshortcuts when key is null", () => {
+    const callback = vi.fn();
+    const { result } = renderHook(() => useKeyboardShortkey(null, callback));
+
+    fireEvent.keyDown(document, { key: "k" });
+    expect(callback).not.toHaveBeenCalled();
+    expect(result.current.ariaKeyshortcuts).toBeUndefined();
+  });
+
   it("should not trigger when focus is on input/textarea if shortkey does not have command modifier", () => {
     const callback = vi.fn();
     renderHook(() => useKeyboardShortkey("K", callback));
