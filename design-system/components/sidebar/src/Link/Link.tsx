@@ -24,7 +24,7 @@ export function SidebarLink({
   const isInsideNav = useContext(SidebarNavContext);
 
   if (!isInsideNav) {
-    throw new Error("Sidebar.Item must be used inside Sidebar.Nav.");
+    throw new Error("Sidebar.Link must be used inside Sidebar.Nav.");
   }
 
   return (
