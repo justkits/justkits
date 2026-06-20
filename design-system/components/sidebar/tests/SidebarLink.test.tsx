@@ -71,6 +71,6 @@ describe("SidebarLink", () => {
           </SidebarBody>
         </SidebarProvider>,
       ),
-    ).toThrow("Sidebar.Item must be used inside Sidebar.Nav.");
+    ).toThrow("Sidebar.Link must be used inside Sidebar.Nav.");
   });
 });
