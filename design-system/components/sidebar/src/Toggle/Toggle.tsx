@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Button, type ButtonProps } from "@justkits/headless-ui/Button";
 import { Tooltip } from "@justkits/headless-ui/Tooltip";
 import { AppIcon } from "@justkits/icons";
@@ -17,8 +18,15 @@ export function SidebarToggle({
 }: Readonly<SidebarToggleProps>) {
   const { collapse, keyboardShortkey, ariaKeyshortcuts } = useInternalSidebar();
 
+  useEffect(() => {
+    if (collapse === "disable") {
+      console.warn(
+        "Sidebar.Toggle: renders nothing when collapse is 'disable'.",
+      );
+    }
+  }, [collapse]);
+
   if (collapse === "disable") {
-    console.warn("Sidebar.Toggle: renders nothing when collapse is 'disable'.");
     return null;
   }
 
