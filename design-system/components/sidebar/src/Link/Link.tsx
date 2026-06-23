@@ -9,6 +9,7 @@ export interface SidebarLinkProps extends Omit<LinkProps, "href" | "children"> {
   children: React.ReactNode;
   href: string;
   isActive?: boolean;
+  ref?: React.Ref<HTMLDivElement>;
 }
 
 export function SidebarLink({
@@ -19,6 +20,7 @@ export function SidebarLink({
   isExternal = false,
   className,
   style,
+  ref,
   ...rest
 }: Readonly<SidebarLinkProps>) {
   const isInsideNav = useContext(SidebarNavContext);
@@ -29,6 +31,7 @@ export function SidebarLink({
 
   return (
     <div
+      ref={ref}
       className={clsx(styles.link, className)}
       style={style}
       data-active={isActive || undefined}
