@@ -23,7 +23,8 @@ export function SidebarProvider({
   onExpandedChange,
   keyboardShortkey = "Mod+B",
 }: Readonly<SidebarProviderProps>) {
-  const [internalExpanded, setInternalExpanded] = useState(defaultExpanded);
+  const [internalExpanded, setInternalExpanded] =
+    useState<boolean>(defaultExpanded);
   const isExpanded = controlledExpanded ?? internalExpanded;
   const contentId = useId();
 
@@ -57,8 +58,12 @@ export function SidebarProvider({
   );
 
   const contextValue = useMemo(
-    () => ({ isExpanded, toggleSidebar }),
-    [isExpanded, toggleSidebar],
+    () => ({
+      isExpanded,
+      toggleSidebar,
+      isCollapsedToIcons: collapse === "icons" && !isExpanded,
+    }),
+    [isExpanded, toggleSidebar, collapse],
   );
 
   const internalContextValue = useMemo(
@@ -66,12 +71,11 @@ export function SidebarProvider({
       collapse,
       side,
       isIconMode: collapse === "icons",
-      isCollapsedToIcons: collapse === "icons" && !isExpanded,
       contentId,
       keyboardShortkey,
       ariaKeyshortcuts,
     }),
-    [contentId, collapse, side, isExpanded, keyboardShortkey, ariaKeyshortcuts],
+    [contentId, collapse, side, keyboardShortkey, ariaKeyshortcuts],
   );
 
   return (

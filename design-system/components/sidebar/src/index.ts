@@ -15,5 +15,14 @@ export type { SidebarNavProps } from "./Nav/Nav";
 export { SidebarGroup } from "./Group/Group";
 export type { SidebarGroupProps } from "./Group/Group";
 
+export { SidebarLink } from "./Link/Link";
+export type { SidebarLinkProps } from "./Link/Link";
+export { SidebarItem } from "./Item/Item";
+export type { SidebarItemProps } from "./Item/Item";
+export { SidebarItemRight } from "./Item/Right";
+export type { SidebarItemRightProps } from "./Item/Right";
+export { SidebarItemToggle } from "./Item/Toggle";
+export type { SidebarItemToggleProps } from "./Item/Toggle";
+
 export { SidebarToggle } from "./Toggle/Toggle";
 export type { SidebarToggleProps } from "./Toggle/Toggle";
