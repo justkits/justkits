@@ -3,6 +3,7 @@ import { createContext, useContext } from "react";
 type SidebarContextValue = {
   isExpanded: boolean;
   toggleSidebar: () => void;
+  isCollapsedToIcons: boolean;
 };
 
 export const SidebarContext = createContext<SidebarContextValue | null>(null);

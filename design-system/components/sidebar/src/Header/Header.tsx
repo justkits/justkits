@@ -2,7 +2,7 @@ import { useContext } from "react";
 import clsx from "clsx";
 
 import { useSidebar } from "@/contexts/core";
-import { SidebarBodyContext, useInternalSidebar } from "@/contexts/internals";
+import { SidebarBodyContext } from "@/contexts/internals";
 import { SidebarToggle } from "@/Toggle/Toggle";
 import { styles } from "./styles.css";
 
@@ -24,8 +24,7 @@ export function SidebarHeader({
   style,
 }: Readonly<SidebarHeaderProps>) {
   const isInsideSidebar = useContext(SidebarBodyContext);
-  const { isExpanded } = useSidebar();
-  const { isCollapsedToIcons } = useInternalSidebar();
+  const { isExpanded, isCollapsedToIcons } = useSidebar();
 
   if (!isInsideSidebar) {
     throw new Error("SidebarHeader must be used inside SidebarBody.");

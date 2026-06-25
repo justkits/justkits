@@ -3,7 +3,8 @@ import { Collapsible } from "@justkits/headless-ui/Collapsible";
 import { AppIcon } from "@justkits/icons";
 import clsx from "clsx";
 
-import { SidebarNavContext, useInternalSidebar } from "@/contexts/internals";
+import { useSidebar } from "@/contexts/core";
+import { SidebarNavContext } from "@/contexts/internals";
 import { styles } from "./styles.css";
 
 export type SidebarGroupProps = {
@@ -57,7 +58,7 @@ export function SidebarGroup({
   style,
 }: Readonly<SidebarGroupProps>) {
   const isInsideNav = useContext(SidebarNavContext);
-  const { isCollapsedToIcons } = useInternalSidebar();
+  const { isCollapsedToIcons } = useSidebar();
 
   if (!isInsideNav) {
     throw new Error("SidebarGroup must be used inside SidebarNav.");

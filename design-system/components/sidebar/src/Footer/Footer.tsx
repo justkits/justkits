@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import clsx from "clsx";
 
-import { SidebarBodyContext, useInternalSidebar } from "@/contexts/internals";
+import { useSidebar } from "@/contexts/core";
+import { SidebarBodyContext } from "@/contexts/internals";
 import { styles } from "./styles.css";
 
 export interface SidebarFooterProps {
@@ -18,7 +19,7 @@ export function SidebarFooter({
   style,
 }: Readonly<SidebarFooterProps>) {
   const isInsideSidebar = useContext(SidebarBodyContext);
-  const { isCollapsedToIcons } = useInternalSidebar();
+  const { isCollapsedToIcons } = useSidebar();
 
   if (!isInsideSidebar) {
     throw new Error("SidebarFooter must be used inside SidebarBody.");

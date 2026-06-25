@@ -5,7 +5,6 @@ type InternalSidebarContextValue = {
   collapse: "hide" | "icons" | "disable";
   side: "left" | "right";
   isIconMode: boolean;
-  isCollapsedToIcons: boolean;
   keyboardShortkey: Shortkey | null;
   ariaKeyshortcuts: string | undefined;
   contentId: string;
