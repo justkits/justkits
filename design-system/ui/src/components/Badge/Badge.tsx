@@ -1,16 +1,15 @@
 import { colorWithOpacity } from "@justkits/tokens";
+import { Text } from "@justkits/texts/Text";
 import clsx from "clsx";
 
-import { Text } from "@/components/Texts";
 import { styles } from "./styles.css";
 
-type Props = {
+export interface Props extends React.HTMLAttributes<HTMLElement> {
   label: string;
   color?: string;
   left?: React.ReactNode;
   right?: React.ReactNode;
-  className?: string;
-};
+}
 
 /**
  * Badge component
@@ -21,11 +20,14 @@ export function Badge({
   left,
   right,
   className,
+  style,
+  ...rest
 }: Readonly<Props>) {
   return (
     <span
+      {...rest}
       className={clsx(styles.badge, className)}
-      style={{ backgroundColor: colorWithOpacity(color, 25) }}
+      style={{ ...style, backgroundColor: colorWithOpacity(color, 25) }}
     >
       {left}
       <Text variant="description" style={{ color }}>

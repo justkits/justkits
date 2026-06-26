@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { tokens } from "@justkits/ui/tokens.css";
+import { tokens } from "@justkits/ui";
 
 import { HEADER_HEIGHT, SIDEBAR_WIDTH } from "@/shared/styles";
 
