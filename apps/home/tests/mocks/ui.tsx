@@ -1,9 +1,12 @@
 vi.mock("@justkits/ui", () => ({
-  UIProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  ThemeProvider: ({ children }: { children: React.ReactNode }) => (
+    <>{children}</>
+  ),
   useColorScheme: vi.fn().mockReturnValue({
     mode: "system",
     updateMode: vi.fn(),
   }),
+  justkitsDefault: "",
 }));
 vi.mock("@justkits/ui/Badge", () => ({
   Badge: ({ label }: { label: string }) => <span>{label}</span>,
@@ -100,4 +103,11 @@ vi.mock("@justkits/ui/Texts", () => ({
   Text: ({ children }: { children: React.ReactNode }) => (
     <span>{children}</span>
   ),
+  Keyboard: ({
+    children,
+    size,
+  }: {
+    children: React.ReactNode;
+    size: "small" | "large";
+  }) => <kbd className={size}>{children}</kbd>,
 }));
