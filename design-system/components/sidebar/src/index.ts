@@ -5,8 +5,12 @@ export type { SidebarProviderProps } from "./Provider";
 
 export { SidebarBody } from "./Body/Body";
 export type { SidebarBodyProps } from "./Body/Body";
+
 export { SidebarHeader } from "./Header/Header";
 export type { SidebarHeaderProps } from "./Header/Header";
+export { SidebarHeaderIcon } from "./Header/Icon";
+export type { SidebarHeaderIconProps } from "./Header/Icon";
+
 export { SidebarFooter } from "./Footer/Footer";
 export type { SidebarFooterProps } from "./Footer/Footer";
 export { SidebarNav } from "./Nav/Nav";
