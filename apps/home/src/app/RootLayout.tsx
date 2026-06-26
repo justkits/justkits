@@ -1,4 +1,5 @@
-import { UIProvider } from "@justkits/ui";
+import { ThemeProvider, justkitsDefault } from "@justkits/ui";
+import "@justkits/ui/styles.css";
 import clsx from "clsx";
 
 import { fontVariables } from "./ui/fonts";
@@ -12,14 +13,17 @@ type Props = {
 export function RootLayout({ children }: Readonly<Props>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <style dangerouslySetInnerHTML={{ __html: justkitsDefault }} />
+      </head>
       <body className={clsx(fontVariables, styles.body)}>
-        <UIProvider>
+        <ThemeProvider withSystem defaultMode="system">
           <Header />
           <main className={styles.main} role="main">
             {children}
           </main>
           <footer role="contentinfo">Footer</footer>
-        </UIProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
