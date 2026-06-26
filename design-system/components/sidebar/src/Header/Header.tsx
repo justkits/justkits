@@ -2,15 +2,12 @@ import { useContext } from "react";
 import clsx from "clsx";
 
 import { useSidebar } from "@/contexts/core";
-import { SidebarBodyContext } from "@/contexts/internals";
-import { SidebarToggle } from "@/Toggle/Toggle";
+import { SidebarBodyContext, useInternalSidebar } from "@/contexts/internals";
 import { styles } from "./styles.css";
 
 export interface SidebarHeaderProps {
   children: React.ReactNode;
   collapsed?: React.ReactNode;
-  toggle?: React.ReactNode;
-  toggleVariant?: "none" | "hover" | "always";
   className?: string;
   style?: React.CSSProperties;
 }
@@ -18,19 +15,31 @@ export interface SidebarHeaderProps {
 export function SidebarHeader({
   children,
   collapsed,
-  toggleVariant = "hover",
-  toggle,
   className,
   style,
 }: Readonly<SidebarHeaderProps>) {
   const isInsideSidebar = useContext(SidebarBodyContext);
   const { isExpanded, isCollapsedToIcons } = useSidebar();
+  const { isIconMode } = useInternalSidebar();
 
   if (!isInsideSidebar) {
     throw new Error("SidebarHeader must be used inside SidebarBody.");
   }
 
+  if (collapsed && !isIconMode) {
+    console.warn(
+      "SidebarHeader: 'collapsed' prop has no effect when sidebar collapse is not 'icons'.",
+    );
+  }
+
   if (isCollapsedToIcons) {
+    if (!collapsed) {
+      console.warn(
+        "SidebarHeader: 'collapsed' prop is required when sidebar collapse is 'icons'.",
+      );
+      return null;
+    }
+
     return (
       <div
         className={clsx(
@@ -39,11 +48,7 @@ export function SidebarHeader({
         )}
         style={style}
       >
-        <CollapsedToIcons
-          collapsed={collapsed}
-          toggle={toggle}
-          toggleVariant={toggleVariant}
-        />
+        {collapsed}
       </div>
     );
   }
@@ -57,35 +62,6 @@ export function SidebarHeader({
       style={style}
     >
       {children}
-    </div>
-  );
-}
-
-function CollapsedToIcons({
-  collapsed,
-  toggle = <SidebarToggle />,
-  toggleVariant,
-}: Readonly<
-  Pick<SidebarHeaderProps, "collapsed" | "toggle" | "toggleVariant">
->) {
-  if (toggleVariant === "always") {
-    return toggle;
-  }
-
-  if (!collapsed) {
-    console.warn(
-      "SidebarHeader: 'collapsed' prop should be provided when toggleVariant is not 'always'.",
-    );
-  }
-
-  if (toggleVariant === "none") {
-    return collapsed;
-  }
-
-  return (
-    <div className={styles.swapContainer}>
-      <span className={styles.collapsedIcon}>{collapsed}</span>
-      <span className={styles.toggle}>{toggle}</span>
     </div>
   );
 }

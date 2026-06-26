@@ -3,6 +3,7 @@ import { fireEvent, render } from "@testing-library/react";
 import { SidebarProvider } from "@/Provider";
 import { SidebarBody } from "@/Body/Body";
 import { SidebarHeader } from "@/Header/Header";
+import { SidebarHeaderIcon } from "@/Header/Icon";
 import { SidebarToggle } from "@/Toggle/Toggle";
 
 describe("SidebarHeader", () => {
@@ -27,104 +28,109 @@ describe("SidebarHeader", () => {
     expect(sidebar.dataset.state).toBe("collapsed");
   });
 
-  describe("collapse to icons behavior", () => {
-    it("handles with default props correctly", () => {
-      const { getByTestId } = render(
-        <SidebarProvider collapse="icons">
-          <SidebarBody data-testid="sidebar">
-            <SidebarHeader collapsed="Collapsed Header">
-              Header Content
-            </SidebarHeader>
-          </SidebarBody>
-          <SidebarToggle data-testid="sidebar-toggle" />
-        </SidebarProvider>,
-      );
+  it("handles collapse to icons correctly", () => {
+    const { getByTestId, getByText, queryByText } = render(
+      <SidebarProvider collapse="icons">
+        <SidebarBody data-testid="sidebar">
+          <SidebarHeader collapsed="Collapsed Header">
+            Header Content
+          </SidebarHeader>
+        </SidebarBody>
+        <SidebarToggle data-testid="sidebar-toggle" />
+      </SidebarProvider>,
+    );
 
-      const sidebar = getByTestId("sidebar");
-      const toggle = getByTestId("sidebar-toggle");
+    const sidebar = getByTestId("sidebar");
+    const toggle = getByTestId("sidebar-toggle");
 
-      expect(sidebar.dataset.state).toBe("expanded");
-      expect(getByTestId("sidebar").textContent).toContain("Header Content");
+    expect(sidebar.dataset.state).toBe("expanded");
+    expect(getByText("Header Content")).toBeTruthy();
+    expect(queryByText("Collapsed Header")).toBeNull();
 
-      fireEvent.click(toggle);
-      expect(sidebar.dataset.state).toBe("collapsed");
-      expect(getByTestId("sidebar").textContent).toContain("Collapsed Header");
-    });
+    fireEvent.click(toggle);
+    expect(sidebar.dataset.state).toBe("collapsed");
+    expect(getByText("Collapsed Header")).toBeTruthy();
+    expect(queryByText("Header Content")).toBeNull();
+  });
 
-    it("handles toggleVariant 'none' correctly", () => {
-      const { getByTestId } = render(
-        <SidebarProvider collapse="icons">
-          <SidebarBody data-testid="sidebar">
-            <SidebarHeader
-              collapsed="Collapsed Header"
-              toggleVariant="none"
-              toggle={<div data-testid="custom-toggle">Custom Toggle</div>}
-            >
-              Header Content
-            </SidebarHeader>
-          </SidebarBody>
-          <SidebarToggle data-testid="sidebar-toggle" />
-        </SidebarProvider>,
-      );
+  it("renders SidebarHeaderIcon when provided", () => {
+    const { getByTestId, getByText, queryByText } = render(
+      <SidebarProvider collapse="icons">
+        <SidebarBody data-testid="sidebar">
+          <SidebarHeader
+            collapsed={
+              <SidebarHeaderIcon
+                data-testid="header-icon"
+                toggle={<div data-testid="custom-toggle">Custom Toggle</div>}
+              >
+                Header Icon
+              </SidebarHeaderIcon>
+            }
+          >
+            Header Content
+          </SidebarHeader>
+        </SidebarBody>
+        <SidebarToggle data-testid="sidebar-toggle" />
+      </SidebarProvider>,
+    );
 
-      const sidebar = getByTestId("sidebar");
+    // initially expanded
+    expect(getByText("Header Content")).toBeTruthy();
 
-      expect(sidebar.dataset.state).toBe("expanded");
-      expect(getByTestId("sidebar").textContent).toContain("Header Content");
+    // toggle to collapsed state
+    const toggle = getByTestId("sidebar-toggle");
+    fireEvent.click(toggle);
 
-      fireEvent.click(getByTestId("sidebar-toggle"));
-      expect(sidebar.dataset.state).toBe("collapsed");
-      expect(getByTestId("sidebar").textContent).toContain("Collapsed Header");
-    });
+    // check content if it's switched
+    expect(queryByText("Header Content")).toBeNull();
+  });
 
-    it("handles toggleVariant 'always' correctly", () => {
-      const { getByTestId } = render(
-        <SidebarProvider collapse="icons">
-          <SidebarBody data-testid="sidebar">
-            <SidebarHeader
-              collapsed="Collapsed Header"
-              toggleVariant="always"
-              toggle={<div data-testid="custom-toggle">Custom Toggle</div>}
-            >
-              Header Content
-            </SidebarHeader>
-          </SidebarBody>
-          <SidebarToggle data-testid="sidebar-toggle" />
-        </SidebarProvider>,
-      );
+  it("warns when 'collapsed' prop is missing with sidebar collapse 'icons'", () => {
+    const consoleWarnMock = vi
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
 
-      const sidebar = getByTestId("sidebar");
+    const { getByTestId } = render(
+      <SidebarProvider collapse="icons">
+        <SidebarBody data-testid="sidebar">
+          <SidebarHeader>Header Content</SidebarHeader>
+        </SidebarBody>
+        <SidebarToggle data-testid="sidebar-toggle" />
+      </SidebarProvider>,
+    );
 
-      expect(sidebar.dataset.state).toBe("expanded");
-      expect(getByTestId("sidebar").textContent).toContain("Header Content");
+    fireEvent.click(getByTestId("sidebar-toggle"));
 
-      fireEvent.click(getByTestId("sidebar-toggle"));
-      expect(sidebar.dataset.state).toBe("collapsed");
-      expect(getByTestId("sidebar").textContent).toContain("Custom Toggle");
-    });
+    expect(consoleWarnMock).toHaveBeenCalledWith(
+      "SidebarHeader: 'collapsed' prop is required when sidebar collapse is 'icons'.",
+    );
 
-    it("warns when 'collapsed' prop is missing with toggleVariant 'hover'", () => {
-      const consoleWarnMock = vi
-        .spyOn(console, "warn")
-        .mockImplementation(() => {});
+    consoleWarnMock.mockRestore();
+  });
 
-      const { getByTestId } = render(
-        <SidebarProvider collapse="icons">
-          <SidebarBody data-testid="sidebar">
-            <SidebarHeader toggleVariant="hover">Header Content</SidebarHeader>
-          </SidebarBody>
-          <SidebarToggle data-testid="sidebar-toggle" />
-        </SidebarProvider>,
-      );
+  it("warns when 'collapsed' prop is provided but sidebar collapse is not 'icons'", () => {
+    const consoleWarnMock = vi
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
 
-      fireEvent.click(getByTestId("sidebar-toggle"));
+    const { getByTestId } = render(
+      <SidebarProvider collapse="hide">
+        <SidebarBody data-testid="sidebar">
+          <SidebarHeader collapsed="Collapsed Header">
+            Header Content
+          </SidebarHeader>
+        </SidebarBody>
+        <SidebarToggle data-testid="sidebar-toggle" />
+      </SidebarProvider>,
+    );
 
-      expect(consoleWarnMock).toHaveBeenCalledWith(
-        "SidebarHeader: 'collapsed' prop should be provided when toggleVariant is not 'always'.",
-      );
+    fireEvent.click(getByTestId("sidebar-toggle"));
 
-      consoleWarnMock.mockRestore();
-    });
+    expect(consoleWarnMock).toHaveBeenCalledWith(
+      "SidebarHeader: 'collapsed' prop has no effect when sidebar collapse is not 'icons'.",
+    );
+
+    consoleWarnMock.mockRestore();
   });
 
   it("throws error when used outside of SidebarBody", () => {
