@@ -13,6 +13,7 @@ export type { SidebarHeaderIconProps } from "./Header/Icon";
 
 export { SidebarFooter } from "./Footer/Footer";
 export type { SidebarFooterProps } from "./Footer/Footer";
+
 export { SidebarNav } from "./Nav/Nav";
 export type { SidebarNavProps } from "./Nav/Nav";
 
@@ -30,3 +31,4 @@ export type { SidebarItemToggleProps } from "./Item/Toggle";
 
 export { SidebarToggle } from "./Toggle/Toggle";
 export type { SidebarToggleProps } from "./Toggle/Toggle";
+export { SidebarToggleIcon } from "./Toggle/Icon";
