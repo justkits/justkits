@@ -56,8 +56,22 @@ describe("SidebarToggle", () => {
       <TestComponent keyboardShortkey={null}>Sidebar Contents</TestComponent>,
     );
 
-    const tooltipMessage = queryByText("Control+B");
-    expect(tooltipMessage).toBeNull();
+    // Coverage purpose
+    expect(queryByText("Control+B")).toBeNull();
+  });
+
+  it("doesn't render tooltip when disableTooltip is true", () => {
+    const { queryByText } = render(
+      <SidebarProvider>
+        <SidebarBody data-testid="sidebar">Body</SidebarBody>
+        <SidebarToggle data-testid="sidebar-toggle" disableTooltip>
+          Toggle
+        </SidebarToggle>
+      </SidebarProvider>,
+    );
+
+    // Coverage purpose
+    expect(queryByText("Control+B")).toBeNull();
   });
 
   describe("keyboard shortcut", () => {
@@ -145,6 +159,18 @@ describe("SidebarToggle", () => {
       fireEvent.click(toggle);
       expect(consoleWarnSpy).toHaveBeenCalledWith(
         'SidebarProvider: toggleSidebar called but collapse is set to "disable".',
+      );
+    });
+
+    it("warns on console when toggle is rendered with tooltip but keyboardShortkey is not provided", () => {
+      render(
+        <SidebarProvider keyboardShortkey={null}>
+          <SidebarToggle />
+        </SidebarProvider>,
+      );
+
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        "SidebarToggle: please use the 'disableTooltip' prop only when 'keyboardShortkey' is provided to the SidebarProvider.",
       );
     });
   });
