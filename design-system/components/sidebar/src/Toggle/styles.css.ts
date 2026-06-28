@@ -2,6 +2,7 @@ import { style } from "@vanilla-extract/css";
 import { tokens } from "@justkits/tokens";
 
 const toggle = style({
+  position: "relative",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -19,16 +20,19 @@ const toggle = style({
 
 const sidebarIcon = style({
   display: "flex",
+  transition: "opacity 0.15s ease",
   selectors: {
-    [`${toggle}:hover &`]: { display: "none" },
+    [`${toggle}:hover &`]: { opacity: 0 },
   },
 });
 
 const arrowIcon = style({
-  display: "none",
-  transition: "transform 0.2s ease",
+  position: "absolute",
+  display: "flex",
+  opacity: 0,
+  transition: "opacity 0.15s ease, transform 0.2s ease",
   selectors: {
-    [`${toggle}:hover &`]: { display: "flex" },
+    [`${toggle}:hover &`]: { opacity: 1 },
     [`${toggle}[data-side="left"][data-expanded="true"] &`]: {
       transform: "scaleX(-1)",
     },
