@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 import { styles } from "./styles.css";
 
 export interface SidebarItemRightProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -43,10 +45,14 @@ export interface SidebarItemRightProps extends React.HTMLAttributes<HTMLDivEleme
 export function SidebarItemRight({
   children,
   showOnHover = false,
+  className,
   ...rest
 }: Readonly<SidebarItemRightProps>) {
   return (
-    <div {...rest} className={styles.rightSlot({ showOnHover })}>
+    <div
+      {...rest}
+      className={clsx(styles.rightSlot({ showOnHover }), className)}
+    >
       {children}
     </div>
   );
