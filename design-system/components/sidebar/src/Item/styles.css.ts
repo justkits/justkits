@@ -44,6 +44,13 @@ const link = recipe({
       },
       false: {},
     },
+    isCollapsedToIcons: {
+      true: {
+        justifyContent: "center",
+        padding: tokens.spacing.sm,
+      },
+      false: {},
+    },
   },
 });
 

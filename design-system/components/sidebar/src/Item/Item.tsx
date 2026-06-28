@@ -52,7 +52,7 @@ export function SidebarItem({
     return (
       <Tooltip position={side === "left" ? "right" : "left"} openDelay={200}>
         <Tooltip.Trigger asChild>
-          <Link {...linkProps} isActive={isActive}>
+          <Link {...linkProps} isActive={isActive} isCollapsedToIcons>
             {icon}
           </Link>
         </Tooltip.Trigger>
@@ -102,7 +102,11 @@ export function SidebarItem({
 type LinkProps = Pick<
   SidebarItemProps,
   "href" | "as" | "isActive" | "isDisabled" | "isExternal"
-> & { children: React.ReactNode; ref?: React.Ref<HTMLDivElement> };
+> & {
+  children: React.ReactNode;
+  ref?: React.Ref<HTMLDivElement>;
+  isCollapsedToIcons?: boolean;
+};
 
 function Link({
   children,
@@ -112,12 +116,13 @@ function Link({
   isDisabled,
   isExternal,
   ref,
+  isCollapsedToIcons,
 }: Readonly<LinkProps>) {
   return (
     <SidebarLink
       as={as}
       ref={ref}
-      className={styles.link({ isActive, isDisabled })}
+      className={styles.link({ isActive, isDisabled, isCollapsedToIcons })}
       href={href}
       isActive={isActive}
       isDisabled={isDisabled}
@@ -146,7 +151,7 @@ function LinkContent({
         {typeof label === "string" ? <span>{label}</span> : label}
       </div>
       {right}
-      {isActive && <div className={styles.indicator} />}
+      {isActive && <div className={styles.indicator} aria-hidden="true" />}
     </>
   );
 }
