@@ -34,6 +34,7 @@ export function SidebarBody({
         {...rest}
         aria-label={ariaLabel}
         aria-keyshortcuts={ariaKeyshortcuts}
+        aria-hidden={isHidden ? true : undefined}
         id={contentId}
         inert={isHidden ? true : undefined}
         data-state={isExpanded ? "expanded" : "collapsed"}
