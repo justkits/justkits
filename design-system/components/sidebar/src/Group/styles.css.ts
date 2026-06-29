@@ -1,6 +1,6 @@
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
-import { tokens } from "@justkits/tokens";
+import { mediaQueries, tokens } from "@justkits/tokens";
 
 const group = style({
   display: "flex",
@@ -10,44 +10,34 @@ const group = style({
   gap: tokens.spacing.xs,
 });
 
-const header = recipe({
-  base: {
-    position: "relative",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: `0 ${tokens.spacing.sm}`,
-    borderRadius: tokens.radius.md,
-    userSelect: "none",
-    fontSize: tokens.typography.fontSize.bodySmall,
-    lineHeight: tokens.typography.lineHeight.bodySmall,
-    fontWeight: tokens.typography.fontWeight.semibold,
-    color: tokens.colors.textMuted,
-  },
-  variants: {
-    interactive: {
-      true: {
-        cursor: "pointer",
-        selectors: {
-          "&:hover": { backgroundColor: tokens.colors.backgroundHover },
+const header = style({
+  position: "relative",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  padding: `0 ${tokens.spacing.sm}`,
+  borderRadius: tokens.radius.md,
+  fontSize: tokens.typography.fontSize.bodySmall,
+  lineHeight: tokens.typography.lineHeight.bodySmall,
+  fontWeight: tokens.typography.fontWeight.semibold,
+  color: tokens.colors.textMuted,
+
+  userSelect: "none",
+  "@media": {
+    [mediaQueries.hoverable]: {
+      selectors: {
+        "&:hover": {
+          backgroundColor: tokens.colors.backgroundHover,
         },
       },
     },
   },
 });
 
-const headerLeft = recipe({
-  base: {
-    display: "flex",
-    alignItems: "center",
-    gap: tokens.spacing.sm,
-  },
-  variants: {
-    iconSide: {
-      left: { flexDirection: "row" },
-      right: { flexDirection: "row-reverse" },
-    },
-  },
+const headerLeft = style({
+  display: "flex",
+  alignItems: "center",
+  gap: tokens.spacing.sm,
 });
 
 const headerRight = recipe({
@@ -56,15 +46,28 @@ const headerRight = recipe({
     zIndex: 1,
   },
   variants: {
-    showRight: {
-      hover: {
-        display: "none",
+    showOnHover: {
+      true: {
+        opacity: 0,
+        transition: "opacity 0.15s ease",
         selectors: {
-          [`${header.classNames.base}:hover &, ${header.classNames.base}:focus-within &`]:
-            { display: "block" },
+          [`${header}:focus-within &`]: {
+            opacity: 1,
+          },
+        },
+        "@media": {
+          [mediaQueries.hoverable]: {
+            selectors: {
+              [`${header}:hover &`]: {
+                opacity: 1,
+              },
+            },
+          },
         },
       },
-      always: { display: "block" },
+      false: {
+        opacity: 1,
+      },
     },
   },
 });
@@ -73,38 +76,36 @@ const toggle = style({
   position: "absolute",
   inset: 0,
   zIndex: 0,
+  cursor: "pointer",
 });
 
-const icon = recipe({
-  variants: {
-    showIcon: {
-      hover: {
-        display: "none",
-        selectors: {
-          [`${header.classNames.base}:hover &, ${header.classNames.base}:focus-within &`]:
-            { display: "block" },
-        },
-      },
-      always: { display: "block" },
+const icon = style({
+  transition: "transform 200ms ease, opacity 200ms ease",
+  opacity: 0,
+  selectors: {
+    [`${header}:focus-within &`]: {
+      opacity: 1,
     },
-    default: {
-      true: {
-        transition: "transform 200ms ease",
-        selectors: {
-          [`${header.classNames.base}:has(${toggle}[data-state="open"]) &`]: {
-            transform: "rotate(90deg)",
-          },
+    [`${header}:has(${toggle}[data-state="open"]) &`]: {
+      transform: "rotate(90deg)",
+    },
+  },
+  "@media": {
+    [mediaQueries.hoverable]: {
+      selectors: {
+        [`${header}:hover &`]: {
+          opacity: 1,
         },
       },
     },
   },
 });
 
-const children = style({
+const subitems = style({
   display: "flex",
   flexDirection: "column",
-  paddingLeft: tokens.spacing.xl,
-  gap: tokens.spacing.xs,
+  paddingLeft: tokens.spacing.md,
+  gap: tokens.spacing.sm,
 });
 
 export const styles = {
@@ -114,5 +115,5 @@ export const styles = {
   headerRight,
   toggle,
   icon,
-  children,
+  subitems,
 };

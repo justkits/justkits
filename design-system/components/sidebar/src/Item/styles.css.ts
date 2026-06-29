@@ -12,9 +12,9 @@ const link = recipe({
   base: {
     display: "flex",
     alignItems: "center",
-    padding: `0 ${tokens.spacing.sm}`,
-    gap: tokens.spacing.sm,
-    borderRadius: tokens.radius.md,
+    padding: `${tokens.spacing.sm} ${tokens.spacing.md}`,
+    gap: tokens.spacing.md,
+    borderRadius: tokens.radius.sm,
   },
   variants: {
     isActive: {
@@ -63,7 +63,6 @@ const rightSlot = recipe({
   base: {
     position: "relative",
     zIndex: 1,
-    transition: `opacity ease-in-out 300ms`,
   },
   variants: {
     showOnHover: {
@@ -72,6 +71,7 @@ const rightSlot = recipe({
       },
       true: {
         opacity: 0,
+        transition: "opacity 0.15s ease",
         selectors: {
           [`${link.classNames.base}:hover &, ${link.classNames.base}:focus-visible &`]:
             {
@@ -97,12 +97,13 @@ const subitems = style({
   display: "flex",
   flexDirection: "column",
   gap: tokens.spacing.sm,
-  paddingLeft: tokens.spacing.md,
+  paddingLeft: tokens.spacing.xl,
 });
 
 const toggle = style({
   position: "relative",
   zIndex: 1,
+  cursor: "pointer",
 });
 
 const toggleIcon = style({

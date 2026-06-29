@@ -26,7 +26,7 @@ describe("SidebarNav", () => {
       .mockImplementation(() => {});
 
     expect(() => render(<SidebarNav>Test</SidebarNav>)).toThrow(
-      "SidebarNav must be used inside Sidebar.",
+      "SidebarNav must be used inside SidebarBody.",
     );
 
     // Restore console error

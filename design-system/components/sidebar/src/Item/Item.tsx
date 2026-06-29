@@ -81,6 +81,7 @@ export function SidebarItem({
       defaultOpen={defaultOpen}
       isOpen={isOpen}
       onOpenChange={onOpenChange}
+      unmountOnHide
     >
       <div className={styles.wrapper}>
         <Link {...linkProps} isActive={isActive}>

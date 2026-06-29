@@ -17,7 +17,7 @@ export interface SidebarItemRightProps extends React.HTMLAttributes<HTMLDivEleme
  * A wrapper for content placed in the `right` slot of a `SidebarItem`.
  *
  * Handles positioning above the link overlay and optionally hides the content
- * until the item is hovered or focused via `showRight="hover"`. Useful for
+ * until the item is hovered or focused via `showOnHover`. Useful for
  * action buttons or badges that should only appear on interaction.
  *
  * Must be passed to `SidebarItem` via the `right` prop.

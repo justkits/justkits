@@ -19,6 +19,8 @@ export type { SidebarNavProps } from "./Nav/Nav";
 
 export { SidebarGroup } from "./Group/Group";
 export type { SidebarGroupProps } from "./Group/Group";
+export { SidebarGroupRight } from "./Group/Right";
+export type { SidebarGroupRightProps } from "./Group/Right";
 
 export { SidebarLink } from "./Link/Link";
 export type { SidebarLinkProps } from "./Link/Link";

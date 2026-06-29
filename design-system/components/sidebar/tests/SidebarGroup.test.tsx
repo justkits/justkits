@@ -4,15 +4,16 @@ import { SidebarProvider } from "@/Provider";
 import { SidebarBody } from "@/Body/Body";
 import { SidebarNav } from "@/Nav/Nav";
 import { SidebarGroup } from "@/Group/Group";
+import { SidebarGroupRight } from "@/Group/Right";
 import { SidebarToggle } from "@/Toggle/Toggle";
 
 describe("SidebarGroup", () => {
-  it("renders children with default props correctly", () => {
-    const { getByText } = render(
+  it("renders children with default props correctly (label is string)", () => {
+    const { getByLabelText, getByText, queryByText } = render(
       <SidebarProvider>
         <SidebarBody>
           <SidebarNav>
-            <SidebarGroup>
+            <SidebarGroup label="Test Group">
               <div>Child Content</div>
             </SidebarGroup>
           </SidebarNav>
@@ -21,15 +22,70 @@ describe("SidebarGroup", () => {
     );
 
     // Verify that the label is rendered
+    expect(getByText("Test Group")).toBeTruthy();
     expect(getByText("Child Content")).toBeTruthy();
+
+    // check if aria-label is set correctly on the toggle button
+    expect(getByLabelText("Test Group")).toBeTruthy();
+
+    // Simulate clicking the toggle button to collapse the group
+    const toggleButton = getByLabelText("Test Group");
+    fireEvent.click(toggleButton);
+
+    // After collapsing, the child content should not be visible
+    expect(queryByText("Child Content")).toBeNull();
   });
 
-  it("renders with label and right content", () => {
+  it("renders children with default props correctly (label is React element)", () => {
+    const { getByLabelText, getByText } = render(
+      <SidebarProvider>
+        <SidebarBody>
+          <SidebarNav>
+            <SidebarGroup
+              label={<div>Test Group</div>}
+              aria-label="Custom Aria Label"
+            >
+              <div>Child Content</div>
+            </SidebarGroup>
+          </SidebarNav>
+        </SidebarBody>
+      </SidebarProvider>,
+    );
+
+    // Verify that the label is rendered
+    expect(getByText("Test Group")).toBeTruthy();
+    expect(getByText("Child Content")).toBeTruthy();
+
+    // check custom aria-label is set correctly on the toggle button
+    expect(getByLabelText("Custom Aria Label")).toBeTruthy();
+  });
+
+  it("falls back to default aria-label when label is React element and no aria-label is provided", () => {
+    const { getByLabelText } = render(
+      <SidebarProvider>
+        <SidebarBody>
+          <SidebarNav>
+            <SidebarGroup label={<div>Test Group</div>}>
+              <div>Child Content</div>
+            </SidebarGroup>
+          </SidebarNav>
+        </SidebarBody>
+      </SidebarProvider>,
+    );
+
+    // Verify that the default aria-label is set correctly on the toggle button
+    expect(getByLabelText("Toggle group")).toBeTruthy();
+  });
+
+  it("renders with right content", () => {
     const { getByText } = render(
       <SidebarProvider>
         <SidebarBody>
           <SidebarNav>
-            <SidebarGroup label="Test Group" right={<div>Right Content</div>}>
+            <SidebarGroup
+              label="Test Group"
+              right={<SidebarGroupRight>Right Content</SidebarGroupRight>}
+            >
               <div>Child Content</div>
             </SidebarGroup>
           </SidebarNav>
@@ -43,12 +99,18 @@ describe("SidebarGroup", () => {
     expect(getByText("Child Content")).toBeTruthy();
   });
 
-  it("renders with label component (not just string)", () => {
-    const { getByText } = render(
+  it("handles controlled open state correctly", () => {
+    const onOpenChangeMock = vi.fn();
+
+    const { getByLabelText, queryByText } = render(
       <SidebarProvider>
         <SidebarBody>
           <SidebarNav>
-            <SidebarGroup label={<div>Custom Label</div>}>
+            <SidebarGroup
+              label="Test Group"
+              isOpen={true}
+              onOpenChange={onOpenChangeMock}
+            >
               <div>Child Content</div>
             </SidebarGroup>
           </SidebarNav>
@@ -56,195 +118,42 @@ describe("SidebarGroup", () => {
       </SidebarProvider>,
     );
 
-    // Verify that the custom label is rendered
-    expect(getByText("Custom Label")).toBeTruthy();
-    expect(getByText("Child Content")).toBeTruthy();
+    // Initially, the content should not be visible
+    expect(queryByText("Child Content")).toBeTruthy();
+
+    // Simulate clicking the toggle button to collapse the group
+    const toggleButton = getByLabelText("Test Group");
+    fireEvent.click(toggleButton);
+
+    // The onOpenChange callback should be called with the new state (false)
+    expect(onOpenChangeMock).toHaveBeenCalledWith(false);
   });
 
-  it("renders with custom header", () => {
-    const { getByText } = render(
-      <SidebarProvider>
-        <SidebarBody>
-          <SidebarNav>
-            <SidebarGroup header={<div>Custom Header</div>}>
-              <div>Child Content</div>
-            </SidebarGroup>
-          </SidebarNav>
-        </SidebarBody>
-      </SidebarProvider>,
-    );
-
-    // Verify that the custom header is rendered
-    expect(getByText("Custom Header")).toBeTruthy();
-    expect(getByText("Child Content")).toBeTruthy();
-  });
-
-  it("handles default iconMode correctly", () => {
-    const { getByTestId, getByText, queryByText } = render(
+  it("only renders children when sidebar is collapsed to icons", () => {
+    const { getByText, queryByText } = render(
       <SidebarProvider collapse="icons">
-        <SidebarBody data-testid="sidebar-body">
+        <SidebarBody>
           <SidebarNav>
             <SidebarGroup label="Test Group">
               <div>Child Content</div>
             </SidebarGroup>
           </SidebarNav>
         </SidebarBody>
-        <SidebarToggle data-testid="sidebar-toggle" />
+        <SidebarToggle data-testid="sidebar-toggle">Toggle</SidebarToggle>
       </SidebarProvider>,
     );
 
-    const body = getByTestId("sidebar-body");
-    const toggle = getByTestId("sidebar-toggle");
-
-    // Initial states
-    expect(body.dataset.state).toBe("expanded");
-    expect(getByText("Child Content")).toBeTruthy();
+    // When collapsed to icons, the child content should be rendered
     expect(getByText("Test Group")).toBeTruthy();
+    expect(getByText("Child Content")).toBeTruthy();
 
-    fireEvent.click(toggle);
-    expect(body.dataset.state).toBe("collapsed");
-    expect(getByText("Child Content")).toBeTruthy(); // child content should still be visible
-    expect(queryByText("Test Group")).toBeNull(); // label should not be visible
-  });
+    // Simulate clicking the toggle button to expand the sidebar
+    const toggleButton = getByText("Toggle");
+    fireEvent.click(toggleButton);
 
-  describe("collapsible toggle accessible name", () => {
-    it("uses string label as aria-label on the toggle", () => {
-      const { getByRole } = render(
-        <SidebarProvider>
-          <SidebarBody>
-            <SidebarNav>
-              <SidebarGroup label="Projects" collapsible>
-                <div>Child Content</div>
-              </SidebarGroup>
-            </SidebarNav>
-          </SidebarBody>
-        </SidebarProvider>,
-      );
-
-      expect(getByRole("button", { name: "Projects" })).toBeTruthy();
-    });
-
-    it("uses aria-label prop over string label", () => {
-      const { getByRole } = render(
-        <SidebarProvider>
-          <SidebarBody>
-            <SidebarNav>
-              <SidebarGroup
-                label="Projects"
-                aria-label="Toggle Projects group"
-                collapsible
-              >
-                <div>Child Content</div>
-              </SidebarGroup>
-            </SidebarNav>
-          </SidebarBody>
-        </SidebarProvider>,
-      );
-
-      expect(
-        getByRole("button", { name: "Toggle Projects group" }),
-      ).toBeTruthy();
-    });
-
-    it("falls back to 'Toggle group' when label is a ReactNode", () => {
-      const { getByRole } = render(
-        <SidebarProvider>
-          <SidebarBody>
-            <SidebarNav>
-              <SidebarGroup label={<span>Projects</span>} collapsible>
-                <div>Child Content</div>
-              </SidebarGroup>
-            </SidebarNav>
-          </SidebarBody>
-        </SidebarProvider>,
-      );
-
-      expect(getByRole("button", { name: "Toggle group" })).toBeTruthy();
-    });
-  });
-
-  describe("collapsible behavior", () => {
-    it("handles collapsible state changes correctly", () => {
-      const { getByTestId, getByRole } = render(
-        <SidebarProvider>
-          <SidebarBody>
-            <SidebarNav>
-              <SidebarGroup label="Test Group" collapsible>
-                <div data-testid="child-content">Child Content</div>
-              </SidebarGroup>
-            </SidebarNav>
-          </SidebarBody>
-        </SidebarProvider>,
-      );
-
-      const toggle = getByRole("button");
-      const content = getByTestId("child-content");
-
-      // Initially, the group should be expanded
-      expect(content.dataset.state).toBe("open");
-
-      // Simulate collapsing the group
-      fireEvent.click(toggle);
-      expect(content.dataset.state).toBe("closed"); // child content should still be visible when collapsed
-    });
-
-    it("handles custom collapsible icon and iconSide correctly", () => {
-      const { getByTestId, getByRole } = render(
-        <SidebarProvider>
-          <SidebarBody>
-            <SidebarNav>
-              <SidebarGroup
-                label="Test Group"
-                collapsible
-                icon={<div data-testid="custom-icon">Custom Icon</div>}
-                iconSide="end"
-              >
-                <div data-testid="child-content">Child Content</div>
-              </SidebarGroup>
-            </SidebarNav>
-          </SidebarBody>
-        </SidebarProvider>,
-      );
-
-      const toggle = getByRole("button");
-      const content = getByTestId("child-content");
-
-      // Verify that the custom icon is rendered on the correct side
-      expect(getByTestId("custom-icon")).toBeTruthy();
-
-      // Simulate collapsing the group
-      fireEvent.click(toggle);
-      expect(content.dataset.state).toBe("closed"); // child content should still be visible when collapsed
-    });
-
-    it("warns on console when iconSide is 'end' and right is provided", () => {
-      const consoleWarn = vi
-        .spyOn(console, "warn")
-        .mockImplementation(() => {});
-
-      render(
-        <SidebarProvider>
-          <SidebarBody>
-            <SidebarNav>
-              <SidebarGroup
-                label="Test Group"
-                collapsible
-                iconSide="end"
-                right={<div>Right Content</div>}
-              >
-                <div>Child Content</div>
-              </SidebarGroup>
-            </SidebarNav>
-          </SidebarBody>
-        </SidebarProvider>,
-      );
-
-      expect(consoleWarn).toHaveBeenCalledWith(
-        "Sidebar.Group: 'icon' is ignored when iconSide=\"end\" and 'right' is also provided. Only 'right' will be shown.",
-      );
-
-      consoleWarn.mockRestore();
-    });
+    // After expanding, the child content should still be rendered, but not the label
+    expect(queryByText("Test Group")).toBeNull();
+    expect(getByText("Child Content")).toBeTruthy();
   });
 
   it("throws error when not used inside SidebarNav", () => {
