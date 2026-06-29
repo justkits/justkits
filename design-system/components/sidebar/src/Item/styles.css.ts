@@ -12,9 +12,9 @@ const link = recipe({
   base: {
     display: "flex",
     alignItems: "center",
-    padding: `0 ${tokens.spacing.sm}`,
-    gap: tokens.spacing.sm,
-    borderRadius: tokens.radius.md,
+    padding: `${tokens.spacing.sm} ${tokens.spacing.md}`,
+    gap: tokens.spacing.md,
+    borderRadius: tokens.radius.sm,
   },
   variants: {
     isActive: {
@@ -97,12 +97,13 @@ const subitems = style({
   display: "flex",
   flexDirection: "column",
   gap: tokens.spacing.sm,
-  paddingLeft: tokens.spacing.md,
+  paddingLeft: tokens.spacing.xl,
 });
 
 const toggle = style({
   position: "relative",
   zIndex: 1,
+  cursor: "pointer",
 });
 
 const toggleIcon = style({
