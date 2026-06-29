@@ -63,7 +63,6 @@ const rightSlot = recipe({
   base: {
     position: "relative",
     zIndex: 1,
-    transition: `opacity ease-in-out 300ms`,
   },
   variants: {
     showOnHover: {
@@ -72,6 +71,7 @@ const rightSlot = recipe({
       },
       true: {
         opacity: 0,
+        transition: "opacity 0.15s ease",
         selectors: {
           [`${link.classNames.base}:hover &, ${link.classNames.base}:focus-visible &`]:
             {
