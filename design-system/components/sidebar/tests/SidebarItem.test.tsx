@@ -97,7 +97,7 @@ describe("SidebarItem", () => {
   });
 
   it("renders and toggles children correctly", () => {
-    const { getByRole, getByTestId, getByText, rerender } = render(
+    const { getByTestId, getByText, queryByText, rerender } = render(
       <Wrapper>
         <SidebarItem
           href="/test"
@@ -110,13 +110,15 @@ describe("SidebarItem", () => {
     );
 
     expect(getByText("Dashboard")).toBeTruthy();
+
+    const toggle = getByTestId("item-toggle");
+
+    expect(toggle.dataset.state).toBe("closed");
+    expect(queryByText("Sub Item")).toBeNull();
+
+    fireEvent.click(toggle);
+    expect(toggle.dataset.state).toBe("open");
     expect(getByText("Sub Item")).toBeTruthy();
-
-    const subitem = getByRole("group", { hidden: true });
-    expect(subitem.dataset.state).toBe("closed");
-
-    fireEvent.click(getByTestId("item-toggle"));
-    expect(subitem.dataset.state).toBe("open");
 
     // renders correctly when active
     rerender(
@@ -160,7 +162,6 @@ describe("SidebarItem", () => {
     );
 
     expect(getByText("Dashboard")).toBeTruthy();
-    expect(getByText("Sub Item")).toBeTruthy();
   });
 
   it("should warn on console and render nothing if icon is not provided in icon mode", () => {
