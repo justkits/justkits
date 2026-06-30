@@ -26,8 +26,8 @@ export function TooltipProvider({
   portal = false,
   position = "bottom",
   unmountOnHide = true,
-  openDelay = 300,
-  closeDelay = 700,
+  openDelay = 0,
+  closeDelay = 0,
   longTouchDelay = 500,
   isDisabled = false,
 }: Readonly<TooltipProps>) {
