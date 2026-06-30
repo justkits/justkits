@@ -13,6 +13,7 @@ export const justkitsDark: SemanticColors = {
   info: "#888888",
   background: "#0A0A0A",
   backgroundHover: "#88888825",
+  backgroundInverted: "#F9FAFB",
   surface: "#1F212580",
   overlay: "#F5F5F940",
   text: "#F9FAFB",

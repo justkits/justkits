@@ -15,6 +15,7 @@ export interface SemanticColors {
   // Background colors
   background: string;
   backgroundHover: string;
+  backgroundInverted: string;
   surface: string;
   overlay: string;
   // Text colors
